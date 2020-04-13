@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Texts-->
+    <string name="theme">Theme</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <!--Texts-->
+
+</resources>

@@ -1,0 +1,56 @@
+package br.com.isgreen.archandroid.screen.splash
+
+import androidx.lifecycle.Observer
+import br.com.isgreen.archandroid.R
+import br.com.isgreen.archandroid.base.BaseFragment
+import br.com.isgreen.archandroid.extension.loadImageResource
+import kotlinx.android.synthetic.main.fragment_splash.*
+import org.koin.androidx.viewmodel.ext.android.viewModel
+
+/**
+ * Created by Éverdes Soares on 08/22/2019.
+ */
+
+class SplashFragment : BaseFragment() {
+
+    override val module = splashModule
+    override val viewModel: SplashViewModel by viewModel()
+    override val screenLayout = R.layout.fragment_splash
+
+    //region BaseFragment
+    override fun initObservers() {
+        viewModel.isAuthenticated.observe(this, Observer {
+            showHome()
+        })
+        viewModel.isNotAuthenticated.observe(this, Observer {
+            showLogin()
+        })
+    }
+
+    override fun initView() {
+        imgLogo?.loadImageResource(R.drawable.logo_jetpack)
+    }
+
+    override fun fetchInitialData() {
+        viewModel.checkIsAuthenticated()
+    }
+
+    override fun onLoadingChanged(isLoading: Boolean) {
+    }
+
+    override fun showError(message: Any) {
+    }
+    //endregion BaseFragment
+
+    //region Local
+    private fun showLogin() {
+        val direction = SplashFragmentDirections.actionSplashFragmentToLoginFragment()
+        navigate(direction, TransitionAnimation.FADE, null, true)
+    }
+
+    private fun showHome() {
+        val direction = SplashFragmentDirections.actionSplashFragmentToHomeFragment()
+        navigate(direction, null, true)
+    }
+    //region Local
+}

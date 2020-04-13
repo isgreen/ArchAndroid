@@ -1,0 +1,97 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar.Bridge">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:editTextStyle">@style/AppTheme.EditTextStyle</item>
+        <item name="android:textViewStyle">@style/AppTheme.TextViewStyle</item>
+    </style>
+
+    <!-- Edit theme. -->
+    <style name="AppTheme.EditTextStyle" parent="Widget.AppCompat.EditText">
+        <item name="android:lines">1</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:background">@drawable/shape_rectangle_rounded_translucent</item>
+        <item name="android:layout_marginTop">@dimen/margin_default</item>
+        <item name="android:layout_marginEnd">@dimen/margin_default</item>
+        <item name="android:textColor">@drawable/selector_edit_text</item>
+        <item name="android:textColorHint">@color/colorTextSecondary</item>
+        <item name="android:layout_marginLeft">@dimen/margin_default</item>
+        <item name="android:layout_marginRight">@dimen/margin_default</item>
+        <item name="android:layout_marginStart">@dimen/margin_default</item>
+        <item name="android:paddingLeft">@dimen/margin_default</item>
+        <item name="android:paddingRight">@dimen/margin_default</item>
+    </style>
+
+    <style name="AppTheme.TextInputEditTextStyle" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox">
+        <item name="android:lines">1</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+        <item name="android:textColorHint">@color/colorTextSecondary</item>
+        <item name="android:paddingLeft">@dimen/margin_default</item>
+        <item name="android:paddingRight">@dimen/margin_default</item>
+    </style>
+
+    <style name="AppTheme.TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+        <item name="android:lines">1</item>
+        <item name="hintEnabled">false</item>
+        <item name="boxStrokeWidth">1dp</item>
+        <item name="boxStrokeWidthFocused">1dp</item>
+        <item name="boxStrokeColor">@color/gray_alpha</item>
+        <item name="boxCornerRadiusTopEnd">@dimen/edit_corner</item>
+        <item name="boxCornerRadiusTopStart">@dimen/edit_corner</item>
+        <item name="boxCornerRadiusBottomEnd">@dimen/edit_corner</item>
+        <item name="boxCornerRadiusBottomStart">@dimen/edit_corner</item>
+        <item name="materialThemeOverlay">@style/AppTheme.TextInputEditText.MaterialThemeOverlay</item>
+    </style>
+
+    <style name="AppTheme.TextInputEditText.MaterialThemeOverlay" parent="ThemeOverlay.MaterialComponents.TextInputEditText.OutlinedBox.Dense">
+        <item name="colorControlActivated">?attr/colorAccent</item>
+    </style>
+    <!-- Edit theme. -->
+
+    <!-- TextView theme. -->
+    <style name="AppTheme.TextViewStyle">
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textColor">@color/colorTextPrimary</item>
+    </style>
+    <!-- TextView theme. -->
+
+    <!-- Button theme. -->
+    <style name="AppTheme.ButtonStyle.Accent" parent="Widget.MaterialComponents.Button.UnelevatedButton">
+        <item name="fontFamily">@font/montserrat_semibold</item>
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="rippleColor">@color/colorAccentDark</item>
+        <item name="backgroundTint">?attr/colorAccent</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="cornerRadius">@dimen/button_corner_small</item>
+        <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">@dimen/margin_default</item>
+        <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">@dimen/margin_default</item>
+    </style>
+
+    <style name="AppTheme.ButtonStyle.Outline.Accent" parent="Widget.MaterialComponents.Button.OutlinedButton">
+        <item name="android:paddingTop">14dp</item>
+        <item name="android:paddingBottom">14dp</item>
+        <item name="strokeColor">?attr/colorAccent</item>
+        <item name="rippleColor">?attr/colorAccent</item>
+        <item name="android:fontFamily">@font/montserrat</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="cornerRadius">@dimen/button_corner_small</item>
+        <item name="android:paddingEnd" tools:targetApi="jelly_bean_mr1">@dimen/margin_default</item>
+        <item name="android:paddingStart" tools:targetApi="jelly_bean_mr1">@dimen/margin_default</item>
+    </style>
+
+    <style name="AppTheme.ButtonStyle.Outline.Accent.SmallCorner" parent="AppTheme.ButtonStyle.Outline.Accent">
+        <item name="android:paddingTop">4dp</item>
+        <item name="android:paddingBottom">4dp</item>
+        <item name="cornerRadius">@dimen/button_corner_small</item>
+    </style>
+    <!-- Button theme. -->
+
+</resources>

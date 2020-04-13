@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/emptyRequestFailedRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingTop="@dimen/margin_default"
+        android:paddingBottom="@dimen/margin_default">
+
+    <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgFailed"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_gravity="center"
+            android:contentDescription="@string/clear"
+            app:srcCompat="@drawable/ic_alert_triangle"
+            app:tint="@color/colorTextPrimary" />
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/txtFailed"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:gravity="center"
+            android:padding="16dp"
+            android:text="@string/failed_request"
+            android:textColor="@color/colorTextPrimary"
+            android:textSize="16sp"
+            app:fontFamily="@font/montserrat" />
+
+    <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnTryAgain"
+            style="@style/AppTheme.ButtonStyle.Accent"
+            android:layout_width="260dp"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_semibold"
+            android:layout_gravity="center"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:gravity="center"
+            android:paddingStart="@dimen/margin_big"
+            android:paddingEnd="@dimen/margin_big"
+            android:text="@string/try_again"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_default" />
+</LinearLayout>

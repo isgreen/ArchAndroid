@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Texts-->
+    <string name="date_description">on %s</string>
+    <string name="created"><b>created</b></string>
+    <string name="starred"><b>starred</b></string>
+    <string name="forked"><b>forked to</b></string>
+    <string name="pushed_to"><b>pushed to</b></string>
+    <string name="started_following"><b>started following</b></string>
+    <string name="made_repo_public"><b>made repository public</b></string>
+    <!--Texts-->
+
+</resources>

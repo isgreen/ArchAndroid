@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/recent"
+        app:startDestination="@id/repoFragment">
+
+    <fragment
+            android:id="@+id/repoFragment"
+            android:name="br.com.isgreen.archandroid.screen.repo.RepoFragment"
+            android:label="fragment_repo"
+            tools:layout="@layout/fragment_repo" />
+
+</navigation>

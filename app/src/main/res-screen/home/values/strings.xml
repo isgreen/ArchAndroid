@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Texts-->
+    <string name="more">More</string>
+    <string name="recent">Recent</string>
+    <string name="repositories">Repositories</string>
+    <!--Texts-->
+
+</resources>

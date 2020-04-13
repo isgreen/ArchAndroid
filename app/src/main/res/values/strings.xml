@@ -1,0 +1,17 @@
+<resources>
+    <string name="clear"/>
+    <string name="app_name">ArchAndroid</string>
+
+    <!--Messages-->
+    <string name="try_again">Tente novamente</string>
+    <string name="no_internet_signal">Sem sinal de internet</string>
+    <string name="failed_server">Houve uma falha no Servidor</string>
+    <string name="failed_request">Não foi possível obter os dados</string>
+    <string name="no_server_response">Não houve resposta do servidor</string>
+    <string name="failed_action">Houve uma falha ao executar esta ação</string>
+    <string name="no_data">Ainda não existem informações a serem exibidas</string>
+    <string name="there_was_fail_try_again">Houve uma falha. Tente novamente.</string>
+    <string name="register_is_needed_to_run_this_action">Para executar esta ação é necessário fazer o seu cadastro.</string>
+    <!--Messages-->
+
+</resources>
