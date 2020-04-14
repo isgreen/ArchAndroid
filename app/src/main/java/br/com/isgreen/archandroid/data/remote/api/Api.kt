@@ -50,25 +50,21 @@ interface Api {
         }
     }
 
-    @Headers(
-        "client_id: " + BuildConfig.CLIENT_ID,
-        "Authorization: Basic " + BuildConfig.AUTHORIZATION_BASIC
-    )
     @FormUrlEncoded
     @POST(ApiConstant.DO_LOGIN)
     suspend fun doLogin(
+        @Header("client_id") clientId: String,
+        @Header("Authorization") basicToken: String,
         @Field("grant_type") grantType: String,
         @Field("username") username: String,
         @Field("password") password: String
     ): Authorization
 
-    @Headers(
-        "client_id: " + BuildConfig.CLIENT_ID,
-        "Authorization: Basic " + BuildConfig.AUTHORIZATION_BASIC
-    )
     @FormUrlEncoded
     @POST(ApiConstant.DO_LOGIN)
     suspend fun refreshToken(
+        @Header("client_id") clientId: String,
+        @Header("Authorization") basicToken: String,
         @Field("grant_type") grantType: String,
         @Field("refresh_token") refreshToken: String
     ): Authorization

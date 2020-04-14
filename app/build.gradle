@@ -1,12 +1,9 @@
 apply plugin: 'com.android.application'
-
 apply plugin: 'kotlin-android'
-
 apply plugin: 'kotlin-android-extensions'
-
 apply plugin: "androidx.navigation.safeargs.kotlin"
-
 apply from: './dependencies.gradle'
+apply from: '../api.gradle'
 
 android {
     compileSdkVersion 29
@@ -22,8 +19,8 @@ android {
         vectorDrawables.useSupportLibrary = true
 
         buildConfigField("String", "BASE_URL", "\"https://api.bitbucket.org/\"")
-        buildConfigField("String", "CLIENT_ID", "\"YOUR_BITBUCKET_CLIENT_ID\"")
-        buildConfigField("String", "AUTHORIZATION_BASIC", "\"YOUR_AUTHORIZATION_IN_BASE64\"")
+        buildConfigField("String", "API_SECRET", "\"$apiSecret\"")
+        buildConfigField("String", "API_KEY", "\"$apiKey\"")
     }
 
     buildTypes {
