@@ -1,8 +1,8 @@
 package br.com.isgreen.archandroid.data.model.login
+
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
-
 
 /**
  * Created by Éverdes Soares on 03/29/2020.

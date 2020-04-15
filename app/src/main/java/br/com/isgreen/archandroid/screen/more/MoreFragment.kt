@@ -17,7 +17,7 @@ class MoreFragment : BaseFragment() {
 
     //region BaseFragment
     override fun initView() {
-        txtTheme?.setOnClickListener {  }
+        txtTheme?.setOnClickListener { showTheme() }
         txtLogout?.setOnClickListener { logout() }
         txtProfile?.setOnClickListener {  }
     }
@@ -32,6 +32,11 @@ class MoreFragment : BaseFragment() {
     //endregion BaseFragment
 
     //region Local
+    private fun showTheme() {
+        val direction = MoreFragmentDirections.actionMoreFragmentToThemeFragment()
+        navigate(direction)
+    }
+
     private fun logout() {
         viewModel.logout()
     }

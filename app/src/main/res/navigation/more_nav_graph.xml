@@ -9,6 +9,17 @@
             android:id="@+id/moreFragment"
             android:name="br.com.isgreen.archandroid.screen.more.MoreFragment"
             android:label="fragment_more"
-            tools:layout="@layout/fragment_more" />
+            tools:layout="@layout/fragment_more" >
+
+        <action android:id="@+id/action_moreFragment_to_themeFragment"
+            app:destination="@id/themeFragment"/>
+
+    </fragment>
+
+    <fragment
+            android:id="@+id/themeFragment"
+            android:name="br.com.isgreen.archandroid.screen.theme.ThemeFragment"
+            android:label="fragment_theme"
+            tools:layout="@layout/fragment_theme" />
 
 </navigation>
