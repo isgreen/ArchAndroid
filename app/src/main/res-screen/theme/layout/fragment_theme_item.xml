@@ -14,7 +14,7 @@
         android:padding="@dimen/margin_default"
         android:text="@string/profile"
         app:drawableStartCompat="@drawable/ic_light"
-        app:drawableTint="@color/colorTextPrimary"
+        app:drawableTint="?attr/colorOnBackground"
         app:fontFamily="@font/montserrat_semibold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

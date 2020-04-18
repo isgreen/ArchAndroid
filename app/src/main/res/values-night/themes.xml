@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="AppTheme.DarkLight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryVariant">@color/black</item>
+        <item name="colorOnPrimary">@android:color/white</item>
+
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorSecondary">@color/green_light</item>
+        <item name="colorSecondaryVariant">@color/green</item>
+
+<!--        <item name="android:colorBackground">@color/black</item>-->
+        <item name="backgroundColor">@color/black</item>
+        <item name="colorOnBackground">@android:color/white</item>
+
+        <item name="colorSurface">@color/black</item>
+        <item name="colorOnSurface">@android:color/white</item>
+        <!--        <item name="android:textColorPrimary">@android:color/white</item>-->
+        <!--                <item name="colorPrimarySurface">@color/colorTextPrimary</item>-->
+        <!--        <item name="colorOnPrimarySurface"></item>-->
+    </style>
+
+    <!--    <style name="AppTheme.ThemeOverlay" parent="ThemeOverlay.AppCompat.Light" />-->
+    <!--    <style name="AppTheme.AlertDialogTheme" parent="@android:style/Theme.Material.Light.Dialog.Alert"/>-->
+
+</resources>
