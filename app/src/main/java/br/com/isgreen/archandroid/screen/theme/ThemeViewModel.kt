@@ -12,15 +12,26 @@ import br.com.isgreen.archandroid.data.model.theme.Theme
 class ThemeViewModel(
     private val repository: ThemeContract.Repository
 ) : BaseViewModel(), ThemeContract.ViewModel {
+
+    override val themeChanged: LiveData<Int>
+        get() = mThemeChanged
     override val themesFetched: LiveData<List<Theme>>
         get() = mThemesFetched
 
+    private val mThemeChanged = MutableLiveData<Int>()
     private val mThemesFetched = MutableLiveData<List<Theme>>()
 
     override fun fetchThemes() {
         defaultLaunch {
             val themes = repository.fetchThemes()
             mThemesFetched.postValue(themes)
+        }
+    }
+
+    override fun changeTheme(mode: Int) {
+        defaultLaunch {
+            repository.saveTheme(mode)
+            mThemeChanged.postValue(mode)
         }
     }
 }

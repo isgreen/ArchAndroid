@@ -1,5 +1,6 @@
 package br.com.isgreen.archandroid.screen.splash
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.isgreen.archandroid.base.BaseViewModel
@@ -17,11 +18,14 @@ class SplashViewModel(
         get() = super.mMessage
     override val loading: LiveData<Boolean>
         get() = super.mLoadingChanged
+    override val themeFetched: LiveData<Int>
+        get() = mThemeFetched
     override val isAuthenticated: LiveData<Unit>
         get() = mIsAuthenticated
     override val isNotAuthenticated: LiveData<Unit>
         get() = mIsNotAuthenticated
 
+    private val mThemeFetched = MutableLiveData<Int>()
     private val mIsAuthenticated = MutableLiveData<Unit>()
     private val mIsNotAuthenticated = MutableLiveData<Unit>()
 
@@ -35,6 +39,18 @@ class SplashViewModel(
             } else {
                 mIsNotAuthenticated.postValue(Unit)
             }
+        }
+    }
+
+    override fun fetchCurrentTheme() {
+        defaultLaunch {
+            var theme = repository.fetchCurrentTheme()
+
+            if (theme == 0) {
+                theme = AppCompatDelegate.MODE_NIGHT_NO
+            }
+
+            mThemeFetched.postValue(theme)
         }
     }
 }

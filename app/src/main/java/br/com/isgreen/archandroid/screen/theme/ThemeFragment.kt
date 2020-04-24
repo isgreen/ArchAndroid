@@ -38,6 +38,9 @@ class ThemeFragment : BaseFragment() {
         viewModel.themesFetched.observe(this, Observer { themes ->
             mAdapter.addData(themes)
         })
+        viewModel.themeChanged.observe(this, Observer { theme ->
+            setTheme(theme)
+        })
     }
 
     override fun fetchInitialData() {
@@ -51,7 +54,11 @@ class ThemeFragment : BaseFragment() {
 
     //region Local
     private fun changeTheme(theme: Theme) {
-        AppCompatDelegate.setDefaultNightMode(theme.mode)
+        viewModel.changeTheme(theme.mode)
+    }
+
+    private fun setTheme(theme: Int) {
+        AppCompatDelegate.setDefaultNightMode(theme)
     }
     //endregion Local
 }

@@ -11,12 +11,15 @@ import br.com.isgreen.archandroid.data.model.theme.Theme
 interface ThemeContract {
 
     interface ViewModel : BaseContract.ViewModel {
+        val themeChanged: LiveData<Int>
         val themesFetched: LiveData<List<Theme>>
 
         fun fetchThemes()
+        fun changeTheme(mode: Int)
     }
 
     interface Repository {
+        suspend fun saveTheme(mode: Int)
         suspend fun fetchThemes(): List<Theme>
     }
 }
