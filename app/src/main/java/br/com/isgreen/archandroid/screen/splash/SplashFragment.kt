@@ -1,5 +1,6 @@
 package br.com.isgreen.archandroid.screen.splash
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import br.com.isgreen.archandroid.R
@@ -33,6 +34,7 @@ class SplashFragment : BaseFragment() {
     }
 
     override fun initView() {
+        changeStatusBarColor(Color.WHITE)
         imgLogo?.loadImageResource(R.drawable.logo_jetpack)
     }
 

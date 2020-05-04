@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.theme.Theme
+import br.com.isgreen.archandroid.extension.isAtLeastQ
 import kotlinx.android.synthetic.main.fragment_theme.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -35,16 +36,19 @@ class ThemeFragment : BaseFragment() {
     }
 
     override fun initObservers() {
+        viewModel.themeChanged.observe(this, Observer { theme ->
+            setTheme(theme)
+        })
         viewModel.themesFetched.observe(this, Observer { themes ->
             mAdapter.addData(themes)
         })
-        viewModel.themeChanged.observe(this, Observer { theme ->
-            setTheme(theme)
+        viewModel.currentThemeFetched.observe(this, Observer { position ->
+            mAdapter.setCheckedPosition(position)
         })
     }
 
     override fun fetchInitialData() {
-        viewModel.fetchThemes()
+        viewModel.fetchThemes(isAtLeastQ())
     }
 
     override fun showError(message: Any) {}
@@ -58,7 +62,8 @@ class ThemeFragment : BaseFragment() {
     }
 
     private fun setTheme(theme: Int) {
-        AppCompatDelegate.setDefaultNightMode(theme)
+        sendEvent(456, theme)
+        popBackStack()
     }
     //endregion Local
 }
