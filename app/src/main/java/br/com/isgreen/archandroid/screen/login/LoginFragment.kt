@@ -1,5 +1,6 @@
 package br.com.isgreen.archandroid.screen.login
 
+import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.lifecycleScope
@@ -36,6 +37,13 @@ class LoginFragment : BaseFragment(), LoginContract.View {
     override fun initView() {
         imgLogo?.loadImageResource(R.drawable.logo_jetpack)
         btnLogin?.setOnClickListener { doLogin() }
+        edtPasswordLogin?.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_GO) {
+                doLogin()
+            }
+
+            true
+        }
 
         KeyboardVisibilityEvent.setEventListener(activity) { isOpen ->
             if (isOpen) {

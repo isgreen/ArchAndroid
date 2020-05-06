@@ -32,7 +32,6 @@
 
     <com.google.android.material.button.MaterialButton
             android:id="@+id/btnTryAgain"
-            style="@style/AppTheme.ButtonStyle.Accent"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_semibold"

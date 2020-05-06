@@ -39,6 +39,7 @@ class ThemeFragment : BaseFragment() {
             setTheme(theme)
         })
         viewModel.themesFetched.observe(this, Observer { themes ->
+            mAdapter.clearData()
             mAdapter.addData(themes)
         })
         viewModel.currentThemeFetched.observe(this, Observer { themePosition ->
@@ -61,7 +62,7 @@ class ThemeFragment : BaseFragment() {
     }
 
     private fun setTheme(theme: Int) {
-        sendEvent(456, theme)
+        AppCompatDelegate.setDefaultNightMode(theme)
         popBackStack()
     }
     //endregion Local

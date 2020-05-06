@@ -3,10 +3,17 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="AppTheme.DarkLight">
         <!-- Customize your theme here. -->
-        <item name="android:editTextStyle">@style/AppTheme.EditTextStyle</item>
-        <item name="android:textViewStyle">@style/AppTheme.TextViewStyle</item>
         <item name="android:splitMotionEvents">false</item>
         <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:textViewStyle">@style/AppTheme.TextViewStyle</item>
+        <item name="textInputStyle">@style/AppTheme.TextInputLayoutStyle</item>
+        <item name="materialButtonStyle">@style/AppTheme.ButtonStyle.Accent</item>
+        <item name="android:editTextStyle">@style/AppTheme.TextInputEditTextStyle</item>
+    </style>
+
+    <style name="WindowAnimationTransition">
+        <item name="android:windowEnterAnimation">@android:anim/fade_in</item>
+        <item name="android:windowExitAnimation">@android:anim/fade_out</item>
     </style>
 
     <!-- Edit theme. -->
@@ -36,13 +43,14 @@
         <item name="android:paddingRight">@dimen/margin_default</item>
     </style>
 
-    <style name="AppTheme.TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
+    <style name="AppTheme.TextInputLayoutStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="android:lines">1</item>
-        <item name="hintEnabled">false</item>
+        <item name="hintEnabled">true</item>
         <item name="boxStrokeWidth">1dp</item>
         <item name="boxStrokeWidthFocused">1dp</item>
-        <item name="boxStrokeColor">@color/gray_alpha</item>
         <item name="boxCornerRadiusTopEnd">@dimen/edit_corner</item>
+        <item name="hintTextColor">?attr/colorSecondaryVariant</item>
+        <item name="boxStrokeColor">?attr/colorSecondaryVariant</item>
         <item name="boxCornerRadiusTopStart">@dimen/edit_corner</item>
         <item name="boxCornerRadiusBottomEnd">@dimen/edit_corner</item>
         <item name="boxCornerRadiusBottomStart">@dimen/edit_corner</item>

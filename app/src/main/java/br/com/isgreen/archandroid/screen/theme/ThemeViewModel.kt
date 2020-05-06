@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.data.model.theme.Theme
+import kotlinx.coroutines.delay
 
 /**
  * Created by Éverdes Soares on 01/14/2020.
@@ -43,6 +44,7 @@ class ThemeViewModel(
     override fun changeTheme(mode: Int) {
         defaultLaunch {
             repository.saveTheme(mode)
+            delay(200)
             mThemeChanged.postValue(mode)
         }
     }

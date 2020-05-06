@@ -10,6 +10,7 @@ import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.extension.baseActivity
 import br.com.isgreen.archandroid.extension.setupWithNavController
 import kotlinx.android.synthetic.main.fragment_home.*
+import kotlinx.android.synthetic.main.fragment_home_navigation.*
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.core.module.Module
@@ -28,13 +29,11 @@ class HomeFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(false)
+//        retainInstance = true
     }
-    //endregion Fragment
 
-    //region BaseFragment
-    override fun initObservers() {}
-
-    override fun initView() {
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
         val navGraphs = listOf(
             R.navigation.recent_nav_graph,
             R.navigation.repo_nav_graph,
@@ -45,33 +44,22 @@ class HomeFragment : BaseFragment() {
             fragmentManager = childFragmentManager,
             containerId = R.id.navHostContainer
         )
-
         baseActivity?.changeNavigationVisibilityListener = { isVisible ->
             navBottom?.isVisible = isVisible
             vwDividerBottom?.isVisible = isVisible
         }
     }
+    //endregion Fragment
+
+    //region BaseFragment
+    override fun initView() {}
+
+    override fun initObservers() {}
 
     override fun fetchInitialData() {}
 
     override fun onLoadingChanged(isLoading: Boolean) {}
 
     override fun showError(message: Any) {}
-
-    override fun onEventReceived(code: Int, data: Any?) {
-        if (code == 456 && data != null) {
-            val themeMode = data as Int
-            changeTheme(themeMode)
-        }
-    }
     //endregion BaseFragment
-
-    //region Local
-    private fun changeTheme(themeMode: Int) {
-        lifecycleScope.launch {
-            delay(400)
-            AppCompatDelegate.setDefaultNightMode(themeMode)
-        }
-    }
-    //endregion Local
 }

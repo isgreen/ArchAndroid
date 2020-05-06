@@ -100,7 +100,6 @@ abstract class BaseFragment : Fragment() {
 
         mScreenLayout = screenLayout
         mBaseViewModel = viewModel
-//        retainInstance = true
         baseActivity?.addOnEventReceivedListener(mOnEventReceivedListener)
 
         setHasOptionsMenu(true)
