@@ -15,13 +15,12 @@ interface ThemeContract {
         val currentThemeFetched: LiveData<Int>
         val themesFetched: LiveData<List<Theme>>
 
+        fun fetchThemes()
         fun changeTheme(mode: Int)
-        fun fetchThemes(isSystemAtLeastQ: Boolean)
     }
 
     interface Repository {
         suspend fun saveTheme(mode: Int)
-        suspend fun fetchCurrentThemeMode(): Int
         suspend fun fetchThemes(): List<Theme>
         suspend fun fetchCurrentThemeMode(): Int
     }

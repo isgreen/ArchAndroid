@@ -19,7 +19,6 @@ class ThemeRepository(
     //region Preferences
     override suspend fun fetchCurrentThemeMode() = preferencesHelper.getThemeMode()
     override suspend fun saveTheme(mode: Int) = preferencesHelper.saveThemeMode(mode)
-    override suspend fun fetchCurrentThemeMode() = preferencesHelper.getThemeMode()
     //endregion Preferences
 
 }
