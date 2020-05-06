@@ -61,7 +61,8 @@ class ThemeFragment : BaseFragment() {
     }
 
     private fun setTheme(theme: Int) {
-        AppCompatDelegate.setDefaultNightMode(theme)
+        sendEvent(456, theme)
+        popBackStack()
     }
     //endregion Local
 }
