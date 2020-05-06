@@ -1,5 +1,6 @@
 package br.com.isgreen.archandroid.screen.theme
 
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.isgreen.archandroid.base.BaseViewModel
@@ -15,16 +16,27 @@ class ThemeViewModel(
 
     override val themeChanged: LiveData<Int>
         get() = mThemeChanged
+    override val currentThemeFetched: LiveData<Int>
+        get() = mCurrentThemeFetched
     override val themesFetched: LiveData<List<Theme>>
         get() = mThemesFetched
 
     private val mThemeChanged = MutableLiveData<Int>()
+    private val mCurrentThemeFetched = MutableLiveData<Int>()
     private val mThemesFetched = MutableLiveData<List<Theme>>()
 
     override fun fetchThemes() {
         defaultLaunch {
             val themes = repository.fetchThemes()
             mThemesFetched.postValue(themes)
+
+            var currentThemeMode = repository.fetchCurrentThemeMode()
+            if (currentThemeMode == 0) {
+                currentThemeMode = AppCompatDelegate.MODE_NIGHT_NO
+            }
+
+            val position = themes.indexOfFirst { it.mode == currentThemeMode }
+            mCurrentThemeFetched.postValue(position)
         }
     }
 

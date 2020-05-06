@@ -1,5 +1,7 @@
 package br.com.isgreen.archandroid.screen.more
 
+import android.os.Bundle
+import android.view.View
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import kotlinx.android.synthetic.main.fragment_more.*
@@ -14,6 +16,13 @@ class MoreFragment : BaseFragment() {
     override val module = moreModule
     override val screenLayout = R.layout.fragment_more
     override val viewModel: MoreViewModel by viewModel()
+
+    //region Fragment
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        showNavigationBottom()
+    }
+    //endregion Fragment
 
     //region BaseFragment
     override fun initView() {
@@ -35,6 +44,7 @@ class MoreFragment : BaseFragment() {
     private fun showTheme() {
         val direction = MoreFragmentDirections.actionMoreFragmentToThemeFragment()
         navigate(direction)
+        hideNavigationBottom()
     }
 
     private fun logout() {

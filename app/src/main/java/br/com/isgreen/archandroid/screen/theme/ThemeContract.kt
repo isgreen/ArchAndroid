@@ -12,6 +12,7 @@ interface ThemeContract {
 
     interface ViewModel : BaseContract.ViewModel {
         val themeChanged: LiveData<Int>
+        val currentThemeFetched: LiveData<Int>
         val themesFetched: LiveData<List<Theme>>
 
         fun fetchThemes()
@@ -21,5 +22,6 @@ interface ThemeContract {
     interface Repository {
         suspend fun saveTheme(mode: Int)
         suspend fun fetchThemes(): List<Theme>
+        suspend fun fetchCurrentThemeMode(): Int
     }
 }

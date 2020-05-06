@@ -1,5 +1,6 @@
 package br.com.isgreen.archandroid.helper.resource
 
+import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.data.model.theme.Theme
@@ -22,7 +23,11 @@ class ResourceHelperImpl : ResourceHelper {
 
     override suspend fun fetchThemes(): List<Theme> {
         return suspendCancellableCoroutine { continuation ->
-            continuation.resume(themes)
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                continuation.resume(themes)
+            } else {
+                continuation.resume(themes.filterNot { it.mode == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM })
+            }
         }
     }
 

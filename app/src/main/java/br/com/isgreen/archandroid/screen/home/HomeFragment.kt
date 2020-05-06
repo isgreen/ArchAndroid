@@ -1,9 +1,11 @@
 package br.com.isgreen.archandroid.screen.home
 
 import android.os.Bundle
+import androidx.core.view.isVisible
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.base.BaseViewModel
+import br.com.isgreen.archandroid.extension.baseActivity
 import br.com.isgreen.archandroid.extension.setupWithNavController
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.core.module.Module
@@ -39,6 +41,11 @@ class HomeFragment : BaseFragment() {
             fragmentManager = childFragmentManager,
             containerId = R.id.navHostContainer
         )
+
+        baseActivity?.changeNavigationVisibilityListener = { isVisible ->
+            navBottom?.isVisible = isVisible
+            vwDividerBottom?.isVisible = isVisible
+        }
     }
 
     override fun fetchInitialData() {}

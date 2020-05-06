@@ -35,11 +35,14 @@ class ThemeFragment : BaseFragment() {
     }
 
     override fun initObservers() {
+        viewModel.themeChanged.observe(this, Observer { theme ->
+            setTheme(theme)
+        })
         viewModel.themesFetched.observe(this, Observer { themes ->
             mAdapter.addData(themes)
         })
-        viewModel.themeChanged.observe(this, Observer { theme ->
-            setTheme(theme)
+        viewModel.currentThemeFetched.observe(this, Observer { themePosition ->
+            mAdapter.setCheckedPosition(themePosition)
         })
     }
 
