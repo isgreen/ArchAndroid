@@ -12,10 +12,11 @@ import br.com.isgreen.archandroid.data.model.repository.Repo
 interface RepoContract {
 
     interface ViewModel : BaseContract.ViewModel {
+        val reposCleared: LiveData<Unit>
         val reposFetched: LiveData<List<Repo>>
         val loadingMoreChanged: LiveData<Boolean>
 
-        fun fetchRepos()
+        fun fetchRepos(isRefresh: Boolean = false)
     }
 
     interface Repository {

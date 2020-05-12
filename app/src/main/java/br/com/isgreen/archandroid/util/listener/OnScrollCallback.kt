@@ -5,8 +5,10 @@ package br.com.isgreen.archandroid.util.listener
  */
 
 abstract class OnScrollCallback {
-    open fun onScrolled(visibleItem: Int) {}
-    open fun onLoadMore(page: Int, totalItemsCount: Int) {}
     open fun onHide() {}
     open fun onShow() {}
+    open fun onScrolledToLastItem() {}
+    open fun onScrolledToFirstItem() {}
+    open fun onScrolled(visibleItem: Int) {}
+    open fun onScrollPage(page: Int, totalItemsCount: Int) {}
 }
