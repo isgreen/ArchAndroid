@@ -10,7 +10,7 @@ interface BaseContract {
 
     interface ViewModel {
 
-        val message: LiveData<Int>
+        val message: LiveData<Any>
         val loading: LiveData<Boolean>
 
     }

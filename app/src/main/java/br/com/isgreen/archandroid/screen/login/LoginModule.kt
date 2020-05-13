@@ -8,6 +8,6 @@ import org.koin.dsl.module
  */
 
 val loginModule = module {
+    viewModel { LoginViewModel(get(), get()) }
     factory<LoginContract.Repository> { LoginRepository(get(), get()) }
-    viewModel { LoginViewModel(get()) }
 }

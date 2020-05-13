@@ -17,19 +17,13 @@ import org.koin.core.module.Module
 class HomeFragment : BaseFragment() {
 
     override val module: Module? = null
-    override val screenLayout = R.layout.fragment_home
     override val viewModel: BaseViewModel? = null
+    override val screenLayout = R.layout.fragment_home
 
     //region Fragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(false)
-//        retainInstance = true
-    }
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-//        initView()
     }
     //endregion Fragment
 

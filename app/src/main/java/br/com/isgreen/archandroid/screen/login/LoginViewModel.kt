@@ -3,6 +3,7 @@ package br.com.isgreen.archandroid.screen.login
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.isgreen.archandroid.base.BaseViewModel
+import br.com.isgreen.archandroid.helper.exception.ExceptionHandlerHelper
 import br.com.isgreen.archandroid.validator.LoginValidator
 
 /**
@@ -10,8 +11,9 @@ import br.com.isgreen.archandroid.validator.LoginValidator
  */
 
 class LoginViewModel(
+    exceptionHandlerHelper: ExceptionHandlerHelper,
     private val repository: LoginContract.Repository
-) : BaseViewModel(), LoginContract.ViewModel {
+) : BaseViewModel(exceptionHandlerHelper), LoginContract.ViewModel {
 
     companion object {
         const val GRANT_TYPE_PASSWORD = "password"
