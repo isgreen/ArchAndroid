@@ -1,5 +1,7 @@
 package br.com.isgreen.archandroid.data.remote.apihelper
 
+import android.util.Base64
+import br.com.isgreen.archandroid.BuildConfig
 import br.com.isgreen.archandroid.data.remote.api.Api
 import br.com.isgreen.archandroid.data.local.PreferencesHelper
 import br.com.isgreen.archandroid.data.model.repository.FetchRepositoriesResponse
@@ -28,7 +30,12 @@ class ApiHelperImpl(
                 authorization.accessToken = null
                 preferencesHelper.saveAuthorization(authorization)
 
-                val newAuthorization = api.refreshToken("refresh_token", authorization.refreshToken)
+                val newAuthorization = api.refreshToken(
+                    BuildConfig.API_SECRET,
+                    getBasicAuthorizationBase64(),
+                    "refresh_token",
+                    authorization.refreshToken
+                )
 
                 preferencesHelper.saveAuthorization(newAuthorization)
                 preferencesHelper.saveLastAuthorizationTime(currentTime)
@@ -36,9 +43,22 @@ class ApiHelperImpl(
         }
     }
 
+    private fun getBasicAuthorizationBase64(): String {
+        return "Basic " + Base64.encodeToString(
+            "${BuildConfig.API_KEY}:${BuildConfig.API_SECRET}".toByteArray(),
+            Base64.NO_WRAP
+        )
+    }
+
     //region Login
     override suspend fun doLogin(grantType: String, username: String, password: String) =
-        api.doLogin(grantType, username, password)
+        api.doLogin(
+            BuildConfig.API_SECRET,
+            getBasicAuthorizationBase64(),
+            grantType,
+            username,
+            password
+        )
     //endregion Login
 
     //region Repositories
@@ -47,11 +67,4 @@ class ApiHelperImpl(
         return api.fetchRepos(sort, role, after)
     }
     //endregion Repositories
-
-    override suspend fun fetchUser(username: String, password: String) =
-        api.fetchUser(
-//            "Basic " + Base64.encodeToString(
-//                "$username:$password".toByteArray(), Base64.NO_WRAP
-//            )
-        )
 }

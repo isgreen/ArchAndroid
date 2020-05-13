@@ -1,9 +1,11 @@
 package br.com.isgreen.archandroid.screen.home
 
 import android.os.Bundle
+import androidx.core.view.isVisible
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.base.BaseViewModel
+import br.com.isgreen.archandroid.extension.baseActivity
 import br.com.isgreen.archandroid.extension.setupWithNavController
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.core.module.Module
@@ -22,12 +24,16 @@ class HomeFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(false)
+//        retainInstance = true
+    }
+
+    override fun onActivityCreated(savedInstanceState: Bundle?) {
+        super.onActivityCreated(savedInstanceState)
+//        initView()
     }
     //endregion Fragment
 
     //region BaseFragment
-    override fun initObservers() {}
-
     override fun initView() {
         val navGraphs = listOf(
             R.navigation.recent_nav_graph,
@@ -39,7 +45,13 @@ class HomeFragment : BaseFragment() {
             fragmentManager = childFragmentManager,
             containerId = R.id.navHostContainer
         )
+        baseActivity?.changeNavigationVisibilityListener = { isVisible ->
+            navBottom?.isVisible = isVisible
+            vwDividerBottom?.isVisible = isVisible
+        }
     }
+
+    override fun initObservers() {}
 
     override fun fetchInitialData() {}
 

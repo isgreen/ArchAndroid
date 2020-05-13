@@ -43,6 +43,12 @@ class PreferencesHelperImpl(private val context: Context) : PreferencesHelper {
     }
     //endregion Authorization
 
+    //region Theme
+    override fun getThemeMode() = getInt(PreferencesHelper.THEME_MODE)
+
+    override fun saveThemeMode(mode: Int) = putInt(PreferencesHelper.THEME_MODE, mode)
+    //endregion Theme
+
     //region Methods Preferences
     private fun putString(key: String, value: String?) {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)

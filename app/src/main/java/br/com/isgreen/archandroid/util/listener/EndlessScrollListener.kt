@@ -130,7 +130,7 @@ class EndlessScrollListener : RecyclerView.OnScrollListener {
                     && totalItemCount > 10 //Teste
                     && firstVisibleItemPosition < visibleThreshold) {
                     currentPage++
-                    mOnScrollCallback?.onLoadMore(currentPage, totalItemCount)
+//                    mOnScrollCallback?.onLoadMore(currentPage, totalItemCount)
                     loading = true
                 }
             } else {
@@ -148,7 +148,7 @@ class EndlessScrollListener : RecyclerView.OnScrollListener {
 
                 if (!loading && lastVisibleItemPosition + visibleThreshold > totalItemCount) {
                     currentPage++
-                    mOnScrollCallback?.onLoadMore(currentPage, totalItemCount)
+//                    mOnScrollCallback?.onLoadMore(currentPage, totalItemCount)
                     loading = true
                 }
             }

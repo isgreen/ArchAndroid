@@ -1,6 +1,7 @@
 package br.com.isgreen.archandroid
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
 import br.com.isgreen.archandroid.di.appComponent
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin

@@ -1,7 +1,6 @@
 package br.com.isgreen.archandroid.data.remote.apihelper
 
 import br.com.isgreen.archandroid.data.model.login.Authorization
-import br.com.isgreen.archandroid.data.model.login.User
 import br.com.isgreen.archandroid.data.model.repository.FetchRepositoriesResponse
 
 /**
@@ -17,7 +16,5 @@ interface ApiHelper {
     //region Repositories
     suspend fun fetchRepos(sort: String?, role: String?, after: String?): FetchRepositoriesResponse
     //endregion Repositories
-
-    suspend fun fetchUser(username: String, password: String): User
 
 }

@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseAdapter
+import br.com.isgreen.archandroid.common.LoadingViewHolder
 import br.com.isgreen.archandroid.data.model.repository.Repo
 import br.com.isgreen.archandroid.extension.loadImageRounded
 import br.com.isgreen.archandroid.extension.setDate
@@ -18,29 +19,42 @@ import kotlinx.android.synthetic.main.fragment_repo_item.view.*
 
 class RepoAdapter : BaseAdapter<Repo>() {
 
+    companion object {
+        const val ITEM_TYPE = 0
+        const val LOADING_TYPE = 1
+    }
+
     override fun onCreateViewHolderBase(
         inflater: LayoutInflater,
         parent: ViewGroup?,
         viewType: Int
     ): RecyclerView.ViewHolder {
-        return RepoViewHolder(
-            LayoutInflater.from(parent?.context)
-                .inflate(R.layout.fragment_repo_item, parent, false)
-        )
+        return if (viewType == LOADING_TYPE) {
+            LoadingViewHolder(inflater.inflate(R.layout.loading_item, parent, false))
+        } else {
+            RepoViewHolder(inflater.inflate(R.layout.fragment_repo_item, parent, false))
+        }
     }
 
     override fun <VH : RecyclerView.ViewHolder> onBindViewHolderBase(holder: VH, position: Int) {
-        setDataView(holder as RepoViewHolder, data[position])
+        if (holder is RepoViewHolder) {
+            setDataView(holder, data[position])
+        }
+    }
+
+    override fun getItemViewType(position: Int): Int {
+        return if (position == lastIndex && isLoading()) {
+            LOADING_TYPE
+        } else {
+            ITEM_TYPE
+        }
     }
 
     private fun setDataView(holder: RepoViewHolder, repo: Repo) {
         holder.itemView.apply {
             imgIcon?.loadImageRounded(repo.links?.avatar?.href)
-
-            this.context?.let {
-                txtDate.setDate(R.string.created_on, repo.createdOn?.substring(0, 19))
-                txtRepository.text = repo.name
-            }
+            txtDate.setDate(R.string.created_on, repo.createdOn?.substring(0, 19))
+            txtRepository.text = repo.name
         }
     }
 

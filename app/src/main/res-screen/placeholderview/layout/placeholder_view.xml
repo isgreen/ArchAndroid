@@ -16,7 +16,7 @@
             android:layout_gravity="center"
             android:contentDescription="@string/clear"
             app:srcCompat="@drawable/ic_alert_triangle"
-            app:tint="@color/colorTextPrimary" />
+            app:tint="?attr/colorOnBackground" />
 
     <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/txtFailed"
@@ -26,13 +26,12 @@
             android:gravity="center"
             android:padding="16dp"
             android:text="@string/failed_request"
-            android:textColor="@color/colorTextPrimary"
+            android:textColor="?attr/colorOnBackground"
             android:textSize="16sp"
             app:fontFamily="@font/montserrat" />
 
     <com.google.android.material.button.MaterialButton
             android:id="@+id/btnTryAgain"
-            style="@style/AppTheme.ButtonStyle.Accent"
             android:layout_width="260dp"
             android:layout_height="wrap_content"
             android:fontFamily="@font/montserrat_semibold"

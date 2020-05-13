@@ -100,7 +100,6 @@ abstract class BaseFragment : Fragment() {
 
         mScreenLayout = screenLayout
         mBaseViewModel = viewModel
-//        retainInstance = true
         baseActivity?.addOnEventReceivedListener(mOnEventReceivedListener)
 
         setHasOptionsMenu(true)
@@ -226,7 +225,7 @@ abstract class BaseFragment : Fragment() {
     @RequiresApi(Build.VERSION_CODES.M)
     private fun getThemeStatusColor(): Int {
         val outTypedValue = TypedValue()
-        context?.theme?.resolveAttribute(R.attr.colorPrimaryDark, outTypedValue, true)
+        context?.theme?.resolveAttribute(R.attr.colorSurface, outTypedValue, true)
         return outTypedValue.data
     }
 

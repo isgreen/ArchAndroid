@@ -16,7 +16,7 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@mipmap/ic_launcher"/>
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtRepository"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
             app:layout_constraintTop_toTopOf="@id/imgIcon"
             tools:text="DarthVader/DeathStar" />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtDate"
             android:layout_width="0dp"
             android:layout_height="wrap_content"

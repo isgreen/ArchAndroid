@@ -1,5 +1,7 @@
 package br.com.isgreen.archandroid.screen.splash
 
+import android.graphics.Color
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
@@ -25,21 +27,25 @@ class SplashFragment : BaseFragment() {
         viewModel.isNotAuthenticated.observe(this, Observer {
             showLogin()
         })
+        viewModel.themeFetched.observe(this, Observer { theme ->
+            AppCompatDelegate.setDefaultNightMode(theme)
+            viewModel.checkIsAuthenticated()
+        })
     }
 
     override fun initView() {
+        changeStatusBarColor(Color.WHITE)
         imgLogo?.loadImageResource(R.drawable.logo_jetpack)
     }
 
     override fun fetchInitialData() {
-        viewModel.checkIsAuthenticated()
+        viewModel.fetchCurrentTheme()
+//        viewModel.checkIsAuthenticated()
     }
 
-    override fun onLoadingChanged(isLoading: Boolean) {
-    }
+    override fun onLoadingChanged(isLoading: Boolean) {}
 
-    override fun showError(message: Any) {
-    }
+    override fun showError(message: Any) {}
     //endregion BaseFragment
 
     //region Local
