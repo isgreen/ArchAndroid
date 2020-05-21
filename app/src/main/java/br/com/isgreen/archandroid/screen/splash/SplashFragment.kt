@@ -45,7 +45,7 @@ class SplashFragment : BaseFragment() {
 
     override fun onLoadingChanged(isLoading: Boolean) {}
 
-    override fun showError(message: Any) {}
+    override fun showError(message: String) {}
     //endregion BaseFragment
 
     //region Local

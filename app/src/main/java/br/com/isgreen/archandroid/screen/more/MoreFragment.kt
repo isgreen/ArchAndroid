@@ -35,7 +35,7 @@ class MoreFragment : BaseFragment() {
 
     override fun fetchInitialData() {}
 
-    override fun showError(message: Any) {}
+    override fun showError(message: String) {}
 
     override fun onLoadingChanged(isLoading: Boolean) {}
     //endregion BaseFragment

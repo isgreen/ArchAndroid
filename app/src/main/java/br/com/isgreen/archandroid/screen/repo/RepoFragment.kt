@@ -5,7 +5,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
-import br.com.isgreen.archandroid.extension.showMessage
+import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.util.listener.OnScrollCallback
 import br.com.isgreen.archandroid.util.listener.RecyclerScrollListener
 import kotlinx.android.synthetic.main.fragment_repo.*
@@ -72,13 +72,13 @@ class RepoFragment : BaseFragment() {
         changeLoading(isLoading)
     }
 
-    override fun showError(message: Any) {
+    override fun showError(message: String) {
         if (mAdapter.isEmpty) {
             pvRepo?.icon(R.drawable.ic_alert_triangle)
                 ?.text(message)
                 ?.show()
         } else {
-            showMessage(message)
+            showToast(message)
         }
     }
     //endregion BaseFragment

@@ -89,7 +89,7 @@ abstract class BaseFragment : Fragment() {
     abstract fun initView()
     abstract fun initObservers()
     abstract fun fetchInitialData()
-    abstract fun showError(message: Any)
+    abstract fun showError(message: String)
     abstract fun onLoadingChanged(isLoading: Boolean)
     open fun onEventReceived(code: Int, data: Any?) {}
 

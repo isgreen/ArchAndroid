@@ -8,7 +8,7 @@ import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.extension.hideKeyboard
 import br.com.isgreen.archandroid.extension.loadImageResource
-import br.com.isgreen.archandroid.extension.showMessage
+import br.com.isgreen.archandroid.extension.showToast
 import kotlinx.android.synthetic.main.fragment_login.layoutRoot
 import kotlinx.android.synthetic.main.fragment_login_content.*
 import kotlinx.android.synthetic.main.fragment_login_start.*
@@ -59,12 +59,10 @@ class LoginFragment : BaseFragment(), LoginContract.View {
         }
     }
 
-    override fun fetchInitialData() {
+    override fun fetchInitialData() {}
 
-    }
-
-    override fun showError(message: Any) {
-        showMessage(message)
+    override fun showError(message: String) {
+        showToast(message)
     }
 
     override fun onLoadingChanged(isLoading: Boolean) {

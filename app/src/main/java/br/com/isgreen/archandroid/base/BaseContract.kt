@@ -9,10 +9,8 @@ import androidx.lifecycle.LiveData
 interface BaseContract {
 
     interface ViewModel {
-
-        val message: LiveData<Any>
+        val message: LiveData<String>
         val loading: LiveData<Boolean>
-
     }
 
 }

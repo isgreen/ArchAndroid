@@ -22,17 +22,17 @@ abstract class BaseViewModel(
 
     override val loading: LiveData<Boolean>
         get() = mLoadingChanged
-    override val message: LiveData<Any>
+    override val message: LiveData<String>
         get() = mMessage
     val redirect: LiveData<Int>
         get() = mRedirect
 
-    protected val mMessage = MutableLiveData<Any>()
-    protected val mLoadingChanged = MutableLiveData<Boolean>()
+    protected val mMessage = MutableLiveData<String>()
     protected val mRedirect = MutableLiveData<@IdRes Int>()
+    protected val mLoadingChanged = MutableLiveData<Boolean>()
 
     protected fun defaultLaunch(
-        validator: BaseValidator? = null,
+        validatorHelper: BaseValidatorHelper? = null,
         vararg anys: Any?,
         block: suspend CoroutineScope.() -> Unit
     ) {
@@ -40,9 +40,9 @@ abstract class BaseViewModel(
             try {
                 mLoadingChanged.postValue(true)
 
-                validator?.let {
-                    val validation = validator.validate(*anys)
-                    if (validation != BaseValidator.NO_ERROR) {
+                validatorHelper?.let {
+                    val validation = validatorHelper.validate(*anys)
+                    if (validation != null) {
                         mLoadingChanged.postValue(false)
                         mMessage.postValue(validation)
                         return@launch

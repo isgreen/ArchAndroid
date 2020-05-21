@@ -51,7 +51,7 @@ class ThemeFragment : BaseFragment() {
         viewModel.fetchThemes()
     }
 
-    override fun showError(message: Any) {}
+    override fun showError(message: String) {}
 
     override fun onLoadingChanged(isLoading: Boolean) {}
     //endregion BaseFragment

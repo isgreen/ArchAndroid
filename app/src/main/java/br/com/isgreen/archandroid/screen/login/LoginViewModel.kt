@@ -2,9 +2,9 @@ package br.com.isgreen.archandroid.screen.login
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import br.com.isgreen.archandroid.base.BaseValidatorHelper
 import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.helper.exception.ExceptionHandlerHelper
-import br.com.isgreen.archandroid.validator.LoginValidator
 
 /**
  * Created by Éverdes Soares on 08/23/2019.
@@ -12,7 +12,8 @@ import br.com.isgreen.archandroid.validator.LoginValidator
 
 class LoginViewModel(
     exceptionHandlerHelper: ExceptionHandlerHelper,
-    private val repository: LoginContract.Repository
+    private val repository: LoginContract.Repository,
+    private val validatorHelper: BaseValidatorHelper
 ) : BaseViewModel(exceptionHandlerHelper), LoginContract.ViewModel {
 
     companion object {
@@ -25,7 +26,7 @@ class LoginViewModel(
     private val mLoginAuthorized = MutableLiveData<Unit>()
 
     override fun doLogin(username: String?, password: String?) {
-        defaultLaunch(LoginValidator(), username, password) {
+        defaultLaunch(validatorHelper, username, password) {
             val authorization = repository.doLogin(GRANT_TYPE_PASSWORD, username!!, password!!)
             repository.saveAuthorization(authorization)
             mLoginAuthorized.postValue(Unit)
