@@ -1,89 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/layoutCard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+        android:id="@+id/layoutCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilEmailLogin"
-                style="@style/AppTheme.TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_default"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
+            android:id="@+id/tilEmailLogin"
+            style="@style/AppTheme.TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtEmailLogin"
-                    style="@style/AppTheme.TextInputEditTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_text_height"
-                    android:hint="@string/username"
-                    android:imeOptions="actionNext"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@drawable/selector_edit_text" />
+                android:id="@+id/edtEmailLogin"
+                style="@style/AppTheme.TextInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edit_text_height"
+                android:hint="@string/username"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:textColor="@drawable/selector_edit_text" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/tilPasswordLogin"
-                style="@style/AppTheme.TextInputLayoutStyle"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/margin_default"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tilEmailLogin"
-                app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@color/gray_dark">
+            android:id="@+id/tilPasswordLogin"
+            style="@style/AppTheme.TextInputLayoutStyle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_default"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilEmailLogin"
+            app:passwordToggleEnabled="true"
+            app:passwordToggleTint="@color/gray_dark">
 
             <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/edtPasswordLogin"
-                    style="@style/AppTheme.TextInputEditTextStyle"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/edit_text_height"
-                    android:hint="@string/password"
-                    android:imeOptions="actionGo"
-                    android:inputType="textPassword"
-                    android:textColor="@drawable/selector_edit_text"
-                    android:textIsSelectable="false" />
+                android:id="@+id/edtPasswordLogin"
+                style="@style/AppTheme.TextInputEditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/edit_text_height"
+                android:hint="@string/password"
+                android:imeOptions="actionGo"
+                android:inputType="textPassword"
+                android:textColor="@drawable/selector_edit_text"
+                android:textIsSelectable="false" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnLogin"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/margin_default"
-                android:layout_marginTop="@dimen/shape_corner"
-                android:layout_marginEnd="@dimen/margin_default"
-                android:layout_marginBottom="@dimen/margin_default"
-                android:text="@string/login"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/tilPasswordLogin" />
+            android:id="@+id/btnLogin"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/margin_default"
+            android:layout_marginTop="@dimen/shape_corner"
+            android:layout_marginEnd="@dimen/margin_default"
+            android:layout_marginBottom="@dimen/margin_default"
+            android:text="@string/login"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/tilPasswordLogin" />
 
         <ProgressBar
-                android:id="@+id/pbRepo"
-                android:layout_width="@dimen/progress_size_default"
-                android:layout_height="@dimen/progress_size_default"
-                android:layout_margin="@dimen/margin_default"
-                android:indeterminateTint="@android:color/white"
-                android:translationZ="2dp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="@+id/btnLogin"
-                app:layout_constraintEnd_toEndOf="@+id/btnLogin"
-                app:layout_constraintTop_toTopOf="@+id/btnLogin"
-                tools:targetApi="lollipop"
-                tools:visibility="visible" />
+            android:id="@+id/pbRepo"
+            android:layout_width="@dimen/progress_size_default"
+            android:layout_height="@dimen/progress_size_default"
+            android:layout_margin="@dimen/margin_default"
+            android:indeterminateTint="@android:color/white"
+            android:translationZ="2dp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/btnLogin"
+            app:layout_constraintEnd_toEndOf="@+id/btnLogin"
+            app:layout_constraintTop_toTopOf="@+id/btnLogin"
+            tools:targetApi="lollipop"
+            tools:visibility="visible" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

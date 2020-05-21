@@ -24,8 +24,8 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class LoginFragment : BaseFragment(), LoginContract.View {
 
     override val module = loginModule
-    override val screenLayout = R.layout.fragment_login_start
     override val viewModel: LoginViewModel by viewModel()
+    override val screenLayout = R.layout.fragment_login_start
 
     //region BaseFragment
     override fun initObservers() {

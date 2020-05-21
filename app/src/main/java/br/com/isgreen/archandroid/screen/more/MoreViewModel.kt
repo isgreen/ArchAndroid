@@ -16,7 +16,7 @@ class MoreViewModel(
     override fun logout() {
         defaultLaunch {
             repository.logout()
-            mRedirect.postValue(R.id.loginFragment)
+            mRedirect.postValue(R.id.splashFragment)
         }
     }
 }

@@ -168,9 +168,8 @@ abstract class BaseFragment : Fragment() {
     //region Local
     private fun initDefaultObservers() {
         mBaseViewModel?.redirect?.observe(this, Observer { destination ->
-            val fragment = parentFragment?.parentFragment ?: this
-            navigate(destination, TransitionAnimation.FADE, null, true, fragment)
-            hideNavigationBottom()
+            val rootFragment = if (destination == R.id.splashFragment) getRootParent() else this
+            navigate(destination, TransitionAnimation.FADE, null, true, rootFragment)
         })
         mBaseViewModel?.loading?.observe(this, Observer { isLoading ->
             onLoadingChanged(isLoading)
@@ -189,6 +188,14 @@ abstract class BaseFragment : Fragment() {
         } catch (exception: Exception) {
             exception.printStackTrace()
         }
+    }
+
+    private fun getRootParent(): Fragment {
+        var rootParent = parentFragment
+        while (rootParent?.parentFragment != null) {
+            rootParent = rootParent.parentFragment
+        }
+        return rootParent ?: this
     }
 
     @SuppressLint("NewApi")
