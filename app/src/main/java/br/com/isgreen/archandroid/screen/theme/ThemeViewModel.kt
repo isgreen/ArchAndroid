@@ -5,6 +5,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.data.model.theme.Theme
+import br.com.isgreen.archandroid.helper.exception.ExceptionHandlerHelper
 import kotlinx.coroutines.delay
 
 /**
@@ -12,8 +13,9 @@ import kotlinx.coroutines.delay
  */
 
 class ThemeViewModel(
+    exceptionHandlerHelper: ExceptionHandlerHelper,
     private val repository: ThemeContract.Repository
-) : BaseViewModel(), ThemeContract.ViewModel {
+) : BaseViewModel(exceptionHandlerHelper), ThemeContract.ViewModel {
 
     override val themeChanged: LiveData<Int>
         get() = mThemeChanged

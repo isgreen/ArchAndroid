@@ -31,19 +31,7 @@ val Fragment.baseActivity get() = this.activity as? BaseActivity
 
 val Fragment.appCompatActivity get() = this.activity as? AppCompatActivity
 
-fun Fragment.showMessage(message: Any) {
-    when (message) {
-        is Int -> {
-            context?.toastLong(message)
-        }
-        is CharSequence -> {
-            context?.toastLong(message)
-        }
-        else -> {
-            throw RuntimeException("Message must be Int or CharSequence.")
-        }
-    }
-}
+fun Fragment.showToast(message: String) = context?.toastLong(message)
 
 fun Fragment.hideKeyboard() {
     val inputMethodManager =

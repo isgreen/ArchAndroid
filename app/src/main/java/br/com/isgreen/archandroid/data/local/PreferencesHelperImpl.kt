@@ -15,8 +15,7 @@ class PreferencesHelperImpl(private val context: Context) : PreferencesHelper {
 
     override suspend fun clearData() {
         return suspendCancellableCoroutine { continuation ->
-            putString(PreferencesHelper.AUTHORIZATION, null)
-            putLong(PreferencesHelper.LAST_AUTHORIZATION_TIME, 0L)
+            clearAll()
             continuation.resume(Unit)
         }
     }
@@ -101,6 +100,16 @@ class PreferencesHelperImpl(private val context: Context) : PreferencesHelper {
     private fun getBoolean(key: String, defaultValue: Boolean): Boolean {
         val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
         return sharedPreferences.getBoolean(key, defaultValue)
+    }
+
+    private fun remove(key: String) {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        return sharedPreferences.edit().remove(key).apply()
+    }
+
+    private fun clearAll(): Boolean {
+        val sharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+        return sharedPreferences.edit().clear().commit()
     }
     //endregion
 }

@@ -8,6 +8,6 @@ import org.koin.dsl.module
  */
 
 val repoModule = module {
-    viewModel { RepoViewModel(get()) }
+    viewModel { RepoViewModel(get(), get()) }
     factory<RepoContract.Repository> { RepoRepository(get()) }
 }

@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import br.com.isgreen.archandroid.base.BaseViewModel
+import br.com.isgreen.archandroid.helper.exception.ExceptionHandlerHelper
 import kotlinx.coroutines.delay
 
 /**
@@ -11,13 +12,10 @@ import kotlinx.coroutines.delay
  */
 
 class SplashViewModel(
+    exceptionHandlerHelper: ExceptionHandlerHelper,
     private val repository: SplashContract.Repository
-) : BaseViewModel(), SplashContract.ViewModel {
+) : BaseViewModel(exceptionHandlerHelper), SplashContract.ViewModel {
 
-    override val message: LiveData<Int>
-        get() = super.mMessage
-    override val loading: LiveData<Boolean>
-        get() = super.mLoadingChanged
     override val themeFetched: LiveData<Int>
         get() = mThemeFetched
     override val isAuthenticated: LiveData<Unit>

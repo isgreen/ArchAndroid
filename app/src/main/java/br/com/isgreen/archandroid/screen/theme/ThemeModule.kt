@@ -10,7 +10,7 @@ import org.koin.dsl.module
  */
 
 val themeModule = module {
-    viewModel { ThemeViewModel(get()) }
+    viewModel { ThemeViewModel(get(), get()) }
     factory<ResourceHelper> { ResourceHelperImpl() }
     factory<ThemeContract.Repository> { ThemeRepository(get(), get()) }
 }

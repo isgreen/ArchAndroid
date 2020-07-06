@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.data.model.repository.Repo
+import br.com.isgreen.archandroid.helper.exception.ExceptionHandlerHelper
 import kotlinx.coroutines.launch
 
 /**
@@ -12,8 +13,9 @@ import kotlinx.coroutines.launch
  */
 
 class RepoViewModel(
+    exceptionHandlerHelper: ExceptionHandlerHelper,
     private val repository: RepoContract.Repository
-) : BaseViewModel(), RepoContract.ViewModel {
+) : BaseViewModel(exceptionHandlerHelper), RepoContract.ViewModel {
 
     companion object {
         const val ROLE_MEMBER = "member"
@@ -43,11 +45,16 @@ class RepoViewModel(
 
         if (mHasMorePages && !mIsLoading) {
             viewModelScope.launch {
-                changeLoading(true)
-                val repoResponse = repository.fetchRepos(null, ROLE_MEMBER, mAfter)
-                mReposFetched.postValue(repoResponse.repos)
-                changeLoading(false)
-                getNextDate(repoResponse.next)
+                try {
+                    changeLoading(true)
+                    val repoResponse = repository.fetchRepos(null, ROLE_MEMBER, mAfter)
+                    mReposFetched.postValue(repoResponse.repos)
+                    changeLoading(false)
+                    getNextDate(repoResponse.next)
+                } catch (exception: Exception) {
+                    changeLoading(false)
+                    handleException(exception)
+                }
             }
         }
     }
