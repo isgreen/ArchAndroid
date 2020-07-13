@@ -89,7 +89,7 @@ class RepoFragment : BaseFragment() {
     }
 
     private fun changeLoadingMore(isLoading: Boolean) {
-        if (isLoading) {
+        if (isLoading && !mAdapter.isLoading()) {
             mAdapter.showLoading(true)
             rvRepo?.smoothScrollToPosition(mAdapter.lastIndex)
         } else {

@@ -22,6 +22,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
 import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.FragmentNavigatorExtras
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -264,28 +265,34 @@ abstract class BaseFragment : Fragment() {
     fun navigate(
         directions: NavDirections,
         popUpTo: Int? = null,
-        clearBackStack: Boolean? = false
+        clearBackStack: Boolean? = false,
+        sharedElements: Pair<View, String>? = null
     ) {
         val navController = NavHostFragment.findNavController(this)
         val destinationId = if (clearBackStack == true) navController.graph.id else popUpTo
-        val options =
-            buildOptions(TransitionAnimation.TRANSLATE_FROM_RIGHT, clearBackStack, destinationId)
+        val transitionAnimation = if (sharedElements == null) TransitionAnimation.TRANSLATE_FROM_RIGHT
+            else null
+        val options = buildOptions(transitionAnimation, clearBackStack, destinationId)
 
-        navController.navigate(directions, options)
+        val extras = sharedElements?.let {
+            FragmentNavigatorExtras(it)
+        }
+
+        navController.navigate(directions.actionId, directions.arguments, options, extras)
     }
 
-    fun navigate(
-        directions: NavDirections,
-        animation: TransitionAnimation? = TransitionAnimation.TRANSLATE_FROM_RIGHT,
-        popUpTo: Int? = null,
-        clearBackStack: Boolean? = false
-    ) {
-        val navController = NavHostFragment.findNavController(this)
-        val destinationId = if (clearBackStack == true) navController.graph.id else popUpTo
-        val options = buildOptions(animation, clearBackStack, destinationId)
-
-        navController.navigate(directions, options)
-    }
+//    fun navigate(
+//        directions: NavDirections,
+//        animation: TransitionAnimation? = TransitionAnimation.TRANSLATE_FROM_RIGHT,
+//        popUpTo: Int? = null,
+//        clearBackStack: Boolean? = false
+//    ) {
+//        val navController = NavHostFragment.findNavController(this)
+//        val destinationId = if (clearBackStack == true) navController.graph.id else popUpTo
+//        val options = buildOptions(animation, clearBackStack, destinationId)
+//
+//        navController.navigate(directions, options)
+//    }
 
     fun navigate(
         @IdRes resId: Int,
@@ -378,10 +385,10 @@ abstract class BaseFragment : Fragment() {
                         popExit = R.anim.translate_fade_out
                     }
                     else -> {
-                        enter = R.anim.translate_left_enter
-                        exit = R.anim.translate_left_exit
-                        popEnter = R.anim.translate_right_enter
-                        popExit = R.anim.translate_right_exit
+//                        enter = R.anim.translate_left_enter
+//                        exit = R.anim.translate_left_exit
+//                        popEnter = R.anim.translate_right_enter
+//                        popExit = R.anim.translate_right_exit
                     }
                 }
             }

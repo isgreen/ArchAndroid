@@ -51,7 +51,7 @@ class SplashFragment : BaseFragment() {
     //region Local
     private fun showLogin() {
         val direction = SplashFragmentDirections.actionSplashFragmentToLoginFragment()
-        navigate(direction, TransitionAnimation.FADE, null, true)
+        navigate(direction/*, TransitionAnimation.FADE, null, true*/)
     }
 
     private fun showHome() {

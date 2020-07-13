@@ -66,7 +66,7 @@ abstract class BaseViewModel(
     private fun callAction(errorMessage: ErrorMessage) {
         // to force user to login
         if (errorMessage.code == HttpURLConnection.HTTP_UNAUTHORIZED) {
-            mRedirect.postValue(R.id.loginFragment)
+            mRedirect.postValue(R.id.splashFragment)
         } else {
             mMessage.postValue(errorMessage.message)
         }

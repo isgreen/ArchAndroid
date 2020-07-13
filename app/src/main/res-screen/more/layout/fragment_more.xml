@@ -80,6 +80,7 @@
                 android:gravity="center_vertical"
                 android:padding="@dimen/margin_default"
                 android:text="@string/theme"
+                android:transitionName="shared_element_container"
                 app:drawableStartCompat="@drawable/ic_sun"
                 app:drawableTint="?attr/colorOnBackground"
                 app:fontFamily="@font/montserrat_semibold"

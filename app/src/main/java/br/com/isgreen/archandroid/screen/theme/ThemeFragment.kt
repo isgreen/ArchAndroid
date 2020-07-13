@@ -1,11 +1,13 @@
 package br.com.isgreen.archandroid.screen.theme
 
+import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.theme.Theme
+import com.google.android.material.transition.platform.MaterialContainerTransform
 import kotlinx.android.synthetic.main.fragment_theme.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -20,6 +22,11 @@ class ThemeFragment : BaseFragment() {
     override val viewModel: ThemeViewModel by viewModel()
 
     private val mAdapter: ThemeAdapter by lazy { ThemeAdapter() }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        sharedElementEnterTransition = MaterialContainerTransform()
+    }
 
     //region BaseFragment
     override fun initView() {

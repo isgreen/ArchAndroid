@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
+import com.google.android.material.transition.platform.Hold
 import kotlinx.android.synthetic.main.fragment_more.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -17,7 +18,11 @@ class MoreFragment : BaseFragment() {
     override val screenLayout = R.layout.fragment_more
     override val viewModel: MoreViewModel by viewModel()
 
-    //region Fragment
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        exitTransition = Hold()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavigationBottom()
@@ -43,7 +48,7 @@ class MoreFragment : BaseFragment() {
     //region Local
     private fun showTheme() {
         val direction = MoreFragmentDirections.actionMoreFragmentToThemeFragment()
-        navigate(direction)
+        navigate(direction, null, null, txtTheme to "shared_element_container")
         hideNavigationBottom()
     }
 
