@@ -101,4 +101,20 @@
     </style>
     <!-- Button theme. -->
 
+    <!-- Toolbar theme. -->
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="@style/AppTheme.ThemeOverlay" />
+
+    <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:textSize">@dimen/text_size_default</item>
+        <item name="android:textColor">?attr/colorOnBackground</item>
+        <item name="android:fontFamily">@font/montserrat_semibold</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay.AccentText" parent="@style/AppTheme.ThemeOverlay">
+        <item name="android:textAllCaps">false</item>
+        <item name="android:fontFamily">@font/montserrat_regular</item>
+        <item name="android:actionMenuTextColor">?attr/colorSecondary</item>
+    </style>
+    <!-- Toolbar theme. -->
 </resources>

@@ -51,12 +51,12 @@ class SplashFragment : BaseFragment() {
     //region Local
     private fun showLogin() {
         val direction = SplashFragmentDirections.actionSplashFragmentToLoginFragment()
-        navigate(direction/*, TransitionAnimation.FADE, null, true*/)
+        navigate(directions = direction, clearBackStack =  true, animation = TransitionAnimation.FADE)
     }
 
     private fun showHome() {
         val direction = SplashFragmentDirections.actionSplashFragmentToHomeFragment()
-        navigate(direction, null, true)
+        navigate(directions = direction, clearBackStack = true)
     }
     //region Local
 }

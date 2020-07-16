@@ -5,4 +5,9 @@
         <attr name="indicator" format="reference"/>
         <attr name="firstItemSelected" format="reference"/>
     </declare-styleable>
+
+    <declare-styleable name="FlexibleToolbar">
+        <attr name="iconColor" format="color" />
+        <attr name="homeIconColor" format="color" />
+    </declare-styleable>
 </resources>

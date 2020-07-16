@@ -264,35 +264,41 @@ abstract class BaseFragment : Fragment() {
     //region Navigation
     fun navigate(
         directions: NavDirections,
+        sharedElements: Pair<View, String>? = null
+    ) {
+        val transitionAnimation = if (sharedElements == null)
+            TransitionAnimation.TRANSLATE_FROM_RIGHT
+        else
+            null
+
+        navigate(directions, transitionAnimation, null, false, sharedElements)
+    }
+
+    fun navigate(
+        directions: NavDirections,
+        clearBackStack: Boolean? = false,
+        animation: TransitionAnimation? = TransitionAnimation.TRANSLATE_FROM_RIGHT
+    ) {
+        navigate(directions, animation, null, clearBackStack, null)
+    }
+
+    fun navigate(
+        directions: NavDirections,
+        animation: TransitionAnimation? = TransitionAnimation.TRANSLATE_FROM_RIGHT,
         popUpTo: Int? = null,
         clearBackStack: Boolean? = false,
         sharedElements: Pair<View, String>? = null
     ) {
         val navController = NavHostFragment.findNavController(this)
         val destinationId = if (clearBackStack == true) navController.graph.id else popUpTo
-        val transitionAnimation = if (sharedElements == null) TransitionAnimation.TRANSLATE_FROM_RIGHT
-            else null
+        val transitionAnimation = if (sharedElements == null) animation else null
         val options = buildOptions(transitionAnimation, clearBackStack, destinationId)
-
         val extras = sharedElements?.let {
             FragmentNavigatorExtras(it)
         }
 
         navController.navigate(directions.actionId, directions.arguments, options, extras)
     }
-
-//    fun navigate(
-//        directions: NavDirections,
-//        animation: TransitionAnimation? = TransitionAnimation.TRANSLATE_FROM_RIGHT,
-//        popUpTo: Int? = null,
-//        clearBackStack: Boolean? = false
-//    ) {
-//        val navController = NavHostFragment.findNavController(this)
-//        val destinationId = if (clearBackStack == true) navController.graph.id else popUpTo
-//        val options = buildOptions(animation, clearBackStack, destinationId)
-//
-//        navController.navigate(directions, options)
-//    }
 
     fun navigate(
         @IdRes resId: Int,
@@ -384,17 +390,12 @@ abstract class BaseFragment : Fragment() {
                         popEnter = R.anim.translate_fade_in
                         popExit = R.anim.translate_fade_out
                     }
-                    else -> {
-//                        enter = R.anim.translate_left_enter
-//                        exit = R.anim.translate_left_exit
-//                        popEnter = R.anim.translate_right_enter
-//                        popExit = R.anim.translate_right_exit
-                    }
+                    else -> { }
                 }
             }
 
-            // Para limpar a pilha abaixo do fragment atual,
-            // deve-se setar o 'destinationId' = navGraphId e 'inclusive' = true
+            // To clean the stack below the current fragment,
+            // you must set the 'destinationId' = navGraphId and 'inclusive' = true
             destinationId?.let {
                 popUpTo(destinationId) {
                     inclusive = clearBackStack == true

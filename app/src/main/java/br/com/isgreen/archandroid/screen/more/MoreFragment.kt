@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.View
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
+import br.com.isgreen.archandroid.extension.appCompatActivity
 import com.google.android.material.transition.platform.Hold
+import kotlinx.android.synthetic.main.appbar_and_toolbar.*
 import kotlinx.android.synthetic.main.fragment_more.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,6 +33,12 @@ class MoreFragment : BaseFragment() {
 
     //region BaseFragment
     override fun initView() {
+        toolbar?.Builder(appCompatActivity)
+            ?.titleIcon(R.drawable.ic_android)
+            ?.displayHome(false)
+            ?.title(R.string.app_name)
+            ?.build()
+
         txtTheme?.setOnClickListener { showTheme() }
         txtLogout?.setOnClickListener { logout() }
         txtProfile?.setOnClickListener {  }
@@ -48,7 +56,7 @@ class MoreFragment : BaseFragment() {
     //region Local
     private fun showTheme() {
         val direction = MoreFragmentDirections.actionMoreFragmentToThemeFragment()
-        navigate(direction, null, null, txtTheme to "shared_element_container")
+        navigate(directions = direction, sharedElements =  txtTheme to getString(R.string.shared_element_theme))
         hideNavigationBottom()
     }
 

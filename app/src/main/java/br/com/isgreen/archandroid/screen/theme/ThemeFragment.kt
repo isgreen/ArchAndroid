@@ -7,7 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.theme.Theme
+import br.com.isgreen.archandroid.extension.appCompatActivity
 import com.google.android.material.transition.platform.MaterialContainerTransform
+import kotlinx.android.synthetic.main.appbar_and_toolbar.*
 import kotlinx.android.synthetic.main.fragment_theme.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -30,6 +32,11 @@ class ThemeFragment : BaseFragment() {
 
     //region BaseFragment
     override fun initView() {
+        toolbar?.Builder(appCompatActivity)
+            ?.homeIcon(R.drawable.ic_back)
+            ?.title(R.string.theme)
+            ?.build()
+
         mAdapter.onItemClickListener = { _, position, theme ->
             mAdapter.setCheckedPosition(position)
             changeTheme(theme)

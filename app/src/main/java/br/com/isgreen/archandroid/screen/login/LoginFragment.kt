@@ -88,7 +88,7 @@ class LoginFragment : BaseFragment(), LoginContract.View {
 
     private fun showEvent() {
         val direction = LoginFragmentDirections.actionLoginFragmentToHomeFragment()
-        navigate(direction, null, true)
+        navigate(direction, clearBackStack = true)
     }
     //endregion Local
 

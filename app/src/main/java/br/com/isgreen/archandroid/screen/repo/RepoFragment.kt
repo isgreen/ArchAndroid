@@ -5,9 +5,11 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
+import br.com.isgreen.archandroid.extension.appCompatActivity
 import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.util.listener.OnScrollCallback
 import br.com.isgreen.archandroid.util.listener.RecyclerScrollListener
+import kotlinx.android.synthetic.main.appbar_and_toolbar.*
 import kotlinx.android.synthetic.main.fragment_repo.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -53,6 +55,12 @@ class RepoFragment : BaseFragment() {
     }
 
     override fun initView() {
+        toolbar?.Builder(appCompatActivity)
+            ?.titleIcon(R.drawable.ic_android)
+            ?.displayHome(false)
+            ?.title(R.string.app_name)
+            ?.build()
+
         rvRepo?.let { recyclerView ->
             recyclerView.adapter = mAdapter
             recyclerView.layoutManager = mLayoutManager
