@@ -48,9 +48,9 @@ class RepoViewModel(
     )
 
     private val pagedListConfig = PagedList.Config.Builder()
-        .setInitialLoadSizeHint(5)
+        .setInitialLoadSizeHint(10)
         .setEnablePlaceholders(false)
-        .setPageSize(5 * 2)
+        .setPageSize(10)
         .build()
 
     val repos = LivePagedListBuilder(repoDataSource, pagedListConfig).build()
@@ -63,7 +63,7 @@ class RepoViewModel(
         }
 
         if (mHasMorePages && !mIsLoading) {
-            repoDataSource.reposDataSource.value?.invalidate()
+//            repoDataSource.reposDataSource.value?.invalidate()
 
 //            viewModelScope.launch {
 //                try {

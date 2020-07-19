@@ -16,11 +16,11 @@ class RepoDataSourceFactory(
     private val role: String?,
     private val after: String?,
     private val scope: CoroutineScope
-): DataSource.Factory<Int, Repo>() {
+): DataSource.Factory<String, Repo>() {
 
     val reposDataSource = MutableLiveData<RepoDataSource>()
 
-    override fun create(): DataSource<Int, Repo> {
+    override fun create(): DataSource<String, Repo> {
         val dataSource = RepoDataSource(repository, sort, role, after, scope)
         reposDataSource.postValue(dataSource)
         return dataSource

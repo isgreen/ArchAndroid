@@ -89,7 +89,7 @@ class RepoFragment : BaseFragment() {
 //                ?.text(message)
 //                ?.show()
 //        } else {
-//            showToast(message)
+            showToast(message)
 //        }
     }
     //endregion BaseFragment
