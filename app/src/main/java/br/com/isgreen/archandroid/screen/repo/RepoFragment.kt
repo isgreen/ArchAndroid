@@ -26,19 +26,19 @@ class RepoFragment : BaseFragment() {
     //region RecyclerView
     private val mAdapter: RepoAdapter by lazy { RepoAdapter() }
     private val mLayoutManager: LinearLayoutManager by lazy { LinearLayoutManager(context) }
-    private val onScroll = object : OnScrollCallback() {
-        override fun onScrollPage(page: Int, totalItemsCount: Int) {
-            viewModel.fetchRepos()
-        }
-    }
-    private val mRecyclerScrollListener: RecyclerScrollListener by lazy {
-        RecyclerScrollListener(
-            onScrollCallback = onScroll,
-            layoutManager = mLayoutManager,
-            visibleThreshold = 3,
-            listenBothWays = false
-        )
-    }
+//    private val onScroll = object : OnScrollCallback() {
+//        override fun onScrollPage(page: Int, totalItemsCount: Int) {
+//            viewModel.fetchRepos()
+//        }
+//    }
+//    private val mRecyclerScrollListener: RecyclerScrollListener by lazy {
+//        RecyclerScrollListener(
+//            onScrollCallback = onScroll,
+//            layoutManager = mLayoutManager,
+//            visibleThreshold = 3,
+//            listenBothWays = false
+//        )
+//    }
     //endregion RecyclerView
 
     //region BaseFragment
@@ -47,10 +47,13 @@ class RepoFragment : BaseFragment() {
             changeLoadingMore(isLoading)
         })
         viewModel.reposCleared.observe(this, Observer {
-            mAdapter.clearData()
+//            mAdapter.clearData()
         })
         viewModel.reposFetched.observe(this, Observer { repos ->
-            mAdapter.addData(repos)
+//            mAdapter.addData(repos)
+        })
+        viewModel.repos.observe(this, Observer { repos ->
+            mAdapter.submitList(repos)
         })
     }
 
@@ -64,7 +67,7 @@ class RepoFragment : BaseFragment() {
         rvRepo?.let { recyclerView ->
             recyclerView.adapter = mAdapter
             recyclerView.layoutManager = mLayoutManager
-            recyclerView.addOnScrollListener(mRecyclerScrollListener)
+//            recyclerView.addOnScrollListener(mRecyclerScrollListener)
         }
 
         pvRepo?.onClickTryAgain = {
@@ -81,13 +84,13 @@ class RepoFragment : BaseFragment() {
     }
 
     override fun showError(message: String) {
-        if (mAdapter.isEmpty) {
-            pvRepo?.icon(R.drawable.ic_alert_triangle)
-                ?.text(message)
-                ?.show()
-        } else {
-            showToast(message)
-        }
+//        if (mAdapter.isEmpty) {
+//            pvRepo?.icon(R.drawable.ic_alert_triangle)
+//                ?.text(message)
+//                ?.show()
+//        } else {
+//            showToast(message)
+//        }
     }
     //endregion BaseFragment
 
@@ -97,12 +100,12 @@ class RepoFragment : BaseFragment() {
     }
 
     private fun changeLoadingMore(isLoading: Boolean) {
-        if (isLoading && !mAdapter.isLoading()) {
-            mAdapter.showLoading(true)
-            rvRepo?.smoothScrollToPosition(mAdapter.lastIndex)
-        } else {
-            mAdapter.hideLoading()
-        }
+//        if (isLoading && !mAdapter.isLoading()) {
+//            mAdapter.showLoading(true)
+//            rvRepo?.smoothScrollToPosition(mAdapter.lastIndex)
+//        } else {
+//            mAdapter.hideLoading()
+//        }
     }
     //endregion Local
 

@@ -7,11 +7,13 @@ import com.google.gson.annotations.SerializedName
  * Created by Éverdes Soares on 04/02/2020.
  */
 
-data class FetchRepositoriesResponse(
+data class FetchReposResponse(
+
     @SerializedName("next")
     val next: String?,
     @SerializedName("pagelen")
-    val pagelen: Int?,
+    val pagelen: Int,
     @SerializedName("values")
-    val repos: List<Repo>?
+    val repos: List<Repo>
+
 )

@@ -97,6 +97,29 @@ class FlexibleToolbar : Toolbar {
         return outTypedValue.data
     }
 
+    fun changeNavigationIcon(@DrawableRes icon: Int) {
+        this.navigationIcon = ContextCompat.getDrawable(context, icon)
+    }
+
+    fun changeNavigationIconColor(@ColorRes colorRes: Int) {
+        mHomeIconColor = ContextCompat.getColor(context, colorRes)
+        val drawable = getDrawableTinted(mHomeIcon, mHomeIconColor)
+        this.navigationIcon = drawable
+    }
+
+    fun changeToolbarIconColor(@ColorRes colorRes: Int) {
+        mHomeIconColor = colorRes
+
+        context?.let {
+            mHomeIconColor?.let { color ->
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                    val drawable = ContextCompat.getDrawable(it, mHomeIcon)
+                    drawable?.setTint(ContextCompat.getColor(it, color))
+                    this.navigationIcon = drawable
+                }
+            }
+        }
+    }
     inner class Builder(private val activity: AppCompatActivity?) {
 
         fun title(title: Int): Builder {
@@ -194,30 +217,6 @@ class FlexibleToolbar : Toolbar {
                             centerTitleIcon.isVisible = false
                         }
                     }
-                }
-            }
-        }
-    }
-
-    fun changeNavigationIcon(@DrawableRes icon: Int) {
-        this.navigationIcon = ContextCompat.getDrawable(context, icon)
-    }
-
-    fun changeNavigationIconColor(@ColorRes colorRes: Int) {
-        mHomeIconColor = ContextCompat.getColor(context, colorRes)
-        val drawable = getDrawableTinted(mHomeIcon, mHomeIconColor)
-        this.navigationIcon = drawable
-    }
-
-    fun changeToolbarIconColor(@ColorRes colorRes: Int) {
-        mHomeIconColor = colorRes
-
-        context?.let {
-            mHomeIconColor?.let { color ->
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    val drawable = ContextCompat.getDrawable(it, mHomeIcon)
-                    drawable?.setTint(ContextCompat.getColor(it, color))
-                    this.navigationIcon = drawable
                 }
             }
         }
