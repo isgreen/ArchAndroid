@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
  * Created by Éverdes Soares on 05/12/2020.
  */
 
+@Deprecated("Replaced by OnRecyclerViewScrollListener")
 class RecyclerScrollListener : RecyclerView.OnScrollListener {
 
     companion object {

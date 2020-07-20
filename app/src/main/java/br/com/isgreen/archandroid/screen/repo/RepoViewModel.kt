@@ -3,13 +3,12 @@ package br.com.isgreen.archandroid.screen.repo
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
-import androidx.paging.LivePagedListBuilder
-import androidx.paging.PagedList
 import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.data.model.repository.Repo
 import br.com.isgreen.archandroid.helper.exception.ExceptionHandlerHelper
-import br.com.isgreen.archandroid.screen.repo.datasource.RepoDataSourceFactory
+import br.com.isgreen.archandroid.util.DateUtil
 import kotlinx.coroutines.launch
+import java.util.*
 
 /**
  * Created by Éverdes Soares on 09/22/2019.
@@ -39,22 +38,6 @@ class RepoViewModel(
     private var mHasMorePages = true
     private var mAfter: String? = null
 
-    private val repoDataSource = RepoDataSourceFactory(
-        repository = repository,
-        sort = null,
-        role = ROLE_MEMBER,
-        after = mAfter,
-        scope = viewModelScope
-    )
-
-    private val pagedListConfig = PagedList.Config.Builder()
-        .setInitialLoadSizeHint(10)
-        .setEnablePlaceholders(false)
-        .setPageSize(10)
-        .build()
-
-    val repos = LivePagedListBuilder(repoDataSource, pagedListConfig).build()
-
     override fun fetchRepos(isRefresh: Boolean) {
         if (isRefresh) {
             mAfter = null
@@ -63,20 +46,18 @@ class RepoViewModel(
         }
 
         if (mHasMorePages && !mIsLoading) {
-//            repoDataSource.reposDataSource.value?.invalidate()
-
-//            viewModelScope.launch {
-//                try {
-//                    changeLoading(true)
-//                    val repoResponse = repository.fetchRepos(null, ROLE_MEMBER, mAfter)
-//                    mReposFetched.postValue(repoResponse.repos)
-//                    changeLoading(false)
-//                    getNextDate(repoResponse.next)
-//                } catch (exception: Exception) {
-//                    changeLoading(false)
-//                    handleException(exception)
-//                }
-//            }
+            viewModelScope.launch {
+                try {
+                    changeLoading(true)
+                    val repoResponse = repository.fetchRepos(null, ROLE_MEMBER, mAfter)
+                    mReposFetched.postValue(repoResponse.repos)
+                    changeLoading(false)
+                    getNextDate(repoResponse.next, repoResponse.repos.last().createdOn)
+                } catch (exception: Exception) {
+                    changeLoading(false)
+                    handleException(exception)
+                }
+            }
         }
     }
 
@@ -89,10 +70,14 @@ class RepoViewModel(
         }
     }
 
-    private fun getNextDate(nextUrl: String?) {
+    private fun getNextDate(nextUrl: String?, lastItemDate: String?) {
         if (nextUrl != null) {
-            mAfter = nextUrl.substring(nextUrl.indexOf("after=") + 6, nextUrl.indexOf("after=") + 36)
-            mAfter = mAfter?.replace("%3A", ":")
+            mAfter = DateUtil.increaseTime(
+                dateAsString = lastItemDate,
+                format = DateUtil.DATE_TIME_FORMAT_API,
+                calendarTimeType = Calendar.SECOND,
+                amountToIncrease = 1
+            )
         } else {
             mAfter = null
             mHasMorePages = false

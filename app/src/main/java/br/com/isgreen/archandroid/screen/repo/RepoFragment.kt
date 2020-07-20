@@ -7,8 +7,7 @@ import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.extension.appCompatActivity
 import br.com.isgreen.archandroid.extension.showToast
-import br.com.isgreen.archandroid.util.listener.OnScrollCallback
-import br.com.isgreen.archandroid.util.listener.RecyclerScrollListener
+import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
 import kotlinx.android.synthetic.main.appbar_and_toolbar.*
 import kotlinx.android.synthetic.main.fragment_repo.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,19 +25,11 @@ class RepoFragment : BaseFragment() {
     //region RecyclerView
     private val mAdapter: RepoAdapter by lazy { RepoAdapter() }
     private val mLayoutManager: LinearLayoutManager by lazy { LinearLayoutManager(context) }
-//    private val onScroll = object : OnScrollCallback() {
-//        override fun onScrollPage(page: Int, totalItemsCount: Int) {
-//            viewModel.fetchRepos()
-//        }
-//    }
-//    private val mRecyclerScrollListener: RecyclerScrollListener by lazy {
-//        RecyclerScrollListener(
-//            onScrollCallback = onScroll,
-//            layoutManager = mLayoutManager,
-//            visibleThreshold = 3,
-//            listenBothWays = false
-//        )
-//    }
+    private val onRecyclerScrollListener = object : OnRecyclerViewScrollListener(mLayoutManager, DIRECTION_END) {
+        override fun loadMore(page: Int) {
+            viewModel.fetchRepos()
+        }
+    }
     //endregion RecyclerView
 
     //region BaseFragment
@@ -47,13 +38,10 @@ class RepoFragment : BaseFragment() {
             changeLoadingMore(isLoading)
         })
         viewModel.reposCleared.observe(this, Observer {
-//            mAdapter.clearData()
+            mAdapter.clearData()
         })
         viewModel.reposFetched.observe(this, Observer { repos ->
-//            mAdapter.addData(repos)
-        })
-        viewModel.repos.observe(this, Observer { repos ->
-            mAdapter.submitList(repos)
+            mAdapter.addData(repos)
         })
     }
 
@@ -67,7 +55,7 @@ class RepoFragment : BaseFragment() {
         rvRepo?.let { recyclerView ->
             recyclerView.adapter = mAdapter
             recyclerView.layoutManager = mLayoutManager
-//            recyclerView.addOnScrollListener(mRecyclerScrollListener)
+            recyclerView.addOnScrollListener(onRecyclerScrollListener)
         }
 
         pvRepo?.onClickTryAgain = {
@@ -84,13 +72,13 @@ class RepoFragment : BaseFragment() {
     }
 
     override fun showError(message: String) {
-//        if (mAdapter.isEmpty) {
-//            pvRepo?.icon(R.drawable.ic_alert_triangle)
-//                ?.text(message)
-//                ?.show()
-//        } else {
+        if (mAdapter.isEmpty) {
+            pvRepo?.icon(R.drawable.ic_alert_triangle)
+                ?.text(message)
+                ?.show()
+        } else {
             showToast(message)
-//        }
+        }
     }
     //endregion BaseFragment
 
@@ -100,13 +88,13 @@ class RepoFragment : BaseFragment() {
     }
 
     private fun changeLoadingMore(isLoading: Boolean) {
-//        if (isLoading && !mAdapter.isLoading()) {
-//            mAdapter.showLoading(true)
-//            rvRepo?.smoothScrollToPosition(mAdapter.lastIndex)
-//        } else {
-//            mAdapter.hideLoading()
-//        }
+        onRecyclerScrollListener.isLoading = isLoading
+        if (isLoading && !mAdapter.isLoading()) {
+            mAdapter.showLoading(true)
+            rvRepo?.smoothScrollToPosition(mAdapter.lastIndex)
+        } else {
+            mAdapter.hideLoading()
+        }
     }
     //endregion Local
-
 }
