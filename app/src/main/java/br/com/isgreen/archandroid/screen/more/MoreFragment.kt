@@ -39,9 +39,9 @@ class MoreFragment : BaseFragment() {
             ?.title(R.string.app_name)
             ?.build()
 
-        txtTheme?.setOnClickListener { showTheme() }
         txtLogout?.setOnClickListener { logout() }
-        txtProfile?.setOnClickListener {  }
+        txtTheme?.setOnClickListener { showTheme() }
+        txtProfile?.setOnClickListener { showUser() }
     }
 
     override fun initObservers() {}
@@ -54,6 +54,12 @@ class MoreFragment : BaseFragment() {
     //endregion BaseFragment
 
     //region Local
+    private fun showUser() {
+        val direction = MoreFragmentDirections.actionMoreFragmentToUserFragment()
+        navigate(directions = direction, sharedElements =  txtProfile to getString(R.string.shared_element_user))
+        hideNavigationBottom()
+    }
+
     private fun showTheme() {
         val direction = MoreFragmentDirections.actionMoreFragmentToThemeFragment()
         navigate(directions = direction, sharedElements =  txtTheme to getString(R.string.shared_element_theme))

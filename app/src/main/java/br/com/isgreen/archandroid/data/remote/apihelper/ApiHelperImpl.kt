@@ -4,6 +4,7 @@ import android.util.Base64
 import br.com.isgreen.archandroid.BuildConfig
 import br.com.isgreen.archandroid.data.remote.api.Api
 import br.com.isgreen.archandroid.data.local.PreferencesHelper
+import br.com.isgreen.archandroid.data.model.login.User
 import br.com.isgreen.archandroid.data.model.repository.FetchReposResponse
 import java.util.*
 
@@ -60,6 +61,13 @@ class ApiHelperImpl(
             password
         )
     //endregion Login
+
+    //region User
+    override suspend fun fetchUser(): User {
+        checkTokenExpired()
+        return api.fetchUser()
+    }
+    //endregion User
 
     //region Repositories
     override suspend fun fetchRepos(sort: String?, role: String?, after: String?): FetchReposResponse {

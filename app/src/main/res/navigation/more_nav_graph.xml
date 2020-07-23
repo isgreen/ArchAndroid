@@ -15,6 +15,10 @@
             android:id="@+id/action_moreFragment_to_themeFragment"
             app:destination="@id/themeFragment" />
 
+        <action
+            android:id="@+id/action_moreFragment_to_userFragment"
+            app:destination="@id/userFragment" />
+
     </fragment>
 
     <fragment
@@ -22,5 +26,11 @@
         android:name="br.com.isgreen.archandroid.screen.theme.ThemeFragment"
         android:label="fragment_theme"
         tools:layout="@layout/fragment_theme" />
+
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="br.com.isgreen.archandroid.screen.user.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" />
 
 </navigation>
