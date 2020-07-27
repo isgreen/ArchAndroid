@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager
  * Created by Éverdes Soares on 05/12/2020.
  */
 
+@Deprecated("Replaced by OnRecyclerViewScrollListener")
 class RecyclerScrollListener : RecyclerView.OnScrollListener {
 
     companion object {
@@ -200,7 +201,8 @@ class RecyclerScrollListener : RecyclerView.OnScrollListener {
             // If it’s still mIsLoading, we check to see if the dataset count has
             // changed, if so we conclude it has finished mIsLoading and update the current page
             // number and total item count.
-            if (mIsLoading && totalItemCount + LOADING_ITEM > previousTotalItemCount) {
+//            if (mIsLoading && totalItemCount - LOADING_ITEM > previousTotalItemCount) {
+            if (mIsLoading && totalItemCount != previousTotalItemCount) {
                 mIsLoading = false
                 previousTotalItemCount = totalItemCount
             }
@@ -211,12 +213,12 @@ class RecyclerScrollListener : RecyclerView.OnScrollListener {
             // threshold should reflect how many total columns there are too
             if (!mIsLoading
                 && totalItemCount > 0
-                && lastVisibleItemPosition + mVisibleThreshold > totalItemCount - 1
+                && lastVisibleItemPosition + mVisibleThreshold > totalItemCount
             ) {
+                mIsLoading = true
                 mCurrentPage++
                 mOnScrollCallback?.onScrolledToLastItem()
                 mOnScrollCallback?.onScrollPage(mCurrentPage, totalItemCount)
-                mIsLoading = true
             }
         }
     }
@@ -234,21 +236,23 @@ class RecyclerScrollListener : RecyclerView.OnScrollListener {
             mCurrentLastVisibleItemPosition = lastVisibleItemPosition
         }
 
-        if (mIsListenBothWays) {
-            val isScrollingToFirst = dy < mCurrentDy
+//        if (mIsListenBothWays) {
+//            val isScrollingToFirst = dy < mCurrentDy
+//
+//            if (isScrollingToFirst) {
+//                onScrolledToFirstItem()
+//            } else {
+//                onScrolledToLastItem()
+//            }
+//        } else {
+            if (/*mIsReverse == true && */dy < mCurrentDy) {
+                onScrolledToFirstItem()
+            } else {
+                onScrolledToLastItem()
+            }
+//        }
 
-            if (isScrollingToFirst) {
-                onScrolledToFirstItem()
-            } else {
-                onScrolledToLastItem()
-            }
-        } else {
-            if (mIsReverse == true) {
-                onScrolledToFirstItem()
-            } else {
-                onScrolledToLastItem()
-            }
-        }
+        mCurrentDy = dy
 
         if (scrolledDistance > HIDE_THRESHOLD && mIsControlsVisible) {
             scrolledDistance = 0

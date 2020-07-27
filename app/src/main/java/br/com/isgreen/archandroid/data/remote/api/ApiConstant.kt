@@ -16,7 +16,7 @@ class ApiConstant {
         const val FETCH_REPOSITORIES = "2.0/repositories"
         //endregion Repositories
 
-        const val FETCH_USER = "user"
+        const val FETCH_USER = "2.0/user"
         const val FETCH_EVENTS = "events"//"users/{username}/received_events"
 
     }

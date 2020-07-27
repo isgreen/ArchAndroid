@@ -136,7 +136,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     }
 
     fun showLoading(showInBottom: Boolean) {
-        if (itemCount == 0) {
+        if (itemCount == 0 || mIsLoading) {
             return
         }
 
@@ -152,7 +152,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     }
 
     fun hideLoading() {
-        if (itemCount == 0 || mLoadingPosition == RecyclerView.NO_POSITION) {
+        if (itemCount == 0 || !mIsLoading || mLoadingPosition == RecyclerView.NO_POSITION) {
             return
         }
 

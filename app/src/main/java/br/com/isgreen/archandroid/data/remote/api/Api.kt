@@ -4,7 +4,7 @@ import br.com.isgreen.archandroid.BuildConfig
 import br.com.isgreen.archandroid.data.local.PreferencesHelper
 import br.com.isgreen.archandroid.data.model.login.Authorization
 import br.com.isgreen.archandroid.data.model.login.User
-import br.com.isgreen.archandroid.data.model.repository.FetchRepositoriesResponse
+import br.com.isgreen.archandroid.data.model.repository.FetchReposResponse
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import okhttp3.OkHttpClient
@@ -77,6 +77,6 @@ interface Api {
         @Query("sort") sort: String?,
         @Query("role") role: String?,
         @Query("after") after: String?
-    ): FetchRepositoriesResponse
+    ): FetchReposResponse
 
 }

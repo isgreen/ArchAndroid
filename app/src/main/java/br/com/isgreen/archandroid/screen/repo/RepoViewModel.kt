@@ -6,7 +6,9 @@ import androidx.lifecycle.viewModelScope
 import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.data.model.repository.Repo
 import br.com.isgreen.archandroid.helper.exception.ExceptionHandlerHelper
+import br.com.isgreen.archandroid.util.DateUtil
 import kotlinx.coroutines.launch
+import java.util.*
 
 /**
  * Created by Éverdes Soares on 09/22/2019.
@@ -50,7 +52,7 @@ class RepoViewModel(
                     val repoResponse = repository.fetchRepos(null, ROLE_MEMBER, mAfter)
                     mReposFetched.postValue(repoResponse.repos)
                     changeLoading(false)
-                    getNextDate(repoResponse.next)
+                    getNextDate(repoResponse.next, repoResponse.repos.last().createdOn)
                 } catch (exception: Exception) {
                     changeLoading(false)
                     handleException(exception)
@@ -68,10 +70,14 @@ class RepoViewModel(
         }
     }
 
-    private fun getNextDate(nextUrl: String?) {
+    private fun getNextDate(nextUrl: String?, lastItemDate: String?) {
         if (nextUrl != null) {
-            mAfter = nextUrl.substring(nextUrl.indexOf("after=") + 6, nextUrl.indexOf("after=") + 36)
-            mAfter = mAfter?.replace("%3A", ":")
+            mAfter = DateUtil.increaseTime(
+                dateAsString = lastItemDate,
+                format = DateUtil.DATE_TIME_FORMAT_API,
+                calendarTimeType = Calendar.SECOND,
+                amountToIncrease = 1
+            )
         } else {
             mAfter = null
             mHasMorePages = false

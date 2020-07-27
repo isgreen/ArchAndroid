@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.view.View
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
+import br.com.isgreen.archandroid.extension.appCompatActivity
+import com.google.android.material.transition.platform.Hold
+import kotlinx.android.synthetic.main.appbar_and_toolbar.*
 import kotlinx.android.synthetic.main.fragment_more.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -17,7 +20,11 @@ class MoreFragment : BaseFragment() {
     override val screenLayout = R.layout.fragment_more
     override val viewModel: MoreViewModel by viewModel()
 
-    //region Fragment
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        exitTransition = Hold()
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         showNavigationBottom()
@@ -26,9 +33,15 @@ class MoreFragment : BaseFragment() {
 
     //region BaseFragment
     override fun initView() {
-        txtTheme?.setOnClickListener { showTheme() }
+        toolbar?.Builder(appCompatActivity)
+            ?.titleIcon(R.drawable.ic_android)
+            ?.displayHome(false)
+            ?.title(R.string.app_name)
+            ?.build()
+
         txtLogout?.setOnClickListener { logout() }
-        txtProfile?.setOnClickListener {  }
+        txtTheme?.setOnClickListener { showTheme() }
+        txtProfile?.setOnClickListener { showUser() }
     }
 
     override fun initObservers() {}
@@ -41,9 +54,15 @@ class MoreFragment : BaseFragment() {
     //endregion BaseFragment
 
     //region Local
+    private fun showUser() {
+        val direction = MoreFragmentDirections.actionMoreFragmentToUserFragment()
+        navigate(directions = direction, sharedElements =  txtProfile to getString(R.string.shared_element_user))
+        hideNavigationBottom()
+    }
+
     private fun showTheme() {
         val direction = MoreFragmentDirections.actionMoreFragmentToThemeFragment()
-        navigate(direction)
+        navigate(directions = direction, sharedElements =  txtTheme to getString(R.string.shared_element_theme))
         hideNavigationBottom()
     }
 

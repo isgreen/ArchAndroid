@@ -50,11 +50,11 @@ class RepoAdapter : BaseAdapter<Repo>() {
         }
     }
 
-    private fun setDataView(holder: RepoViewHolder, repo: Repo) {
+    private fun setDataView(holder: RepoViewHolder, repo: Repo?) {
         holder.itemView.apply {
-            imgIcon?.loadImageRounded(repo.links?.avatar?.href)
-            txtDate.setDate(R.string.created_on, repo.createdOn?.substring(0, 19))
-            txtRepository.text = repo.name
+            imgIcon?.loadImageRounded(repo?.links?.avatar?.href)
+            txtDate.setDate(R.string.created_on, repo?.createdOn?.substring(0, 19))
+            txtRepository.text = repo?.name
         }
     }
 

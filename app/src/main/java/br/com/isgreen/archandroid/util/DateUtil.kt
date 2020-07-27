@@ -91,5 +91,27 @@ class DateUtil {
             return 0
         }
 
+        fun increaseTime(
+            dateAsString: String?,
+            format: String,
+            calendarTimeType: Int,
+            amountToIncrease: Int
+        ): String? {
+            if (dateAsString.isNullOrEmpty()) {
+                return null
+            }
+
+            val date = getDate(dateAsString, format) ?: return null
+            val newDate = increaseTime(date, calendarTimeType, amountToIncrease)
+            return SimpleDateFormat(format, Locale.getDefault()).format(newDate)
+        }
+
+        fun increaseTime(date: Date, calendarTimeType: Int, amountToIncrease: Int): Date {
+            val calendar = Calendar.getInstance()
+            calendar.time = date
+            calendar.add(calendarTimeType, amountToIncrease)
+
+            return calendar.time
+        }
     }
 }

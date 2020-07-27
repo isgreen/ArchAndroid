@@ -6,5 +6,8 @@
     <string name="logout">Logout</string>
     <string name="profile">Profile</string>
     <!--Texts-->
+    
+    <string name="shared_element_user">shared_element_user</string>
+    <string name="shared_element_theme">shared_element_theme</string>
 
 </resources>

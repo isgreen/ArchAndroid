@@ -12,6 +12,7 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import br.com.isgreen.archandroid.widget.NavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.android.material.transition.platform.MaterialFadeThrough
 
 /**
  * Created by Éverdes Soares on 01/19/2020.
@@ -86,6 +87,11 @@ fun NavigationView.setupWithNavController(
                     )
                     val selectedFragment = fragmentManager.findFragmentByTag(newlySelectedItemTag)
                             as NavHostFragment
+
+                    // Setting transition animation between fragments
+                    selectedFragment.enterTransition = MaterialFadeThrough()
+                    val oldFragment = fragmentManager.findFragmentByTag(selectedItemTag)
+                    oldFragment?.let { it.exitTransition = MaterialFadeThrough() }
 
                     // Exclude the first fragment tag because it's always in the back stack.
                     if (/*fragmentManager.backStackEntryCount == 0

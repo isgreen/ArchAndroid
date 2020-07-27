@@ -5,7 +5,6 @@ import android.content.Context
 import android.os.Build
 import android.text.Html
 import android.view.View
-import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DrawableRes
@@ -13,7 +12,6 @@ import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
-import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.util.DateUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
@@ -34,14 +32,6 @@ fun Context.toastLong(resId: Int) = Toast.makeText(this, resId, Toast.LENGTH_LON
 //endregion Context
 
 //region View
-fun View?.hideKeyboard() {
-    this?.let {
-        val inputMethodManager =
-            context.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
-        inputMethodManager?.hideSoftInputFromWindow(this.windowToken, 0)
-    }
-}
-
 fun View?.setColor(@ColorRes resIdFrom: Int, @ColorRes resIdTo: Int) {
     this?.let {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
