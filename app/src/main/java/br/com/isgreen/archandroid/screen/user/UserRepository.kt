@@ -11,5 +11,6 @@ class UserRepository(
 ) : UserContract.Repository {
 
     override suspend fun fetchUser() = apiHelper.fetchUser()
+    override suspend fun fetchUserRepos(username: String) = apiHelper.fetchUserRepos(username)
 
 }

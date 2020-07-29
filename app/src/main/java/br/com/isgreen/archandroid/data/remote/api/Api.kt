@@ -72,6 +72,11 @@ interface Api {
     @GET(ApiConstant.FETCH_USER)
     suspend fun fetchUser(): User
 
+    @GET(ApiConstant.FETCH_USER_REPOS)
+    suspend fun fetchUserRepos(
+        @Path("username") username: String
+    ): FetchReposResponse
+
     @GET(ApiConstant.FETCH_REPOSITORIES)
     suspend fun fetchRepos(
         @Query("sort") sort: String?,

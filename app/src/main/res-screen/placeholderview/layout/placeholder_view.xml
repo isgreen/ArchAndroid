@@ -40,8 +40,8 @@
             android:layout_marginTop="@dimen/margin_small"
             android:layout_marginEnd="@dimen/margin_default"
             android:gravity="center"
-            android:paddingStart="@dimen/margin_big"
-            android:paddingEnd="@dimen/margin_big"
+            android:paddingStart="@dimen/margin_medium"
+            android:paddingEnd="@dimen/margin_medium"
             android:text="@string/try_again"
             android:textColor="@android:color/white"
             android:textSize="@dimen/text_size_default" />

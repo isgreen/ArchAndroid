@@ -2,19 +2,28 @@ package br.com.isgreen.archandroid.extension
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Html
 import android.view.View
+import android.view.ViewGroup
+import android.widget.RelativeLayout
 import android.widget.Toast
 import androidx.annotation.ColorRes
+import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
+import androidx.core.view.setPadding
 import br.com.isgreen.archandroid.util.DateUtil
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import java.text.NumberFormat
 
 /**
@@ -94,15 +103,50 @@ fun AppCompatImageView?.loadImageResource(@DrawableRes drawableRes: Int) {
     }
 }
 
-fun AppCompatImageView?.loadImageRounded(urlImage: String?) {
+fun AppCompatImageView?.loadImageRounded(
+    urlImage: String?,
+    @DrawableRes placeholderError: Int,
+    @DimenRes placeholderErrorPadding: Int,
+    onLoadingFinished: (success: Boolean) -> Unit = {}
+) {
     this?.let {
         val url = urlImage ?: ""
 
-        Glide.with(it.context).load(url).apply(
-            RequestOptions.circleCropTransform()
-                .centerCrop()
-                .optionalCircleCrop()
-        ).into(it)
+        val requestListener = object : RequestListener<Drawable> {
+            override fun onLoadFailed(
+                e: GlideException?,
+                model: Any?,
+                target: Target<Drawable>?,
+                isFirstResource: Boolean
+            ): Boolean {
+                it.setPadding(placeholderErrorPadding)
+                onLoadingFinished(false)
+                return false
+            }
+
+            override fun onResourceReady(
+                resource: Drawable?,
+                model: Any?,
+                target: Target<Drawable>?,
+                dataSource: DataSource?,
+                isFirstResource: Boolean
+            ): Boolean {
+                it.setPadding(0)
+                onLoadingFinished(true)
+                return false
+            }
+        }
+
+        Glide.with(it.context)
+            .load(url)
+            .apply(
+                RequestOptions.circleCropTransform()
+                    .centerCrop()
+                    .optionalCircleCrop()
+                    .error(placeholderError)
+            )
+            .listener(requestListener)
+            .into(it)
     }
 }
 //endregion ImageView
