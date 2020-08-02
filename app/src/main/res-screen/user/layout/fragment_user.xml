@@ -35,7 +35,7 @@
                 android:id="@+id/imgUser"
                 android:layout_width="@dimen/image_size_big"
                 android:layout_height="@dimen/image_size_big"
-                android:layout_marginTop="@dimen/margin_default"
+                android:layout_marginTop="@dimen/margin_super"
                 android:background="@drawable/shape_oval_outline_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -68,10 +68,10 @@
                 app:layout_constraintTop_toBottomOf="@id/txtDisplayName"
                 tools:text="@string/app_name" />
 
-            <View android:id="@+id/vwDivider"
+            <View android:id="@+id/vwDividerSection"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginVertical="32dp"
+                android:layout_marginVertical="@dimen/margin_super"
                 android:layout_marginHorizontal="@dimen/margin_default"
                 android:background="@color/gray_alpha"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -80,31 +80,84 @@
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtRepositories"
-                style="@style/Toolbar.TitleText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="?attr/backgroundColor"
-                android:paddingHorizontal="@dimen/margin_default"
-                android:layout_margin="@dimen/margin_default"
-                android:gravity="center"
-                android:text="@string/repositories"
-                app:layout_constraintBottom_toBottomOf="@id/vwDivider"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@id/vwDivider" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvRepoUser"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:background="?attr/selectableItemBackground"
+                android:drawablePadding="@dimen/margin_default"
+                android:gravity="center_vertical"
+                android:padding="@dimen/margin_default"
+                android:text="@string/repositories"
+                android:transitionName="@string/shared_element_repo"
+                app:drawableStartCompat="@drawable/ic_box"
+                app:drawableTint="?attr/colorOnBackground"
+                app:fontFamily="@font/montserrat_semibold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtRepositories"
-                tools:itemCount="10"
-                tools:listitem="@layout/fragment_repo_item" />
+                app:layout_constraintTop_toBottomOf="@id/vwDividerSection" />
+
+            <View
+                android:id="@+id/vwDividerRepositories"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/margin_default"
+                android:background="@color/gray_alpha"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtRepositories" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtPullRequest"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:drawablePadding="@dimen/margin_default"
+                android:gravity="center_vertical"
+                android:padding="@dimen/margin_default"
+                android:text="@string/pull_requests"
+                android:transitionName="@string/shared_element_pull_request"
+                app:drawableStartCompat="@drawable/ic_pull_request"
+                app:drawableTint="?attr/colorOnBackground"
+                app:fontFamily="@font/montserrat_semibold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vwDividerRepositories" />
+
+            <View
+                android:id="@+id/vwDividerPullRequest"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/margin_default"
+                android:background="@color/gray_alpha"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtPullRequest" />
+
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/txtSnippets"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:drawablePadding="@dimen/margin_default"
+                android:gravity="center_vertical"
+                android:padding="@dimen/margin_default"
+                android:text="@string/snippets"
+                android:transitionName="@string/shared_element_snippets"
+                app:drawableStartCompat="@drawable/ic_scissors"
+                app:drawableTint="?attr/colorOnBackground"
+                app:fontFamily="@font/montserrat_semibold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/vwDividerPullRequest" />
+
+            <View
+                android:id="@+id/vwDividerSnippets"
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_marginHorizontal="@dimen/margin_default"
+                android:background="@color/gray_alpha"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txtSnippets" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

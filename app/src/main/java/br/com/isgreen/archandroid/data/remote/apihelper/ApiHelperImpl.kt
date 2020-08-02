@@ -68,9 +68,9 @@ class ApiHelperImpl(
         return api.fetchUser()
     }
 
-    override suspend fun fetchUserRepos(username: String): FetchReposResponse {
+    override suspend fun fetchUserRepos(userUuid: String): FetchReposResponse {
         checkTokenExpired()
-        return api.fetchUserRepos(username)
+        return api.fetchUserRepos(userUuid)
     }
     //endregion User
 

@@ -74,7 +74,7 @@ interface Api {
 
     @GET(ApiConstant.FETCH_USER_REPOS)
     suspend fun fetchUserRepos(
-        @Path("username") username: String
+        @Path("userUuid") userUuid: String
     ): FetchReposResponse
 
     @GET(ApiConstant.FETCH_REPOSITORIES)

@@ -14,4 +14,12 @@
     <string name="register_is_needed_to_run_this_action">Para executar esta ação é necessário fazer o seu cadastro.</string>
     <!--Messages-->
 
+    <!--Shares Element Transition-->
+    <string name="shared_element_user">shared_element_user</string>
+    <string name="shared_element_repo">shared_element_repo</string>
+    <string name="shared_element_theme">shared_element_theme</string>
+    <string name="shared_element_snippets">shared_element_snippets</string>
+    <string name="shared_element_pull_request">shared_element_pull_request</string>
+    <!--Shares Element Transition-->
+
 </resources>

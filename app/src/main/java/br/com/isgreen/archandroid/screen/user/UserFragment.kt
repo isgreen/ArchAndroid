@@ -3,15 +3,12 @@ package br.com.isgreen.archandroid.screen.user
 import android.os.Bundle
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
-import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.login.User
 import br.com.isgreen.archandroid.extension.appCompatActivity
 import br.com.isgreen.archandroid.extension.loadImageRounded
 import br.com.isgreen.archandroid.extension.showToast
-import br.com.isgreen.archandroid.screen.repo.RepoAdapter
-import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
 import com.google.android.material.transition.platform.MaterialContainerTransform
 import kotlinx.android.synthetic.main.appbar_and_toolbar.*
 import kotlinx.android.synthetic.main.fragment_user.*
@@ -27,16 +24,6 @@ class UserFragment : BaseFragment() {
     override val screenLayout = R.layout.fragment_user
     override val viewModel: UserViewModel by viewModel()
 
-    //region RecyclerView
-    private val mAdapter: RepoAdapter by lazy { RepoAdapter() }
-    private val mLayoutManager: LinearLayoutManager by lazy { LinearLayoutManager(context) }
-    private val onRecyclerScrollListener = object : OnRecyclerViewScrollListener(mLayoutManager, DIRECTION_END) {
-        override fun loadMore(page: Int) {
-//            viewModel.fetchRepos()
-        }
-    }
-    //endregion RecyclerView
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition = MaterialContainerTransform()
@@ -49,28 +36,19 @@ class UserFragment : BaseFragment() {
             ?.title(R.string.profile)
             ?.build()
 
-        rvRepoUser?.let { recyclerView ->
-            recyclerView.adapter = mAdapter
-            recyclerView.layoutManager = mLayoutManager
-            recyclerView.addOnScrollListener(onRecyclerScrollListener)
-        }
-
-        pvUser?.onClickTryAgain = {
-            fetchInitialData()
-        }
+        txtSnippets?.setOnClickListener { showSnippets() }
+        txtRepositories?.setOnClickListener { showRepos() }
+        txtPullRequest?.setOnClickListener { showPullRequests() }
     }
 
     override fun initObservers() {
         viewModel.userFetched.observe(this, Observer { user ->
             setDataInView(user)
         })
-        viewModel.reposFetched.observe(this, Observer { repos ->
-            mAdapter.addData(repos)
-        })
     }
 
     override fun fetchInitialData() {
-        viewModel.fetchUserAndRepos()
+        viewModel.fetchUser()
     }
 
     override fun showError(message: String) {
@@ -91,6 +69,18 @@ class UserFragment : BaseFragment() {
         txtNickname?.text = user.nickname
         txtDisplayName?.text = user.displayName
         imgUser?.loadImageRounded(user.links.avatar?.href, R.drawable.ic_user, R.dimen.margin_default)
+    }
+
+    private fun showRepos() {
+
+    }
+
+    private fun showSnippets() {
+
+    }
+
+    private fun showPullRequests() {
+
     }
     //endregion Local
 }

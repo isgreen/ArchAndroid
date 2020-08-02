@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Texts-->
+    <string name="snippets">Snippets</string>
+    <string name="repositories">Repositories</string>
+    <string name="pull_requests">Pull Requests</string>
+    <!--Texts-->
+
+</resources>

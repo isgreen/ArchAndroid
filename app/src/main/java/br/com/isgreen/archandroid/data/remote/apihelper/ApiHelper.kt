@@ -16,7 +16,7 @@ interface ApiHelper {
 
     //region User
     suspend fun fetchUser(): User
-    suspend fun fetchUserRepos(username: String): FetchReposResponse
+    suspend fun fetchUserRepos(userUuid: String): FetchReposResponse
     //endregion User
 
     //region Repositories
