@@ -89,9 +89,9 @@ fun NavigationView.setupWithNavController(
                             as NavHostFragment
 
                     // Setting transition animation between fragments
-                    selectedFragment.enterTransition = MaterialFadeThrough()
-                    val oldFragment = fragmentManager.findFragmentByTag(selectedItemTag)
-                    oldFragment?.let { it.exitTransition = MaterialFadeThrough() }
+//                    selectedFragment.enterTransition = MaterialFadeThrough()
+//                    val oldFragment = fragmentManager.findFragmentByTag(selectedItemTag)
+//                    oldFragment?.let { it.exitTransition = MaterialFadeThrough() }
 
                     // Exclude the first fragment tag because it's always in the back stack.
                     if (/*fragmentManager.backStackEntryCount == 0

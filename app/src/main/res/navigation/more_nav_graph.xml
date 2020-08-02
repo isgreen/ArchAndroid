@@ -22,15 +22,27 @@
     </fragment>
 
     <fragment
+        android:id="@+id/userFragment"
+        android:name="br.com.isgreen.archandroid.screen.user.UserFragment"
+        android:label="fragment_user"
+        tools:layout="@layout/fragment_user" >
+
+        <action
+            android:id="@+id/action_userFragment_to_repoFragment"
+            app:destination="@id/repoFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/repoFragment"
+        android:name="br.com.isgreen.archandroid.screen.repo.RepoFragment"
+        android:label="fragment_repo"
+        tools:layout="@layout/fragment_repo" />
+
+    <fragment
         android:id="@+id/themeFragment"
         android:name="br.com.isgreen.archandroid.screen.theme.ThemeFragment"
         android:label="fragment_theme"
         tools:layout="@layout/fragment_theme" />
-
-    <fragment
-        android:id="@+id/userFragment"
-        android:name="br.com.isgreen.archandroid.screen.user.UserFragment"
-        android:label="fragment_user"
-        tools:layout="@layout/fragment_user" />
 
 </navigation>

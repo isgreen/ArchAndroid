@@ -360,6 +360,12 @@ abstract class BaseFragment : Fragment() {
         return navOptions {
             anim {
                 when (transitionAnimation) {
+                    TransitionAnimation.TRANSLATE_FROM_RIGHT -> {
+                        enter = R.anim.translate_left_enter
+                        exit = R.anim.translate_left_exit
+                        popEnter = R.anim.translate_right_enter
+                        popExit = R.anim.translate_right_exit
+                    }
                     TransitionAnimation.TRANSLATE_FROM_DOWN -> {
                         enter = R.anim.translate_slide_bottom_up
                         exit = R.anim.translate_no_change

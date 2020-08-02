@@ -72,7 +72,8 @@ class UserFragment : BaseFragment() {
     }
 
     private fun showRepos() {
-
+        val direction = UserFragmentDirections.actionUserFragmentToRepoFragment()
+        navigate(direction)
     }
 
     private fun showSnippets() {
