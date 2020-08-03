@@ -2,7 +2,8 @@
 <resources>
 
     <!--Texts-->
-    <string name="snippets">Snippets</string>
+    <string name="theme">Theme</string>
+    <string name="logout">Logout</string>
     <string name="repositories">Repositories</string>
     <string name="pull_requests">Pull Requests</string>
     <!--Texts-->
