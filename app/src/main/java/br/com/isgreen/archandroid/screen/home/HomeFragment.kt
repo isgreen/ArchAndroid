@@ -32,7 +32,7 @@ class HomeFragment : BaseFragment() {
         val navGraphs = listOf(
             R.navigation.recent_nav_graph,
             R.navigation.repo_nav_graph,
-            R.navigation.more_nav_graph
+            R.navigation.profile_nav_graph
         )
         navBottom?.setupWithNavController(
             navGraphIds = navGraphs,

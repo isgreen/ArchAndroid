@@ -55,15 +55,15 @@ class MoreFragment : BaseFragment() {
 
     //region Local
     private fun showUser() {
-        val direction = MoreFragmentDirections.actionMoreFragmentToUserFragment()
-        navigate(directions = direction, sharedElements =  txtProfile to getString(R.string.shared_element_user))
-        hideNavigationBottom()
+//        val direction = MoreFragmentDirections.actionMoreFragmentToUserFragment()
+//        navigate(directions = direction, sharedElements =  txtProfile to getString(R.string.shared_element_user))
+//        hideNavigationBottom()
     }
 
     private fun showTheme() {
-        val direction = MoreFragmentDirections.actionMoreFragmentToThemeFragment()
-        navigate(directions = direction, sharedElements =  txtTheme to getString(R.string.shared_element_theme))
-        hideNavigationBottom()
+//        val direction = MoreFragmentDirections.actionMoreFragmentToThemeFragment()
+//        navigate(directions = direction, sharedElements =  txtTheme to getString(R.string.shared_element_theme))
+//        hideNavigationBottom()
     }
 
     private fun logout() {
