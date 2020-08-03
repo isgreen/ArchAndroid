@@ -4,6 +4,7 @@
     <!--Texts-->
     <string name="recent">Recent</string>
     <string name="profile">Profile</string>
+    <string name="pull_requests">Pull Requests</string>
     <!--Texts-->
 
 </resources>

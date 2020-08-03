@@ -24,7 +24,7 @@
         app:fontFamily="@font/montserrat_semibold" />
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/repo"
+        android:id="@+id/pullRequest"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

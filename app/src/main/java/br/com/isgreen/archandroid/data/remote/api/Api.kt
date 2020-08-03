@@ -4,6 +4,7 @@ import br.com.isgreen.archandroid.BuildConfig
 import br.com.isgreen.archandroid.data.local.PreferencesHelper
 import br.com.isgreen.archandroid.data.model.login.Authorization
 import br.com.isgreen.archandroid.data.model.login.User
+import br.com.isgreen.archandroid.data.model.pullrequest.FetchPullRequestsResponse
 import br.com.isgreen.archandroid.data.model.repository.FetchReposResponse
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -83,5 +84,8 @@ interface Api {
         @Query("role") role: String?,
         @Query("after") after: String?
     ): FetchReposResponse
+
+    @GET(ApiConstant.FETCH_PULL_REQUESTS)
+    suspend fun fetchPullRequests(): FetchPullRequestsResponse
 
 }

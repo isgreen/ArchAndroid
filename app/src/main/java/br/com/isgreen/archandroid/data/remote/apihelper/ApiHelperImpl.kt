@@ -5,6 +5,7 @@ import br.com.isgreen.archandroid.BuildConfig
 import br.com.isgreen.archandroid.data.remote.api.Api
 import br.com.isgreen.archandroid.data.local.PreferencesHelper
 import br.com.isgreen.archandroid.data.model.login.User
+import br.com.isgreen.archandroid.data.model.pullrequest.FetchPullRequestsResponse
 import br.com.isgreen.archandroid.data.model.repository.FetchReposResponse
 import java.util.*
 
@@ -80,4 +81,11 @@ class ApiHelperImpl(
         return api.fetchRepos(sort, role, after)
     }
     //endregion Repositories
+
+    //region Pull Request
+    override suspend fun fetchPullRequests(): FetchPullRequestsResponse {
+        checkTokenExpired()
+        return api.fetchPullRequests()
+    }
+    //endregion Pull Request
 }

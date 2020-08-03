@@ -49,7 +49,6 @@ class ProfileFragment : BaseFragment() {
         txtLogout?.setOnClickListener { logout() }
         txtTheme?.setOnClickListener { showTheme() }
         txtRepositories?.setOnClickListener { showRepos() }
-        txtPullRequest?.setOnClickListener { showPullRequests() }
     }
 
     override fun initObservers() {
@@ -91,10 +90,6 @@ class ProfileFragment : BaseFragment() {
         val direction = ProfileFragmentDirections.actionProfileFragmentToThemeFragment()
         navigate(directions = direction, sharedElements = txtTheme to getString(R.string.shared_element_theme))
         hideNavigationBottom()
-    }
-
-    private fun showPullRequests() {
-
     }
 
     private fun logout() {
