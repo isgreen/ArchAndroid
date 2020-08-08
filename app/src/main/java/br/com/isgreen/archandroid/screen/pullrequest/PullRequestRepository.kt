@@ -1,5 +1,6 @@
 package br.com.isgreen.archandroid.screen.pullrequest
 
+import br.com.isgreen.archandroid.data.model.pullrequest.FetchPullRequestsResponse
 import br.com.isgreen.archandroid.data.remote.apihelper.ApiHelper
 
 /**
@@ -11,7 +12,11 @@ class PullRequestRepository(
 ): PullRequestContract.Repository {
 
     //region Api
-    override suspend fun fetchPullRequests() = apiHelper.fetchPullRequests()
+    override suspend fun fetchPullRequests(): FetchPullRequestsResponse {
+        // TODO: 08/08/20 save and fetch user (or only uuid) from preferences
+        val user = apiHelper.fetchUser()
+        return apiHelper.fetchPullRequests(user.uuid)
+    }
     //endregion Api
 
 }

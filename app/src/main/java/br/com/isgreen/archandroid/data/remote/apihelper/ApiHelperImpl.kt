@@ -83,9 +83,9 @@ class ApiHelperImpl(
     //endregion Repositories
 
     //region Pull Request
-    override suspend fun fetchPullRequests(): FetchPullRequestsResponse {
+    override suspend fun fetchPullRequests(userUuid: String): FetchPullRequestsResponse {
         checkTokenExpired()
-        return api.fetchPullRequests()
+        return api.fetchPullRequests(userUuid)
     }
     //endregion Pull Request
 }

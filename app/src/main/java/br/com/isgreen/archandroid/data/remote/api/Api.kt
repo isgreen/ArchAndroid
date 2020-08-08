@@ -86,6 +86,8 @@ interface Api {
     ): FetchReposResponse
 
     @GET(ApiConstant.FETCH_PULL_REQUESTS)
-    suspend fun fetchPullRequests(): FetchPullRequestsResponse
+    suspend fun fetchPullRequests(
+        @Path("userUuid") userUuid: String
+    ): FetchPullRequestsResponse
 
 }

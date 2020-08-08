@@ -2,12 +2,12 @@
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/repo"
+        android:id="@+id/pullRequest"
         app:startDestination="@id/pullRequestFragment">
 
     <fragment
             android:id="@+id/pullRequestFragment"
-            android:name="br.com.isgreen.archandroid.screen.repo.RepoFragment"
+            android:name="br.com.isgreen.archandroid.screen.pullrequest.PullRequestFragment"
             android:label="fragment_pull_request"
             tools:layout="@layout/fragment_pull_request" />
 

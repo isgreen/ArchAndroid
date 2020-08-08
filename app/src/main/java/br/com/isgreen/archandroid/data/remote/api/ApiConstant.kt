@@ -21,7 +21,7 @@ class ApiConstant {
         //endregion Profile
 
         //region Pull Request
-        const val FETCH_PULL_REQUESTS = "2.0/pullrequests"
+        const val FETCH_PULL_REQUESTS = "2.0/pullrequests/{userUuid}"
         //endregion Pull Request
 
         const val FETCH_USER_REPOS = "2.0/repositories/{userUuid}"

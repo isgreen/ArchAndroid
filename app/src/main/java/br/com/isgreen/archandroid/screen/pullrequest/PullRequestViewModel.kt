@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
-import br.com.isgreen.archandroid.data.model.repository.Repo
 import br.com.isgreen.archandroid.helper.exception.ExceptionHandlerHelper
 import br.com.isgreen.archandroid.util.DateUtil
 import kotlinx.coroutines.launch
@@ -50,10 +49,10 @@ class PullRequestViewModel(
             viewModelScope.launch {
                 try {
                     changeLoading(true)
-                    val pullRequestResponse = repository.fetchPullRequests(null, ROLE_MEMBER, mAfter)
+                    val pullRequestResponse = repository.fetchPullRequests(/*null, ROLE_MEMBER, mAfter*/)
                     mPullRequestsFetched.postValue(pullRequestResponse.pullRequests)
                     changeLoading(false)
-                    getNextDate(pullRequestResponse.next, pullRequestResponse.pullRequests.last().createdOn)
+//                    getNextDate(pullRequestResponse.next, pullRequestResponse.pullRequests.last().createdOn)
                 } catch (exception: Exception) {
                     changeLoading(false)
                     handleException(exception)
