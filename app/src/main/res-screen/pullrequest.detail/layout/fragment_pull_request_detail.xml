@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?attr/backgroundColor">
+    android:background="?attr/backgroundColor"
+    android:transitionName="@string/shared_element_pull_request">
 
     <include
         android:id="@+id/includeToolbar"
@@ -19,12 +20,10 @@
         android:id="@+id/nsvPullRequestDetail"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:visibility="invisible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/includeToolbar"
-        tools:visibility="visible">
+        app:layout_constraintTop_toBottomOf="@+id/includeToolbar">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -71,7 +70,7 @@
                 android:background="@color/gray_alpha"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtAuthorNickname" />
+                app:layout_constraintTop_toBottomOf="@id/imgUser" />
 
             <androidx.appcompat.widget.AppCompatImageView
                 android:id="@+id/imgRepositoryIcon"
@@ -121,7 +120,7 @@
                 android:id="@+id/txtPullRequestDescription"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginVertical="@dimen/margin_small"
                 android:textSize="@dimen/text_size_mini"
                 app:fontFamily="@font/montserrat_regular"
                 app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
@@ -132,8 +131,7 @@
             <View android:id="@+id/vwDividerSection"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
-                android:layout_marginVertical="@dimen/margin_super"
-                android:layout_marginHorizontal="@dimen/margin_default"
+                android:layout_margin="@dimen/margin_default"
                 android:background="@color/gray_alpha"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

@@ -1,14 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:id="@+id/pullRequest"
-        app:startDestination="@id/pullRequestFragment">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pullRequest"
+    app:startDestination="@id/pullRequestFragment">
 
     <fragment
-            android:id="@+id/pullRequestFragment"
-            android:name="br.com.isgreen.archandroid.screen.pullrequest.PullRequestFragment"
-            android:label="fragment_pull_request"
-            tools:layout="@layout/fragment_pull_request" />
+        android:id="@+id/pullRequestFragment"
+        android:name="br.com.isgreen.archandroid.screen.pullrequest.PullRequestFragment"
+        android:label="fragment_pull_request"
+        tools:layout="@layout/fragment_pull_request">
+
+        <action
+            android:id="@+id/action_pullRequestFragment_to_pullRequestDetailFragment"
+            app:destination="@id/pullRequestDetailFragment" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/pullRequestDetailFragment"
+        android:name="br.com.isgreen.archandroid.screen.pullrequest.detail.PullRequestDetailFragment"
+        android:label="fragment_pull_detail_request"
+        tools:layout="@layout/fragment_pull_request_detail">
+
+        <argument
+            android:name="arg_pull_request"
+            android:defaultValue="@null"
+            app:argType="br.com.isgreen.archandroid.data.model.pullrequest.PullRequest"
+            app:nullable="true" />
+
+    </fragment>
 
 </navigation>

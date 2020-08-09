@@ -1,63 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clPullRequest"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground"
+    android:transitionName="@string/shared_element_pull_request">
 
     <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgRepositoryIcon"
-            android:layout_width="@dimen/image_size_default"
-            android:layout_height="@dimen/image_size_default"
-            android:layout_margin="@dimen/margin_default"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            tools:src="@mipmap/ic_launcher"/>
+        android:id="@+id/imgRepositoryIcon"
+        android:layout_width="@dimen/image_size_default"
+        android:layout_height="@dimen/image_size_default"
+        android:layout_margin="@dimen/margin_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@mipmap/ic_launcher" />
 
     <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtRepositoryName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="@dimen/margin_default"
-            android:layout_marginStart="@dimen/margin_default"
-            app:fontFamily="@font/montserrat_semibold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imgRepositoryIcon"
-            app:layout_constraintTop_toTopOf="@id/imgRepositoryIcon"
-            tools:text="DarthVader/DeathStar" />
+        android:id="@+id/txtRepositoryName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        app:fontFamily="@font/montserrat_semibold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgRepositoryIcon"
+        app:layout_constraintTop_toTopOf="@id/imgRepositoryIcon"
+        tools:text="DarthVader/DeathStar" />
 
     <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtPullRequestAuthor"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_small"
-            android:textSize="@dimen/text_size_mini"
-            app:fontFamily="@font/montserrat_regular"
-            app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
-            app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
-            app:layout_constraintTop_toBottomOf="@id/txtRepositoryName"
-            tools:text="By Darth Maul" />
+        android:id="@+id/txtPullRequestAuthor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:textSize="@dimen/text_size_mini"
+        app:fontFamily="@font/montserrat_regular"
+        app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
+        app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
+        app:layout_constraintTop_toBottomOf="@id/txtRepositoryName"
+        tools:text="By Darth Maul" />
 
     <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtPullRequestCreatedDate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_small"
-            android:textSize="@dimen/text_size_mini"
-            app:fontFamily="@font/montserrat_regular"
-            app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
-            app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
-            app:layout_constraintTop_toBottomOf="@id/txtPullRequestAuthor"
-            tools:text="Created on 09/22/2019" />
+        android:id="@+id/txtPullRequestCreatedDate"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:textSize="@dimen/text_size_mini"
+        app:fontFamily="@font/montserrat_regular"
+        app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
+        app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
+        app:layout_constraintTop_toBottomOf="@id/txtPullRequestAuthor"
+        tools:text="Created on 09/22/2019" />
 
-    <View android:id="@+id/vwDivider"
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_margin="@dimen/margin_default"
-            android:background="@color/gray_alpha"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/txtPullRequestCreatedDate"/>
+    <View
+        android:id="@+id/vwDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/margin_default"
+        android:background="@color/gray_alpha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtPullRequestCreatedDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

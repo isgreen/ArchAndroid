@@ -25,10 +25,12 @@ class ThemeFragment : BaseFragment() {
 
     private val mAdapter: ThemeAdapter by lazy { ThemeAdapter() }
 
+    //region Fragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition = MaterialContainerTransform()
     }
+    //endregion Fragment
 
     //region BaseFragment
     override fun initView() {

@@ -1,11 +1,14 @@
 package br.com.isgreen.archandroid.data.model.pullrequest
 
+import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by Éverdes Soares on 08/02/2020.
  */
 
+@Parcelize
 data class PullRequest(
 
     @SerializedName("id")
@@ -14,8 +17,6 @@ data class PullRequest(
     val author: Author?,
     @SerializedName("close_source_branch")
     val closeSourceBranch: Boolean?,
-    @SerializedName("closed_by")
-    val closedBy: Any?,
     @SerializedName("comment_count")
     val commentCount: Int?,
     @SerializedName("created_on")
@@ -24,8 +25,6 @@ data class PullRequest(
     val description: String?,
     @SerializedName("destination")
     val destination: Destination?,
-    @SerializedName("merge_commit")
-    val mergeCommit: Any?,
     @SerializedName("reason")
     val reason: String?,
     @SerializedName("source")
@@ -43,4 +42,4 @@ data class PullRequest(
     @SerializedName("updated_on")
     val updatedOn: String?
 
-)
+) : Parcelable

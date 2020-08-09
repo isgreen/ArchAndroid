@@ -1,16 +1,21 @@
 package br.com.isgreen.archandroid.screen.pullrequest
 
+import android.os.Bundle
+import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
+import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.extension.appCompatActivity
 import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
+import com.google.android.material.transition.platform.Hold
 import kotlinx.android.synthetic.main.appbar_and_toolbar.*
+import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_pull_request.*
-import kotlinx.android.synthetic.main.fragment_repo.*
+import kotlinx.android.synthetic.main.fragment_pull_request_item.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -26,12 +31,25 @@ class PullRequestFragment : BaseFragment() {
     //region RecyclerView
     private val mAdapter: PullRequestAdapter by lazy { PullRequestAdapter() }
     private val mLayoutManager: LinearLayoutManager by lazy { LinearLayoutManager(context) }
-    private val onRecyclerScrollListener = object : OnRecyclerViewScrollListener(mLayoutManager, DIRECTION_END) {
-        override fun loadMore(page: Int) {
-            viewModel.fetchPullRequests()
+    private val onRecyclerScrollListener =
+        object : OnRecyclerViewScrollListener(mLayoutManager, DIRECTION_END) {
+            override fun loadMore(page: Int) {
+                viewModel.fetchPullRequests()
+            }
         }
-    }
     //endregion RecyclerView
+
+    //region Fragment
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        exitTransition = Hold()
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        showNavigationBottom()
+    }
+    //endregion Fragment
 
     //region BaseFragment
     override fun initObservers() {
@@ -52,6 +70,10 @@ class PullRequestFragment : BaseFragment() {
             ?.displayHome(false)
             ?.title(R.string.app_name)
             ?.build()
+
+        mAdapter.onItemClickListener = { _, _, pullRequest ->
+            showPullRequestDetail(pullRequest)
+        }
 
         rvPullRequest?.let { recyclerView ->
             recyclerView.adapter = mAdapter
@@ -96,6 +118,13 @@ class PullRequestFragment : BaseFragment() {
         } else {
             mAdapter.hideLoading()
         }
+    }
+
+    private fun showPullRequestDetail(pullRequest: PullRequest) {
+        val direction = PullRequestFragmentDirections
+            .actionPullRequestFragmentToPullRequestDetailFragment(pullRequest)
+        navigate(directions = direction, sharedElements = clPullRequest to getString(R.string.shared_element_pull_request))
+        hideNavigationBottom()
     }
     //endregion Local
 }

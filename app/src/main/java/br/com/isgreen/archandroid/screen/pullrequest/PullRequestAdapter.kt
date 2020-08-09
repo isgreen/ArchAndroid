@@ -53,9 +53,9 @@ class PullRequestAdapter : BaseAdapter<PullRequest>() {
     private fun setDataView(holder: PullRequestViewHolder, pullRequest: PullRequest?) {
         holder.itemView.apply {
             imgRepositoryIcon?.loadImageRounded(pullRequest?.author?.links?.avatar?.href, R.drawable.ic_user, R.dimen.margin_small)
-            txtPullRequestCreatedDate.setDate(R.string.created_on, pullRequest?.createdOn?.substring(0, 19))
-            txtRepositoryName.text = pullRequest?.source?.repository?.name
-            txtPullRequestAuthor.setText("By ${pullRequest?.author?.displayName}")
+            txtPullRequestCreatedDate?.setDate(R.string.created_on, pullRequest?.createdOn?.substring(0, 19))
+            txtRepositoryName?.text = pullRequest?.source?.repository?.name
+            txtPullRequestAuthor?.text = context?.getString(R.string.created_by, pullRequest?.author?.displayName)
         }
     }
 

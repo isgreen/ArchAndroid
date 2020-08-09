@@ -1,12 +1,15 @@
 package br.com.isgreen.archandroid.data.model.pullrequest
 
+import android.os.Parcelable
 import br.com.isgreen.archandroid.data.model.repository.Link
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by Éverdes Soares on 08/02/2020.
  */
 
+@Parcelize
 data class Author(
     @SerializedName("account_id")
     val accountId: String?,
@@ -20,4 +23,4 @@ data class Author(
     val type: String?,
     @SerializedName("uuid")
     val uuid: String?
-)
+) : Parcelable
