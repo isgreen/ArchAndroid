@@ -8,6 +8,8 @@ import com.google.gson.annotations.SerializedName
 
 data class PullRequest(
 
+    @SerializedName("id")
+    val id: Int?,
     @SerializedName("author")
     val author: Author?,
     @SerializedName("close_source_branch")
@@ -22,8 +24,6 @@ data class PullRequest(
     val description: String?,
     @SerializedName("destination")
     val destination: Destination?,
-    @SerializedName("id")
-    val id: Int?,
     @SerializedName("merge_commit")
     val mergeCommit: Any?,
     @SerializedName("reason")
