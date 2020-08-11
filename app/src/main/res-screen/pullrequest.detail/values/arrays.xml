@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="pull_request_tab_titles">
+        <item>@string/overview</item>
+        <item>@string/commits</item>
+        <item>@string/comments</item>
+    </string-array>
+
+</resources>

@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nsvPullRequestDetail"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <include android:id="@+id/includeAuthor"
+            layout="@layout/fragment_pull_request_overview_author"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/imgRepositoryIcon"
+            android:layout_width="@dimen/image_size_default"
+            android:layout_height="@dimen/image_size_default"
+            android:layout_margin="@dimen/margin_default"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/includeAuthor"
+            tools:src="@mipmap/ic_launcher" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtRepositoryName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="@dimen/margin_default"
+            app:fontFamily="@font/montserrat_semibold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imgRepositoryIcon"
+            app:layout_constraintTop_toTopOf="@id/imgRepositoryIcon"
+            tools:text="DarthVader/DeathStar" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtPullRequestBranches"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:textSize="@dimen/text_size_mini"
+            app:fontFamily="@font/montserrat_regular"
+            app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
+            app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
+            app:layout_constraintTop_toBottomOf="@id/txtRepositoryName"
+            tools:text="Develop > Master" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtPullRequestCreatedDate"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:textSize="@dimen/text_size_mini"
+            app:fontFamily="@font/montserrat_regular"
+            app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
+            app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
+            app:layout_constraintTop_toBottomOf="@id/txtPullRequestBranches"
+            tools:text="Created on 09/22/2019" />
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtPullRequestDescription"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginVertical="@dimen/margin_small"
+            android:textSize="@dimen/text_size_mini"
+            app:fontFamily="@font/montserrat_regular"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
+            app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
+            app:layout_constraintTop_toBottomOf="@id/txtPullRequestCreatedDate"
+            tools:text="* text - fixed fab buttons position\n* general - fixed some bugs\n* category - changed message to amount validator\n* text - fixed fab buttons position\n* general - fixed some bugs\n* category - changed message to amount validator‌" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

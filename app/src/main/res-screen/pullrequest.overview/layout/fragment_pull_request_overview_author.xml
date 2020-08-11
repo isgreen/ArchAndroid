@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgUser"
+        android:layout_width="@dimen/image_size_default"
+        android:layout_height="@dimen/image_size_default"
+        android:layout_margin="@dimen/margin_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@mipmap/ic_launcher" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtPullRequestAuthor"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        app:fontFamily="@font/montserrat_semibold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/imgUser"
+        app:layout_constraintTop_toTopOf="@id/imgUser"
+        tools:text="By Darth Maul" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtAuthorNickname"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:textSize="@dimen/text_size_mini"
+        app:fontFamily="@font/montserrat_regular"
+        app:layout_constraintEnd_toEndOf="@id/txtPullRequestAuthor"
+        app:layout_constraintStart_toStartOf="@id/txtPullRequestAuthor"
+        app:layout_constraintTop_toBottomOf="@id/txtPullRequestAuthor"
+        tools:text="lordvader" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/margin_default"
+        android:background="@color/gray_alpha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/imgUser" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

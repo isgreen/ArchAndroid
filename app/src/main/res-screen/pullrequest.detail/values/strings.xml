@@ -2,6 +2,9 @@
 <resources>
 
     <!--Texts-->
+    <string name="commits">Commits</string>
+    <string name="comments">Comments</string>
+    <string name="overview">Overview</string>
     <string name="pull_request">Pull Request</string>
     <!--Texts-->
 
