@@ -1,6 +1,7 @@
 package br.com.isgreen.archandroid.screen.pullrequest.detail
 
 import android.os.Bundle
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
@@ -42,7 +43,9 @@ class PullRequestDetailFragment : BaseFragment() {
             ?.title(R.string.pull_request)
             ?.build()
 
-        initViewPager()
+        lifecycleScope.launchWhenStarted {
+            initViewPager()
+        }
     }
 
     override fun fetchInitialData() {}

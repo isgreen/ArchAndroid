@@ -19,61 +19,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
-        <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/imgRepositoryIcon"
-            android:layout_width="@dimen/image_size_default"
-            android:layout_height="@dimen/image_size_default"
+        <include android:id="@+id/includeDestination"
+            layout="@layout/fragment_pull_request_overview_destination"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/includeAuthor"/>
+
+        <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/txtDescriptionTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            style="@style/AppTheme.TextViewStyle.Title"
+            android:text="@string/description"
             android:layout_margin="@dimen/margin_default"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/includeAuthor"
-            tools:src="@mipmap/ic_launcher" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtRepositoryName"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginHorizontal="@dimen/margin_default"
-            app:fontFamily="@font/montserrat_semibold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/imgRepositoryIcon"
-            app:layout_constraintTop_toTopOf="@id/imgRepositoryIcon"
-            tools:text="DarthVader/DeathStar" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtPullRequestBranches"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_small"
-            android:textSize="@dimen/text_size_mini"
-            app:fontFamily="@font/montserrat_regular"
-            app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
-            app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
-            app:layout_constraintTop_toBottomOf="@id/txtRepositoryName"
-            tools:text="Develop > Master" />
-
-        <com.google.android.material.textview.MaterialTextView
-            android:id="@+id/txtPullRequestCreatedDate"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_small"
-            android:textSize="@dimen/text_size_mini"
-            app:fontFamily="@font/montserrat_regular"
-            app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
-            app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
-            app:layout_constraintTop_toBottomOf="@id/txtPullRequestBranches"
-            tools:text="Created on 09/22/2019" />
+            app:layout_constraintTop_toBottomOf="@id/includeDestination"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtPullRequestDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/margin_small"
-            android:textSize="@dimen/text_size_mini"
-            app:fontFamily="@font/montserrat_regular"
+            android:layout_margin="@dimen/margin_default"
+            style="@style/AppTheme.TextViewStyle.Content"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
-            app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
-            app:layout_constraintTop_toBottomOf="@id/txtPullRequestCreatedDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtDescriptionTitle"
             tools:text="* text - fixed fab buttons position\n* general - fixed some bugs\n* category - changed message to amount validator\n* text - fixed fab buttons position\n* general - fixed some bugs\n* category - changed message to amount validator‌" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
