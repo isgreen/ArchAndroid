@@ -11,39 +11,41 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <include android:id="@+id/includeAuthor"
+        <include
+            android:id="@+id/includeAuthor"
             layout="@layout/fragment_pull_request_overview_author"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
-        <include android:id="@+id/includeDestination"
+        <include
+            android:id="@+id/includeDestination"
             layout="@layout/fragment_pull_request_overview_destination"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/includeAuthor"/>
+            app:layout_constraintTop_toBottomOf="@id/includeAuthor" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtDescriptionTitle"
+            style="@style/AppTheme.TextViewStyle.Title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            style="@style/AppTheme.TextViewStyle.Title"
-            android:text="@string/description"
             android:layout_margin="@dimen/margin_default"
-            app:layout_constraintStart_toStartOf="parent"
+            android:text="@string/description"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/includeDestination"/>
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/includeDestination" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtPullRequestDescription"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/margin_default"
-            style="@style/AppTheme.TextViewStyle.Content"
+            app:fontFamily="@font/montserrat_regular"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

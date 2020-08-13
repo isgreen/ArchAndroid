@@ -2,6 +2,7 @@ package br.com.isgreen.archandroid.data.remote.api
 
 import br.com.isgreen.archandroid.BuildConfig
 import br.com.isgreen.archandroid.data.local.PreferencesHelper
+import br.com.isgreen.archandroid.data.model.commit.FetchPullRequestCommitsResponse
 import br.com.isgreen.archandroid.data.model.login.Authorization
 import br.com.isgreen.archandroid.data.model.login.User
 import br.com.isgreen.archandroid.data.model.pullrequest.FetchPullRequestsResponse
@@ -89,5 +90,11 @@ interface Api {
     suspend fun fetchPullRequests(
         @Path("userUuid") userUuid: String
     ): FetchPullRequestsResponse
+
+    @GET(ApiConstant.FETCH_PULL_REQUEST_COMMITS)
+    suspend fun fetchPullRequestCommits(
+        @Path("pullRequestId") pullRequestId: Int,
+        @Path("repoFullName") repoFullName: String
+    ): FetchPullRequestCommitsResponse
 
 }

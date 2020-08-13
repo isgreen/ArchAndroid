@@ -1,5 +1,6 @@
 package br.com.isgreen.archandroid.data.remote.apihelper
 
+import br.com.isgreen.archandroid.data.model.commit.FetchPullRequestCommitsResponse
 import br.com.isgreen.archandroid.data.model.login.Authorization
 import br.com.isgreen.archandroid.data.model.login.User
 import br.com.isgreen.archandroid.data.model.pullrequest.FetchPullRequestsResponse
@@ -26,6 +27,7 @@ interface ApiHelper {
 
     //region Pull Request
     suspend fun fetchPullRequests(userUuid: String): FetchPullRequestsResponse
+    suspend fun fetchPullRequestCommits(pullRequestId: Int, repoFullName: String): FetchPullRequestCommitsResponse
     //endregion Pull Request
 
 }

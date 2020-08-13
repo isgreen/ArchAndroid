@@ -5,51 +5,54 @@
     android:id="@+id/clPullRequest"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    android:transitionName="@string/shared_element_pull_request">
+    android:background="?attr/selectableItemBackground">
 
     <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/imgRepositoryIcon"
+        android:id="@+id/imgCommitUserAvatar"
         android:layout_width="@dimen/image_size_default"
         android:layout_height="@dimen/image_size_default"
         android:layout_margin="@dimen/margin_default"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:src="@mipmap/ic_launcher" />
+        tools:src="@drawable/ic_user" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtRepositoryName"
+        android:id="@+id/txtCommitMessage"
+        style="@style/AppTheme.TextViewStyle.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_default"
         android:layout_marginEnd="@dimen/margin_default"
-        style="@style/AppTheme.TextViewStyle.Title"
+        android:ellipsize="end"
+        android:maxLines="1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imgRepositoryIcon"
-        app:layout_constraintTop_toTopOf="@id/imgRepositoryIcon"
-        tools:text="DarthVader/DeathStar" />
+        app:layout_constraintStart_toEndOf="@+id/imgCommitUserAvatar"
+        app:layout_constraintTop_toTopOf="@id/imgCommitUserAvatar"
+        tools:text="general - fixed some bugs" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtPullRequestAuthor"
+        android:id="@+id/txtCommitUserName"
+        style="@style/AppTheme.TextViewStyle.Content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_small"
-        style="@style/AppTheme.TextViewStyle.Content"
-        app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
-        app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
-        app:layout_constraintTop_toBottomOf="@id/txtRepositoryName"
-        tools:text="By Darth Maul" />
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="@id/txtCommitMessage"
+        app:layout_constraintStart_toStartOf="@id/txtCommitMessage"
+        app:layout_constraintTop_toBottomOf="@id/txtCommitMessage"
+        tools:text="By Darth Vader" />
 
     <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtPullRequestCreatedDate"
+        android:id="@+id/txtCommitDate"
+        style="@style/AppTheme.TextViewStyle.Content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_small"
-        style="@style/AppTheme.TextViewStyle.Content"
-        app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
-        app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
-        app:layout_constraintTop_toBottomOf="@id/txtPullRequestAuthor"
-        tools:text="Created on 09/22/2019" />
+        app:layout_constraintEnd_toEndOf="@id/txtCommitMessage"
+        app:layout_constraintStart_toStartOf="@id/txtCommitMessage"
+        app:layout_constraintTop_toBottomOf="@id/txtCommitUserName"
+        tools:text="On 09/22/2019" />
 
     <View
         android:layout_width="0dp"
@@ -58,6 +61,6 @@
         android:background="@color/gray_alpha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtPullRequestCreatedDate" />
+        app:layout_constraintTop_toBottomOf="@id/txtCommitDate" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

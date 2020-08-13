@@ -22,11 +22,10 @@ class ApiConstant {
 
         //region Pull Request
         const val FETCH_PULL_REQUESTS = "2.0/pullrequests/{userUuid}"
+        const val FETCH_PULL_REQUEST_COMMITS = "2.0/repositories/{repoFullName}/pullrequests/{pullRequestId}/commits"
         //endregion Pull Request
 
         const val FETCH_USER_REPOS = "2.0/repositories/{userUuid}"
-
-
     }
 
 }

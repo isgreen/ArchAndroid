@@ -1,6 +1,7 @@
 package br.com.isgreen.archandroid.data.model.pullrequest
 
 import android.os.Parcelable
+import br.com.isgreen.archandroid.data.model.commit.Commit
 import br.com.isgreen.archandroid.data.model.repository.Repo
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize

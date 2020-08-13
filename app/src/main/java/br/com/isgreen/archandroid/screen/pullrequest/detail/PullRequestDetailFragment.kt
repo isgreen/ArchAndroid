@@ -9,6 +9,7 @@ import br.com.isgreen.archandroid.base.BasePagerAdapter
 import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.extension.appCompatActivity
 import br.com.isgreen.archandroid.extension.showToast
+import br.com.isgreen.archandroid.screen.pullrequest.commit.PullRequestCommitFragment
 import br.com.isgreen.archandroid.screen.pullrequest.overview.PullRequestOverviewFragment
 import com.google.android.material.transition.platform.MaterialContainerTransform
 import kotlinx.android.synthetic.main.appbar_and_toolbar.*
@@ -62,8 +63,8 @@ class PullRequestDetailFragment : BaseFragment() {
         val pullRequest = mArguments.argPullRequest
         val fragments = listOf(
             PullRequestOverviewFragment.newInstance(pullRequest),
-            PullRequestOverviewFragment.newInstance(pullRequest),
-            PullRequestOverviewFragment.newInstance(pullRequest)
+            PullRequestCommitFragment.newInstance(pullRequest?.id, pullRequest?.destination?.repository?.fullName),
+            PullRequestCommitFragment.newInstance(pullRequest?.id, pullRequest?.destination?.repository?.fullName)
         )
         pagerPullRequestDetail?.let {
             it.offscreenPageLimit = fragments.size

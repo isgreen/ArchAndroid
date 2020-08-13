@@ -1,6 +1,7 @@
 package br.com.isgreen.archandroid.data.model.pullrequest
 
 import android.os.Parcelable
+import br.com.isgreen.archandroid.data.model.login.User
 import br.com.isgreen.archandroid.data.model.repository.Link
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -22,5 +23,7 @@ data class Author(
     @SerializedName("type")
     val type: String?,
     @SerializedName("uuid")
-    val uuid: String?
+    val uuid: String?,
+    @SerializedName("user")
+    val user: User?
 ) : Parcelable
