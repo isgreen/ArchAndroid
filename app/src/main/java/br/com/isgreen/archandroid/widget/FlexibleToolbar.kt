@@ -38,11 +38,11 @@ class FlexibleToolbar : Toolbar {
     private var mHomeIconColor: Int? = Color.BLACK
     private var mTitleIconColor: Int? = Color.BLACK
 
-    constructor (context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+    constructor (context: Context, attrs: AttributeSet?) : super(context, attrs) {
         init(context, attrs)
     }
 
-    constructor (context: Context?, attrs: AttributeSet?, defStyle: Int) : super(
+    constructor (context: Context, attrs: AttributeSet?, defStyle: Int) : super(
         context,
         attrs,
         defStyle

@@ -94,7 +94,8 @@ interface Api {
     @GET(ApiConstant.FETCH_PULL_REQUEST_COMMITS)
     suspend fun fetchPullRequestCommits(
         @Path("pullRequestId") pullRequestId: Int,
-        @Path("repoFullName") repoFullName: String
+        @Path("repoFullName") repoFullName: String,
+        @Query("page") page: String?
     ): FetchPullRequestCommitsResponse
 
 }

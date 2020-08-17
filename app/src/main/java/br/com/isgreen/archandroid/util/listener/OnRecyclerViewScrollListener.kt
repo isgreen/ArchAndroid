@@ -35,18 +35,6 @@ abstract class OnRecyclerViewScrollListener(
      * */
     private val mThreshold = 2
 
-    /*
-     * This is a hack to ensure that the app is notified
-     * only once to fetch more data. Since we use
-     * scrollListener, there is a possibility that the
-     * app will be notified more than once when user is
-     * scrolling. This means there is a chance that the
-     * same data will be fetched from the backend again.
-     * This variable is to ensure that this does NOT
-     * happen.
-     * */
-    private var endWithAuto = false
-
     var isLoading = false
     var isLastPage = false
 
@@ -115,20 +103,14 @@ abstract class OnRecyclerViewScrollListener(
     override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
         super.onScrollStateChanged(recyclerView, newState)
         if (newState == RecyclerView.SCROLL_STATE_IDLE && mIsDirectionScrolled) {
-            val visibleItemCount: Int = layoutManager.childCount
             val totalItemCount: Int = layoutManager.itemCount
             val firstVisibleItemPosition = findLastVisibleItemPosition()
 
             if (isLoading) return
             if (isLastPage) return
 
-            if (visibleItemCount + firstVisibleItemPosition + mThreshold >= totalItemCount) {
-                if (!endWithAuto) {
-                    endWithAuto = true
-                    loadMore(++mCurrentPage)
-                }
-            } else {
-                endWithAuto = false
+            if (firstVisibleItemPosition + mThreshold >= totalItemCount) {
+                loadMore(++mCurrentPage)
             }
         }
     }

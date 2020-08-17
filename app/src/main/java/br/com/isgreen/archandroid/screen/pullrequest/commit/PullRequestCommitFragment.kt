@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.commit.Commit
-import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
 import kotlinx.android.synthetic.main.fragment_pull_request_commit.*
@@ -43,7 +42,11 @@ class PullRequestCommitFragment : BaseFragment() {
     private val onRecyclerScrollListener =
         object : OnRecyclerViewScrollListener(mLayoutManager, DIRECTION_END) {
             override fun loadMore(page: Int) {
-//                viewModel.fetchPullRequests()
+                viewModel.fetchPullRequestCommits(
+                    isRefresh = false,
+                    pullRequestId = arguments?.getInt(ARG_PULL_REQUEST_ID),
+                    repoFullName = arguments?.getString(ARG_REPO_FULL_NAME)
+                )
             }
         }
     //endregion RecyclerView

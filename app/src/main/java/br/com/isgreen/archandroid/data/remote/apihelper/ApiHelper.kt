@@ -27,7 +27,11 @@ interface ApiHelper {
 
     //region Pull Request
     suspend fun fetchPullRequests(userUuid: String): FetchPullRequestsResponse
-    suspend fun fetchPullRequestCommits(pullRequestId: Int, repoFullName: String): FetchPullRequestCommitsResponse
+    suspend fun fetchPullRequestCommits(
+        page: String?,
+        pullRequestId: Int,
+        repoFullName: String
+    ): FetchPullRequestCommitsResponse
     //endregion Pull Request
 
 }

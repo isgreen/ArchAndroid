@@ -14,6 +14,8 @@ data class FetchPullRequestCommitsResponse(
     @SerializedName("pagelen")
     val pagelen: Int,
     @SerializedName("values")
-    val commits: List<Commit>
+    val commits: List<Commit>,
+    @SerializedName("next")
+    val next: String?
 
 )

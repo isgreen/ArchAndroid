@@ -90,11 +90,12 @@ class ApiHelperImpl(
     }
 
     override suspend fun fetchPullRequestCommits(
+        page: String?,
         pullRequestId: Int,
         repoFullName: String
     ): FetchPullRequestCommitsResponse {
         checkTokenExpired()
-        return api.fetchPullRequestCommits(pullRequestId, repoFullName)
+        return api.fetchPullRequestCommits(pullRequestId, repoFullName, page)
     }
     //endregion Pull Request
 }

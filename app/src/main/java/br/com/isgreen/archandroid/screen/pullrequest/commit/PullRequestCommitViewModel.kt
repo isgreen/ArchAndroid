@@ -19,10 +19,6 @@ class PullRequestCommitViewModel(
     private val repository: PullRequestCommitContract.Repository
 ) : BaseViewModel(exceptionHandlerHelper), PullRequestCommitContract.ViewModel {
 
-    companion object {
-        const val ROLE_MEMBER = "member"
-    }
-
     override val commitsCleared: LiveData<Unit>
         get() = mCommitsCleared
     override val commitsFetched: LiveData<List<Commit>>
@@ -36,7 +32,7 @@ class PullRequestCommitViewModel(
 
     private var mIsLoading = false
     private var mHasMorePages = true
-    private var mAfter: String? = null
+    private var mPage: String? = null
 
     override fun fetchPullRequestCommits(
         isRefresh: Boolean,
@@ -44,7 +40,7 @@ class PullRequestCommitViewModel(
         repoFullName: String?
     ) {
         if (isRefresh) {
-            mAfter = null
+            mPage = null
             mHasMorePages = true
             mCommitsCleared.postValue(Unit)
         }
@@ -54,13 +50,13 @@ class PullRequestCommitViewModel(
                 try {
                     changeLoading(true)
                     val pullRequestResponse = repository.fetchCommits(
+                        mPage,
                         pullRequestId = pullRequestId ?: 0,
                         repoFullName = repoFullName ?: ""
-                        /*null, ROLE_MEMBER, mAfter*/
                     )
                     mCommitsFetched.postValue(pullRequestResponse.commits)
                     changeLoading(false)
-//                    getNextDate(pullRequestResponse.next, pullRequestResponse.pullRequests.last().createdOn)
+                    getNextPage(pullRequestResponse.next)
                 } catch (exception: Exception) {
                     changeLoading(false)
                     handleException(exception)
@@ -71,23 +67,18 @@ class PullRequestCommitViewModel(
 
     private fun changeLoading(isLoading: Boolean) {
         mIsLoading = isLoading
-        if (mAfter.isNullOrEmpty()) {
+        if (mPage.isNullOrEmpty()) {
             mLoadingChanged.postValue(isLoading)
         } else {
             mLoadingMoreChanged.postValue(isLoading)
         }
     }
 
-    private fun getNextDate(nextUrl: String?, lastItemDate: String?) {
+    private fun getNextPage(nextUrl: String?) {
         if (nextUrl != null) {
-            mAfter = DateUtil.increaseTime(
-                dateAsString = lastItemDate,
-                format = DateUtil.DATE_TIME_FORMAT_API,
-                calendarTimeType = Calendar.SECOND,
-                amountToIncrease = 1
-            )
+            mPage = nextUrl.substring(nextUrl.indexOf("page=") + 5)
         } else {
-            mAfter = null
+            mPage = null
             mHasMorePages = false
         }
     }
