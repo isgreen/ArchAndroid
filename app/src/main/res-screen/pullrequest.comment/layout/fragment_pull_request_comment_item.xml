@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clPullRequest"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/selectableItemBackground">
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgCommentUserAvatar"
+        android:layout_width="@dimen/image_size_default"
+        android:layout_height="@dimen/image_size_default"
+        android:layout_margin="@dimen/margin_default"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:src="@drawable/ic_user" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtCommentMessage"
+        style="@style/AppTheme.TextViewStyle.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/imgCommentUserAvatar"
+        app:layout_constraintTop_toTopOf="@id/imgCommentUserAvatar"
+        tools:text="general - fixed some bugs" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtCommentUserName"
+        style="@style/AppTheme.TextViewStyle.Content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:ellipsize="end"
+        android:maxLines="1"
+        app:layout_constraintEnd_toEndOf="@id/txtCommentMessage"
+        app:layout_constraintStart_toStartOf="@id/txtCommentMessage"
+        app:layout_constraintTop_toBottomOf="@id/txtCommentMessage"
+        tools:text="By Darth Vader" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtCommentDate"
+        style="@style/AppTheme.TextViewStyle.Content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_small"
+        app:layout_constraintEnd_toEndOf="@id/txtCommentMessage"
+        app:layout_constraintStart_toStartOf="@id/txtCommentMessage"
+        app:layout_constraintTop_toBottomOf="@id/txtCommentUserName"
+        tools:text="On 09/22/2019" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_margin="@dimen/margin_default"
+        android:background="@color/gray_alpha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtCommentDate" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

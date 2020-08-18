@@ -12,20 +12,10 @@
         tools:layout="@layout/fragment_profile" >
 
         <action
-            android:id="@+id/action_profileFragment_to_repoFragment"
-            app:destination="@id/repoFragment" />
-
-        <action
             android:id="@+id/action_profileFragment_to_themeFragment"
             app:destination="@id/themeFragment" />
 
     </fragment>
-
-    <fragment
-        android:id="@+id/repoFragment"
-        android:name="br.com.isgreen.archandroid.screen.repo.RepoFragment"
-        android:label="fragment_repo"
-        tools:layout="@layout/fragment_repo" />
 
     <fragment
         android:id="@+id/themeFragment"

@@ -30,7 +30,7 @@ class HomeFragment : BaseFragment() {
     //region BaseFragment
     override fun initView() {
         val navGraphs = listOf(
-            R.navigation.recent_nav_graph,
+            R.navigation.repo_nav_graph,
             R.navigation.pull_request_nav_graph,
             R.navigation.profile_nav_graph
         )

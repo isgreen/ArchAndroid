@@ -67,7 +67,8 @@
                 app:layout_constraintTop_toBottomOf="@id/txtDisplayName"
                 tools:text="@string/app_name" />
 
-            <View android:id="@+id/vwDividerSection"
+            <View
+                android:id="@+id/vwDividerRepositories"
                 android:layout_width="0dp"
                 android:layout_height="1dp"
                 android:layout_marginVertical="@dimen/margin_super"
@@ -75,33 +76,7 @@
                 android:background="@color/gray_alpha"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtNickname"/>
-
-            <com.google.android.material.textview.MaterialTextView
-                android:id="@+id/txtRepositories"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:background="?attr/selectableItemBackground"
-                android:drawablePadding="@dimen/margin_default"
-                android:gravity="center_vertical"
-                android:padding="@dimen/margin_default"
-                android:text="@string/repositories"
-                app:drawableStartCompat="@drawable/ic_box"
-                app:drawableTint="?attr/colorOnBackground"
-                app:fontFamily="@font/montserrat_semibold"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/vwDividerSection" />
-
-            <View
-                android:id="@+id/vwDividerRepositories"
-                android:layout_width="0dp"
-                android:layout_height="1dp"
-                android:layout_marginHorizontal="@dimen/margin_default"
-                android:background="@color/gray_alpha"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/txtRepositories" />
+                app:layout_constraintTop_toBottomOf="@id/txtNickname" />
 
             <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/txtTheme"

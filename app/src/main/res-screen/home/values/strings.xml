@@ -2,8 +2,8 @@
 <resources>
 
     <!--Texts-->
-    <string name="recent">Recent</string>
     <string name="profile">Profile</string>
+    <string name="repositories">Repositories</string>
     <string name="pull_requests">Pull Requests</string>
     <!--Texts-->
 

@@ -8,16 +8,16 @@
     tools:background="@android:color/white">
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/recent"
+        android:id="@+id/repo"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:drawableTop="@drawable/ic_layers"
+        android:drawableTop="@drawable/ic_box"
         android:drawablePadding="@dimen/margin_micro"
         android:gravity="center"
         android:padding="12dp"
-        android:text="@string/recent"
+        android:text="@string/repositories"
         android:textColor="@drawable/selector_navigation_view_item"
         android:textSize="@dimen/text_size_mini"
         app:drawableTint="@drawable/selector_navigation_view_item"

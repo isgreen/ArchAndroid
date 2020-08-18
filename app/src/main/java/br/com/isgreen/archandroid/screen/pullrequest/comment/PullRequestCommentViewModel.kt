@@ -1,39 +1,39 @@
-package br.com.isgreen.archandroid.screen.pullrequest.commit
+package br.com.isgreen.archandroid.screen.pullrequest.comment
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import br.com.isgreen.archandroid.base.BaseViewModel
-import br.com.isgreen.archandroid.data.model.commit.Commit
+import br.com.isgreen.archandroid.data.model.comment.Comment
 import br.com.isgreen.archandroid.helper.exception.ExceptionHandlerHelper
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
- * Created by Éverdes Soares on 08/12/2020.
+ * Created by Éverdes Soares on 08/17/2020.
  */
 
-class PullRequestCommitViewModel(
+class PullRequestCommentViewModel(
     exceptionHandlerHelper: ExceptionHandlerHelper,
-    private val repository: PullRequestCommitContract.Repository
-) : BaseViewModel(exceptionHandlerHelper), PullRequestCommitContract.ViewModel {
+    private val repository: PullRequestCommentContract.Repository
+) : BaseViewModel(exceptionHandlerHelper), PullRequestCommentContract.ViewModel {
 
-    override val commitsCleared: LiveData<Unit>
-        get() = mCommitsCleared
-    override val commitsFetched: LiveData<List<Commit>>
-        get() = mCommitsFetched
+    override val commentsCleared: LiveData<Unit>
+        get() = mCommentsCleared
+    override val commentsFetched: LiveData<List<Comment>>
+        get() = mCommentsFetched
     override val loadingMoreChanged: LiveData<Boolean>
         get() = mLoadingMoreChanged
 
-    private val mCommitsCleared = MutableLiveData<Unit>()
+    private val mCommentsCleared = MutableLiveData<Unit>()
     private val mLoadingMoreChanged = MutableLiveData<Boolean>()
-    private val mCommitsFetched = MutableLiveData<List<Commit>>()
+    private val mCommentsFetched = MutableLiveData<List<Comment>>()
 
     private var mIsLoading = false
     private var mHasMorePages = true
     private var mPage: String? = null
 
-    override fun fetchPullRequestCommits(
+    override fun fetchPullRequestComments(
         isRefresh: Boolean,
         pullRequestId: Int?,
         repoFullName: String?
@@ -41,7 +41,7 @@ class PullRequestCommitViewModel(
         if (isRefresh) {
             mPage = null
             mHasMorePages = true
-            mCommitsCleared.postValue(Unit)
+            mCommentsCleared.postValue(Unit)
         }
 
         if (mHasMorePages && !mIsLoading) {
@@ -49,12 +49,12 @@ class PullRequestCommitViewModel(
                 delay(1000)
                 try {
                     changeLoading(true)
-                    val pullRequestResponse = repository.fetchCommits(
+                    val pullRequestResponse = repository.fetchComments(
                         mPage,
                         pullRequestId = pullRequestId ?: 0,
                         repoFullName = repoFullName ?: ""
                     )
-                    mCommitsFetched.postValue(pullRequestResponse.commits)
+                    mCommentsFetched.postValue(pullRequestResponse.comments)
                     changeLoading(false)
                     getNextPage(pullRequestResponse.next)
                 } catch (exception: Exception) {

@@ -2,6 +2,7 @@ package br.com.isgreen.archandroid.data.remote.api
 
 import br.com.isgreen.archandroid.BuildConfig
 import br.com.isgreen.archandroid.data.local.PreferencesHelper
+import br.com.isgreen.archandroid.data.model.comment.FetchPullRequestCommentsResponse
 import br.com.isgreen.archandroid.data.model.commit.FetchPullRequestCommitsResponse
 import br.com.isgreen.archandroid.data.model.login.Authorization
 import br.com.isgreen.archandroid.data.model.login.User
@@ -97,5 +98,12 @@ interface Api {
         @Path("repoFullName") repoFullName: String,
         @Query("page") page: String?
     ): FetchPullRequestCommitsResponse
+
+    @GET(ApiConstant.FETCH_PULL_REQUEST_COMMENTS)
+    suspend fun fetchPullRequestComments(
+        @Path("pullRequestId") pullRequestId: Int,
+        @Path("repoFullName") repoFullName: String,
+        @Query("page") page: String?
+    ): FetchPullRequestCommentsResponse
 
 }

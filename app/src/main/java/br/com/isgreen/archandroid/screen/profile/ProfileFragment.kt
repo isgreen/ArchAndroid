@@ -48,7 +48,6 @@ class ProfileFragment : BaseFragment() {
 
         txtLogout?.setOnClickListener { logout() }
         txtTheme?.setOnClickListener { showTheme() }
-        txtRepositories?.setOnClickListener { showRepos() }
     }
 
     override fun initObservers() {
@@ -79,11 +78,6 @@ class ProfileFragment : BaseFragment() {
         txtNickname?.text = user.nickname
         txtDisplayName?.text = user.displayName
         imgUser?.loadImageRounded(user.links.avatar?.href, R.drawable.ic_user, R.dimen.margin_default)
-    }
-
-    private fun showRepos() {
-        val direction = ProfileFragmentDirections.actionProfileFragmentToRepoFragment()
-        navigate(direction)
     }
 
     private fun showTheme() {

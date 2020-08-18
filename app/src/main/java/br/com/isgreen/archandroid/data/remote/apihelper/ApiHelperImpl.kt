@@ -4,6 +4,7 @@ import android.util.Base64
 import br.com.isgreen.archandroid.BuildConfig
 import br.com.isgreen.archandroid.data.remote.api.Api
 import br.com.isgreen.archandroid.data.local.PreferencesHelper
+import br.com.isgreen.archandroid.data.model.comment.FetchPullRequestCommentsResponse
 import br.com.isgreen.archandroid.data.model.commit.FetchPullRequestCommitsResponse
 import br.com.isgreen.archandroid.data.model.login.User
 import br.com.isgreen.archandroid.data.model.pullrequest.FetchPullRequestsResponse
@@ -96,6 +97,15 @@ class ApiHelperImpl(
     ): FetchPullRequestCommitsResponse {
         checkTokenExpired()
         return api.fetchPullRequestCommits(pullRequestId, repoFullName, page)
+    }
+
+    override suspend fun fetchPullRequestComments(
+        page: String?,
+        pullRequestId: Int,
+        repoFullName: String
+    ): FetchPullRequestCommentsResponse {
+        checkTokenExpired()
+        return api.fetchPullRequestComments(pullRequestId, repoFullName, page)
     }
     //endregion Pull Request
 }
