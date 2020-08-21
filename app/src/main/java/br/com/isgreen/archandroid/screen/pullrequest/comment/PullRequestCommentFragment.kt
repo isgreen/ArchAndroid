@@ -7,11 +7,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.comment.Comment
-import br.com.isgreen.archandroid.data.model.commit.Commit
 import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
 import kotlinx.android.synthetic.main.fragment_pull_request_comment.*
-import kotlinx.android.synthetic.main.fragment_pull_request_commit.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -79,6 +77,10 @@ class PullRequestCommentFragment : BaseFragment() {
 
         pvPullRequestComment?.onClickTryAgain = {
             fetchInitialData()
+        }
+
+        btnAddComment?.setOnClickListener {
+
         }
     }
 

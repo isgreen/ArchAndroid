@@ -17,6 +17,7 @@ import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
+import androidx.recyclerview.widget.RecyclerView
 import br.com.isgreen.archandroid.util.DateUtil
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
@@ -150,3 +151,17 @@ fun AppCompatImageView?.loadImageRounded(
     }
 }
 //endregion ImageView
+
+//region RecyclerView
+fun RecyclerView?.enableVerticalIndicators() {
+    this?.let { recyclerView ->
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            val indicators = View.SCROLL_INDICATOR_TOP or View.SCROLL_INDICATOR_BOTTOM
+            recyclerView.setScrollIndicators(
+                indicators,
+                View.SCROLL_INDICATOR_TOP or View.SCROLL_INDICATOR_BOTTOM
+            )
+        }
+    }
+}
+//endregion RecyclerView

@@ -1,6 +1,9 @@
 package br.com.isgreen.archandroid.screen.pullrequest.detail
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import br.com.isgreen.archandroid.R
@@ -33,6 +36,20 @@ class PullRequestDetailFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition = MaterialContainerTransform()
+        setHasOptionsMenu(true)
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_pull_request_detail, menu)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            R.id.menu_item_merge -> true
+            R.id.menu_item_approve -> true
+            R.id.menu_item_decline -> true
+            else -> super.onOptionsItemSelected(item)
+        }
     }
     //endregion Fragment
 
