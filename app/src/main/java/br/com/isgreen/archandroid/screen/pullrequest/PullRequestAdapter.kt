@@ -10,7 +10,9 @@ import br.com.isgreen.archandroid.common.LoadingViewHolder
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.extension.loadImageRounded
 import br.com.isgreen.archandroid.extension.setDate
+import br.com.isgreen.archandroid.util.OnInnerViewItemClickListener
 import kotlinx.android.extensions.LayoutContainer
+import kotlinx.android.synthetic.main.fragment_pull_request_item.*
 import kotlinx.android.synthetic.main.fragment_pull_request_item.view.*
 
 /**
@@ -23,6 +25,8 @@ class PullRequestAdapter : BaseAdapter<PullRequest>() {
         const val ITEM_TYPE = 0
         const val LOADING_TYPE = 1
     }
+
+    var onInnerViewItemClickListener: OnInnerViewItemClickListener? = null
 
     override fun onCreateViewHolderBase(
         inflater: LayoutInflater,
@@ -60,5 +64,13 @@ class PullRequestAdapter : BaseAdapter<PullRequest>() {
     }
 
     inner class PullRequestViewHolder(override val containerView: View) :
-        RecyclerView.ViewHolder(containerView), LayoutContainer
+        RecyclerView.ViewHolder(containerView), LayoutContainer {
+
+        init {
+            imgPullRequestMenu?.setOnClickListener {
+                val pullRequest = data[adapterPosition]
+                onInnerViewItemClickListener?.invoke(it, adapterPosition, pullRequest)
+            }
+        }
+    }
 }

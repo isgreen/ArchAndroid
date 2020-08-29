@@ -22,9 +22,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_default"
-        android:layout_marginEnd="@dimen/margin_default"
         style="@style/AppTheme.TextViewStyle.Title"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/imgPullRequestMenu"
         app:layout_constraintStart_toEndOf="@+id/imgRepositoryIcon"
         app:layout_constraintTop_toTopOf="@id/imgRepositoryIcon"
         tools:text="DarthVader/DeathStar" />
@@ -50,6 +49,16 @@
         app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
         app:layout_constraintTop_toBottomOf="@id/txtPullRequestAuthor"
         tools:text="Created on 09/22/2019" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgPullRequestMenu"
+        android:layout_width="@dimen/image_size_default"
+        android:layout_height="@dimen/image_size_default"
+        android:padding="@dimen/margin_small"
+        android:layout_marginTop="@dimen/margin_small"
+        app:srcCompat="@drawable/ic_more_vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:layout_width="0dp"

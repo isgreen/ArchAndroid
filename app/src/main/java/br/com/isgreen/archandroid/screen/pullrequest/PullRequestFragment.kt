@@ -1,7 +1,9 @@
 package br.com.isgreen.archandroid.screen.pullrequest
 
 import android.os.Bundle
+import android.view.MenuInflater
 import android.view.View
+import android.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,7 +15,6 @@ import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
 import com.google.android.material.transition.platform.Hold
 import kotlinx.android.synthetic.main.appbar_and_toolbar.*
-import kotlinx.android.synthetic.main.fragment_profile.*
 import kotlinx.android.synthetic.main.fragment_pull_request.*
 import kotlinx.android.synthetic.main.fragment_pull_request_item.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -71,8 +72,13 @@ class PullRequestFragment : BaseFragment() {
             ?.title(R.string.app_name)
             ?.build()
 
-        mAdapter.onItemClickListener = { _, _, pullRequest ->
-            showPullRequestDetail(pullRequest)
+        mAdapter.apply {
+            onItemClickListener = { _, _, pullRequest ->
+                showPullRequestDetail(pullRequest)
+            }
+            onInnerViewItemClickListener = { view, _, pullRequest ->
+                showMenu(view, pullRequest as PullRequest)
+            }
         }
 
         rvPullRequest?.let { recyclerView ->
@@ -118,6 +124,32 @@ class PullRequestFragment : BaseFragment() {
         } else {
             mAdapter.hideLoading()
         }
+    }
+
+    private fun showMenu(view: View?, pullRequest: PullRequest) {
+        val popup = PopupMenu(context, view)
+        popup.setOnMenuItemClickListener {
+            when (it.itemId) {
+                R.id.menu_item_approve -> {
+                    // TODO: 26/08/20 code to approve
+                    true
+                }
+                R.id.menu_item_decline -> {
+                    // TODO: 26/08/20 code to decline
+                    true
+                }
+                R.id.menu_item_merge -> {
+                    // TODO: 26/08/20 code to merge
+                    true
+                }
+                else -> {
+                    false
+                }
+            }
+        }
+        val inflater: MenuInflater = popup.menuInflater
+        inflater.inflate(R.menu.menu_pull_request_detail, popup.menu)
+        popup.show()
     }
 
     private fun showPullRequestDetail(pullRequest: PullRequest) {

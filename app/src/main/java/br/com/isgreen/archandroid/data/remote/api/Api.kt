@@ -55,16 +55,6 @@ interface Api {
 
     @FormUrlEncoded
     @POST(ApiConstant.DO_LOGIN)
-    suspend fun doLogin(
-        @Header("client_id") clientId: String,
-        @Header("Authorization") basicToken: String,
-        @Field("grant_type") grantType: String,
-        @Field("username") username: String,
-        @Field("password") password: String
-    ): Authorization
-
-    @FormUrlEncoded
-    @POST(ApiConstant.DO_LOGIN)
     suspend fun refreshToken(
         @Header("client_id") clientId: String,
         @Header("Authorization") basicToken: String,
@@ -72,24 +62,47 @@ interface Api {
         @Field("refresh_token") refreshToken: String
     ): Authorization
 
+    //region Login
+    @FormUrlEncoded
+    @POST(ApiConstant.DO_LOGIN)
+    suspend fun doLogin(
+        @Header("client_id") clientId: String,
+        @Header("Authorization") basicToken: String,
+        @Field("grant_type") grantType: String,
+        @Field("username") username: String,
+        @Field("password") password: String
+    ): Authorization
+    //endregion Login
+
+    //region User
     @GET(ApiConstant.FETCH_USER)
     suspend fun fetchUser(): User
+    //endregion User
 
     @GET(ApiConstant.FETCH_USER_REPOS)
     suspend fun fetchUserRepos(
         @Path("userUuid") userUuid: String
     ): FetchReposResponse
 
-    @GET(ApiConstant.FETCH_REPOSITORIES)
+    //region Repositories
+    @GET(ApiConstant.FETCH_REPOS)
     suspend fun fetchRepos(
         @Query("sort") sort: String?,
         @Query("role") role: String?,
         @Query("after") after: String?
     ): FetchReposResponse
+    //endregion Repositories
 
+    //region Pull Request
     @GET(ApiConstant.FETCH_PULL_REQUESTS)
     suspend fun fetchPullRequests(
         @Path("userUuid") userUuid: String
+    ): FetchPullRequestsResponse
+
+    @POST(ApiConstant.DO_PULL_REQUEST_MERGE)
+    suspend fun doPullRequestsMerge(
+        @Path("pullRequestId") pullRequestId: Int,
+        @Path("repoFullName") repoFullName: String
     ): FetchPullRequestsResponse
 
     @GET(ApiConstant.FETCH_PULL_REQUEST_COMMITS)
@@ -105,5 +118,5 @@ interface Api {
         @Path("repoFullName") repoFullName: String,
         @Query("page") page: String?
     ): FetchPullRequestCommentsResponse
-
+    //endregion Pull Request
 }

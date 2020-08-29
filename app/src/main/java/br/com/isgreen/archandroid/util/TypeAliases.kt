@@ -8,6 +8,7 @@ import android.view.View
  */
 
 typealias OnAnimationFinishCallback = (() -> Unit)
-typealias OnItemClickListener<T> = ((View, Int, T) -> Unit)
 typealias OnEventReceivedListener = ((code: Int, data: Any?) -> Unit)
+typealias OnItemClickListener<T> = ((view: View, position: Int, data: T) -> Unit)
+typealias OnInnerViewItemClickListener = ((view: View?, position: Int, data: Any?) -> Unit)
 typealias OnActivityResultCallback = ((requestCode: Int, resultCode: Int, data: Intent?) -> Unit)
