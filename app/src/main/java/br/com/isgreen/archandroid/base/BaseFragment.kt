@@ -1,22 +1,16 @@
 package br.com.isgreen.archandroid.base
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.transition.TransitionManager
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.IdRes
-import androidx.annotation.LayoutRes
 import androidx.annotation.RequiresApi
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.constraintlayout.widget.ConstraintSet
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.navigation.NavDirections
@@ -51,8 +45,6 @@ abstract class BaseFragment : Fragment() {
         NO_ANIMATION,
         FADE
     }
-
-    private val mHandler: Handler by lazy { Handler() }
 
     //    private val mPermissionHelper: PermissionHelper by lazy { PermissionHelperImpl(context) }
     private var mOnEventReceivedListener: OnEventReceivedListener? = { code, data ->
@@ -197,17 +189,6 @@ abstract class BaseFragment : Fragment() {
             rootParent = rootParent.parentFragment
         }
         return rootParent ?: this
-    }
-
-    @SuppressLint("NewApi")
-    fun changeLayout(layoutRoot: ConstraintLayout, @LayoutRes layoutRes: Int) {
-        mHandler.postDelayed({
-            mScreenLayout = layoutRes
-            val constraintSet = ConstraintSet()
-            constraintSet.clone(context, layoutRes)
-            TransitionManager.beginDelayedTransition(layoutRoot)
-            constraintSet.applyTo(layoutRoot)
-        }, 100)
     }
 
     protected fun showNavigationBottom() {
