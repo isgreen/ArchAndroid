@@ -13,7 +13,6 @@ import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.extension.appCompatActivity
 import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
-import com.google.android.material.transition.platform.Hold
 import kotlinx.android.synthetic.main.appbar_and_toolbar.*
 import kotlinx.android.synthetic.main.fragment_pull_request.*
 import kotlinx.android.synthetic.main.fragment_pull_request_item.*
@@ -43,7 +42,7 @@ class PullRequestFragment : BaseFragment() {
     //region Fragment
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        exitTransition = Hold()
+//        exitTransition = Hold()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -139,7 +138,7 @@ class PullRequestFragment : BaseFragment() {
                     true
                 }
                 R.id.menu_item_merge -> {
-                    // TODO: 26/08/20 code to merge
+                    showPullRequestMerge(pullRequest)
                     true
                 }
                 else -> {
@@ -150,6 +149,13 @@ class PullRequestFragment : BaseFragment() {
         val inflater: MenuInflater = popup.menuInflater
         inflater.inflate(R.menu.menu_pull_request_detail, popup.menu)
         popup.show()
+    }
+
+    private fun showPullRequestMerge(pullRequest: PullRequest) {
+        val direction = PullRequestFragmentDirections
+            .actionPullRequestFragmentToPullRequestMergeFragment(pullRequest)
+        navigate(direction, animation = TransitionAnimation.TRANSLATE_FROM_DOWN)
+        hideNavigationBottom()
     }
 
     private fun showPullRequestDetail(pullRequest: PullRequest) {

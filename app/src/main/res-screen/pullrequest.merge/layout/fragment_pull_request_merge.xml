@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor">
+
+    <include
+        android:id="@+id/includeToolbar"
+        layout="@layout/appbar_and_toolbar"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtMergeBranches"
+        style="@style/AppTheme.TextViewStyle.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        android:drawablePadding="@dimen/margin_default"
+        android:gravity="center_vertical"
+        app:drawableStartCompat="@drawable/ic_merge"
+        app:drawableTint="?attr/colorOnBackground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/includeToolbar"
+        android:text="Develop > Master" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilMergeMessage"
+        style="@style/AppTheme.TextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtMergeBranches">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtMergeMessage"
+            style="@style/AppTheme.TextInputEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:hint="@string/message"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLines="3"
+            android:minHeight="@dimen/edit_text_height"
+            android:textColor="@drawable/selector_edit_text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <androidx.appcompat.widget.AppCompatSpinner
+        android:id="@+id/spnMergeStrategy"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        android:background="@drawable/ripple_rectangle_small_rounded_outline_gray"
+        android:hint="@string/merge"
+        android:inputType="textCapSentences"
+        android:textColor="@drawable/selector_edit_text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tilMergeMessage" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/imgMergeStrategyDrop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="@id/spnMergeStrategy"
+        app:layout_constraintEnd_toEndOf="@id/spnMergeStrategy"
+        app:layout_constraintTop_toTopOf="@id/spnMergeStrategy"
+        app:srcCompat="@drawable/ic_chevron_down" />
+
+    <com.google.android.material.checkbox.MaterialCheckBox
+        android:id="@+id/cbMergeCloseSourceBranch"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/margin_small"
+        android:layout_marginVertical="@dimen/margin_default"
+        android:text="@string/close_source_branch"
+        android:fontFamily="@font/montserrat_semibold"
+        android:paddingHorizontal="@dimen/margin_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/spnMergeStrategy" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

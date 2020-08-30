@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!--Texts-->
+    <string name="message">Message</string>
+    <string name="merge_strategy">Merge strategy</string>
+    <string name="close_source_branch">Close source branch</string>
+    <!--Texts-->
+
+</resources>
