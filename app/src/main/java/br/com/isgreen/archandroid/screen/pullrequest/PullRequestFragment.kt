@@ -5,7 +5,6 @@ import android.view.MenuInflater
 import android.view.View
 import android.widget.PopupMenu
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
@@ -53,13 +52,16 @@ class PullRequestFragment : BaseFragment() {
 
     //region BaseFragment
     override fun initObservers() {
-        viewModel.loadingMoreChanged.observe(this, Observer { isLoading ->
+        viewModel.loadingMoreChanged.observe(this, { isLoading ->
             changeLoadingMore(isLoading)
         })
-        viewModel.pullRequestsCleared.observe(this, Observer {
+        viewModel.pullRequestsCleared.observe(this, {
             mAdapter.clearData()
         })
-        viewModel.pullRequestsFetched.observe(this, Observer { pullRequests ->
+        viewModel.pullRequestsNotFound.observe(this, {
+            showPlaceholderMessage(getString(R.string.no_data))
+        })
+        viewModel.pullRequestsFetched.observe(this, { pullRequests ->
             mAdapter.addData(pullRequests)
         })
     }
@@ -101,9 +103,7 @@ class PullRequestFragment : BaseFragment() {
 
     override fun showError(message: String) {
         if (mAdapter.isEmpty) {
-            pvPullRequest?.icon(R.drawable.ic_alert_triangle)
-                ?.text(message)
-                ?.show()
+            showPlaceholderMessage(message)
         } else {
             showToast(message)
         }
@@ -123,6 +123,12 @@ class PullRequestFragment : BaseFragment() {
         } else {
             mAdapter.hideLoading()
         }
+    }
+
+    private fun showPlaceholderMessage(message: String) {
+        pvPullRequest?.icon(R.drawable.ic_alert_triangle)
+            ?.text(message)
+            ?.show()
     }
 
     private fun showMenu(view: View?, pullRequest: PullRequest) {

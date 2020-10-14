@@ -13,6 +13,7 @@ interface PullRequestContract {
 
     interface ViewModel : BaseContract.ViewModel {
         val pullRequestsCleared: LiveData<Unit>
+        val pullRequestsNotFound: LiveData<Unit>
         val loadingMoreChanged: LiveData<Boolean>
         val pullRequestsFetched: LiveData<List<PullRequest>>
 

@@ -25,12 +25,15 @@ class RepoViewModel(
 
     override val reposCleared: LiveData<Unit>
         get() = mReposCleared
+    override val reposNotFound: LiveData<Unit>
+        get() = mReposNotFound
     override val reposFetched: LiveData<List<Repo>>
         get() = mReposFetched
     override val loadingMoreChanged: LiveData<Boolean>
         get() = mLoadingMoreChanged
 
     private val mReposCleared = MutableLiveData<Unit>()
+    private val mReposNotFound = MutableLiveData<Unit>()
     private val mReposFetched = MutableLiveData<List<Repo>>()
     private val mLoadingMoreChanged = MutableLiveData<Boolean>()
 
@@ -50,7 +53,12 @@ class RepoViewModel(
                 try {
                     changeLoading(true)
                     val repoResponse = repository.fetchRepos(null, ROLE_MEMBER, mAfter)
-                    mReposFetched.postValue(repoResponse.repos)
+                    val repos = repoResponse.repos
+                    if (repos.isNullOrEmpty()) {
+                        mReposNotFound.postValue(Unit)
+                    } else {
+                        mReposFetched.postValue(repoResponse.repos)
+                    }
                     changeLoading(false)
                     getNextDate(repoResponse.next, repoResponse.repos.last().createdOn)
                 } catch (exception: Exception) {

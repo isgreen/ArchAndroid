@@ -13,6 +13,7 @@ interface RepoContract {
 
     interface ViewModel : BaseContract.ViewModel {
         val reposCleared: LiveData<Unit>
+        val reposNotFound: LiveData<Unit>
         val reposFetched: LiveData<List<Repo>>
         val loadingMoreChanged: LiveData<Boolean>
 

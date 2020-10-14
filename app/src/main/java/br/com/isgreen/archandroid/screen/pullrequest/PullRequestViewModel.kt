@@ -25,14 +25,17 @@ class PullRequestViewModel(
 
     override val pullRequestsCleared: LiveData<Unit>
         get() = mPullRequestsCleared
-    override val pullRequestsFetched: LiveData<List<PullRequest>>
-        get() = mPullRequestsFetched
+    override val pullRequestsNotFound: LiveData<Unit>
+        get() = mPullRequestsNotFound
     override val loadingMoreChanged: LiveData<Boolean>
         get() = mLoadingMoreChanged
+    override val pullRequestsFetched: LiveData<List<PullRequest>>
+        get() = mPullRequestsFetched
 
     private val mPullRequestsCleared = MutableLiveData<Unit>()
-    private val mPullRequestsFetched = MutableLiveData<List<PullRequest>>()
+    private val mPullRequestsNotFound = MutableLiveData<Unit>()
     private val mLoadingMoreChanged = MutableLiveData<Boolean>()
+    private val mPullRequestsFetched = MutableLiveData<List<PullRequest>>()
 
     private var mIsLoading = false
     private var mHasMorePages = true
@@ -50,7 +53,12 @@ class PullRequestViewModel(
                 try {
                     changeLoading(true)
                     val pullRequestResponse = repository.fetchPullRequests(/*null, ROLE_MEMBER, mAfter*/)
-                    mPullRequestsFetched.postValue(pullRequestResponse.pullRequests)
+                    val pullRequests = pullRequestResponse.pullRequests
+                    if (pullRequests.isNullOrEmpty()) {
+                        mPullRequestsNotFound.postValue(Unit)
+                    } else {
+                        mPullRequestsFetched.postValue(pullRequestResponse.pullRequests)
+                    }
                     changeLoading(false)
 //                    getNextDate(pullRequestResponse.next, pullRequestResponse.pullRequests.last().createdOn)
                 } catch (exception: Exception) {

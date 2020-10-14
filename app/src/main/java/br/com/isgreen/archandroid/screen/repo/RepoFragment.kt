@@ -1,7 +1,6 @@
 package br.com.isgreen.archandroid.screen.repo
 
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
@@ -34,13 +33,16 @@ class RepoFragment : BaseFragment() {
 
     //region BaseFragment
     override fun initObservers() {
-        viewModel.loadingMoreChanged.observe(this, Observer { isLoading ->
+        viewModel.loadingMoreChanged.observe(this, { isLoading ->
             changeLoadingMore(isLoading)
         })
-        viewModel.reposCleared.observe(this, Observer {
+        viewModel.reposCleared.observe(this, {
             mAdapter.clearData()
         })
-        viewModel.reposFetched.observe(this, Observer { repos ->
+        viewModel.reposNotFound.observe(this, {
+            showPlaceholderMessage(getString(R.string.no_data))
+        })
+        viewModel.reposFetched.observe(this, { repos ->
             mAdapter.addData(repos)
         })
     }
@@ -73,9 +75,7 @@ class RepoFragment : BaseFragment() {
 
     override fun showError(message: String) {
         if (mAdapter.isEmpty) {
-            pvRepo?.icon(R.drawable.ic_alert_triangle)
-                ?.text(message)
-                ?.show()
+            showPlaceholderMessage(message)
         } else {
             showToast(message)
         }
@@ -95,6 +95,12 @@ class RepoFragment : BaseFragment() {
         } else {
             mAdapter.hideLoading()
         }
+    }
+
+    private fun showPlaceholderMessage(message: String) {
+        pvRepo?.icon(R.drawable.ic_alert_triangle)
+            ?.text(message)
+            ?.show()
     }
     //endregion Local
 }

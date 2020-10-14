@@ -16,13 +16,8 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     private var mIsLoading = false
     private var mLoadingPosition = RecyclerView.NO_POSITION
-    private var mOnItemClickListener: OnItemClickListener<T>? = null
 
-    var onItemClickListener
-        get() = mOnItemClickListener
-        set(value) {
-            mOnItemClickListener = value
-        }
+    var onItemClickListener: OnItemClickListener<T>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
         onCreateViewHolderBase(LayoutInflater.from(parent.context), parent, viewType)
@@ -39,7 +34,7 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 //        }
 
         holder.itemView.setOnClickListener {
-            mOnItemClickListener?.invoke(
+            onItemClickListener?.invoke(
                 it, holder.adapterPosition,
                 getItem(holder.adapterPosition)
             )
