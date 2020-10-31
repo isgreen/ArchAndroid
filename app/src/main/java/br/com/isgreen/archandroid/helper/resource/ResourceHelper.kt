@@ -1,5 +1,6 @@
 package br.com.isgreen.archandroid.helper.resource
 
+import br.com.isgreen.archandroid.data.model.merge.MergeStrategy
 import br.com.isgreen.archandroid.data.model.theme.Theme
 
 /**
@@ -9,5 +10,7 @@ import br.com.isgreen.archandroid.data.model.theme.Theme
 interface ResourceHelper {
 
     suspend fun fetchThemes(): List<Theme>
+
+    suspend fun fetchMergeStrategies(): List<MergeStrategy>
 
 }

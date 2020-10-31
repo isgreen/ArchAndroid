@@ -1,0 +1,119 @@
+package br.com.isgreen.archandroid.base
+
+import android.content.Intent
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
+import br.com.isgreen.archandroid.R
+import br.com.isgreen.archandroid.extension.*
+import br.com.isgreen.archandroid.util.OnActivityResultCallback
+import org.koin.core.context.loadKoinModules
+import org.koin.core.context.unloadKoinModules
+
+/**
+ * Created by Éverdes Soares on 10/18/2020.
+ */
+
+abstract class BaseDialogFragment : DialogFragment(), FragmentCompat {
+
+    private var mIsLayoutCreated = false
+    private var mLayoutView: View? = null
+
+    var onActivityResultCallback: OnActivityResultCallback? = null
+
+    //region Fragment
+    override fun onCreate(savedInstanceState: Bundle?) {
+        loadModule()
+        initDefaultObservers()
+
+        super.onCreate(savedInstanceState)
+
+        initObservers()
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        if (mLayoutView == null) {
+            mLayoutView = inflater.inflate(screenLayout, container, false)
+        } else {
+            (mLayoutView?.parent as? ViewGroup)?.removeView(mLayoutView)
+        }
+
+        hideKeyboard()
+
+        return mLayoutView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (!mIsLayoutCreated) {
+            initView()
+            fetchInitialData()
+            mIsLayoutCreated = true
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+//        mPermissionResultCallback?.onPermissionResult(permissions, grantResults)
+//        mPermissionResultCallback = null
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        onActivityResultCallback?.invoke(requestCode, resultCode, data)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        onActivityResultCallback = null
+    }
+    //endregion Fragment
+
+    //region Local
+    private fun initDefaultObservers() {
+        viewModel?.redirect?.observe(this, { destination ->
+            val rootFragment = if (destination == R.id.splashFragment) getRootParent() else this
+            navigate(destination, TransitionAnimation.FADE, null, true, rootFragment)
+        })
+        viewModel?.loading?.observe(this, { isLoading ->
+            onLoadingChanged(isLoading)
+        })
+        viewModel?.message?.observe(this, { message ->
+            showError(message)
+        })
+    }
+
+    private fun loadModule() {
+        try {
+            module?.let {
+                unloadKoinModules(it)
+                loadKoinModules(it)
+            }
+        } catch (exception: Exception) {
+            exception.printStackTrace()
+        }
+    }
+
+    private fun getRootParent(): Fragment {
+        var rootParent = parentFragment
+
+        while (rootParent?.parentFragment != null) {
+            rootParent = rootParent.parentFragment
+        }
+
+        return rootParent ?: this
+    }
+    //endregion Local
+
+}

@@ -9,6 +9,7 @@ import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.login.User
 import br.com.isgreen.archandroid.extension.appCompatActivity
 import br.com.isgreen.archandroid.extension.loadImageRounded
+import br.com.isgreen.archandroid.extension.navigate
 import br.com.isgreen.archandroid.extension.showToast
 import com.google.android.material.transition.platform.Hold
 import kotlinx.android.synthetic.main.appbar_and_toolbar.*

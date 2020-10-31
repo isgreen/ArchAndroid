@@ -3,6 +3,7 @@ package br.com.isgreen.archandroid.helper.resource
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import br.com.isgreen.archandroid.R
+import br.com.isgreen.archandroid.data.model.merge.MergeStrategy
 import br.com.isgreen.archandroid.data.model.theme.Theme
 import kotlinx.coroutines.suspendCancellableCoroutine
 import kotlin.coroutines.resume
@@ -31,4 +32,14 @@ class ResourceHelperImpl : ResourceHelper {
         }
     }
 
+    override suspend fun fetchMergeStrategies(): List<MergeStrategy> {
+        return suspendCancellableCoroutine { continuation ->
+            val mergeStrategies = listOf(
+                MergeStrategy(R.string.merge_commit, "merge_commit"),
+                MergeStrategy(R.string.squash, "squash"),
+                MergeStrategy(R.string.fast_forward, "fast_forward")
+            )
+            continuation.resume(mergeStrategies)
+        }
+    }
 }

@@ -2,12 +2,12 @@ package br.com.isgreen.archandroid.screen.theme
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.theme.Theme
 import br.com.isgreen.archandroid.extension.appCompatActivity
+import br.com.isgreen.archandroid.extension.popBackStack
 import com.google.android.material.transition.platform.MaterialContainerTransform
 import kotlinx.android.synthetic.main.appbar_and_toolbar.*
 import kotlinx.android.synthetic.main.fragment_theme.*
@@ -51,14 +51,14 @@ class ThemeFragment : BaseFragment() {
     }
 
     override fun initObservers() {
-        viewModel.themeChanged.observe(this, Observer { theme ->
+        viewModel.themeChanged.observe(this, { theme ->
             setTheme(theme)
         })
-        viewModel.themesFetched.observe(this, Observer { themes ->
+        viewModel.themesFetched.observe(this, { themes ->
             mAdapter.clearData()
             mAdapter.addData(themes)
         })
-        viewModel.currentThemeFetched.observe(this, Observer { themePosition ->
+        viewModel.currentThemeFetched.observe(this, { themePosition ->
             mAdapter.setCheckedPosition(themePosition)
         })
     }

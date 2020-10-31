@@ -5,63 +5,31 @@ import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
 import android.util.TypedValue
-import android.view.LayoutInflater
-import android.view.MenuItem
-import android.view.View
-import android.view.ViewGroup
-import androidx.annotation.IdRes
+import android.view.*
 import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.navigation.NavDirections
-import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
-import androidx.navigation.fragment.FragmentNavigatorExtras
-import androidx.navigation.fragment.NavHostFragment
-import androidx.navigation.fragment.findNavController
-import androidx.navigation.navOptions
 import br.com.isgreen.archandroid.R
-import br.com.isgreen.archandroid.extension.baseActivity
-import br.com.isgreen.archandroid.extension.hideKeyboard
-import br.com.isgreen.archandroid.extension.isAtLeastLollipop
-import br.com.isgreen.archandroid.extension.isAtLeastMarshmallow
+import br.com.isgreen.archandroid.extension.*
 import br.com.isgreen.archandroid.util.OnActivityResultCallback
 import br.com.isgreen.archandroid.util.OnEventReceivedListener
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.unloadKoinModules
-import org.koin.core.module.Module
 
 /**
  * Created by Éverdes Soares on 08/22/2019.
  */
 
-abstract class BaseFragment : Fragment() {
-
-    enum class TransitionAnimation {
-        TRANSLATE_FROM_RIGHT,
-        TRANSLATE_FROM_LEFT,
-        TRANSLATE_FROM_DOWN,
-        TRANSLATE_FROM_UP,
-        NO_ANIMATION,
-        FADE
-    }
+abstract class BaseFragment : Fragment(), FragmentCompat {
 
     //    private val mPermissionHelper: PermissionHelper by lazy { PermissionHelperImpl(context) }
     private var mOnEventReceivedListener: OnEventReceivedListener? = { code, data ->
         onEventReceived(code, data)
     }
 
-    private var mScreenLayout = -1
     private var mIsLayoutCreated = false
     private var mLayoutView: View? = null
-    private var mBaseViewModel: BaseViewModel? = null
 
     //    private var mPermissionResultCallback: PermissionResultCallback? = null
-    private var mOnActivityResultCallback: OnActivityResultCallback? = null
-
-    abstract val module: Module?
-    abstract val screenLayout: Int
-    abstract val viewModel: BaseViewModel?
 
 //    protected val permissionHelper
 //        get() = mPermissionHelper
@@ -72,32 +40,21 @@ abstract class BaseFragment : Fragment() {
 //            mPermissionResultCallback = value
 //        }
 
-    var onActivityResultCallback
-        get() = mOnActivityResultCallback
-        set(value) {
-            mOnActivityResultCallback = value
-        }
+    var onActivityResultCallback: OnActivityResultCallback? = null
 
-
-    abstract fun initView()
-    abstract fun initObservers()
-    abstract fun fetchInitialData()
-    abstract fun showError(message: String)
-    abstract fun onLoadingChanged(isLoading: Boolean)
     open fun onEventReceived(code: Int, data: Any?) {}
 
     //region Fragment
     override fun onCreate(savedInstanceState: Bundle?) {
         loadModule()
+        initDefaultObservers()
+
         super.onCreate(savedInstanceState)
 
-        mScreenLayout = screenLayout
-        mBaseViewModel = viewModel
         baseActivity?.addOnEventReceivedListener(mOnEventReceivedListener)
 
         setHasOptionsMenu(true)
         setDefaultStatusBarColor()
-        initDefaultObservers()
         initObservers()
     }
 
@@ -107,7 +64,7 @@ abstract class BaseFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         if (mLayoutView == null) {
-            mLayoutView = inflater.inflate(mScreenLayout, container, false)
+            mLayoutView = inflater.inflate(screenLayout, container, false)
         } else {
             (mLayoutView?.parent as? ViewGroup)?.removeView(mLayoutView)
         }
@@ -147,27 +104,27 @@ abstract class BaseFragment : Fragment() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        mOnActivityResultCallback?.invoke(requestCode, resultCode, data)
+        onActivityResultCallback?.invoke(requestCode, resultCode, data)
     }
 
     override fun onDestroy() {
         super.onDestroy()
         baseActivity?.removeOnEventReceivedListener(mOnEventReceivedListener)
         mOnEventReceivedListener = null
-        mOnActivityResultCallback = null
+        onActivityResultCallback = null
     }
     //endregion Fragment
 
     //region Local
     private fun initDefaultObservers() {
-        mBaseViewModel?.redirect?.observe(this, Observer { destination ->
+        viewModel?.redirect?.observe(this, { destination ->
             val rootFragment = if (destination == R.id.splashFragment) getRootParent() else this
             navigate(destination, TransitionAnimation.FADE, null, true, rootFragment)
         })
-        mBaseViewModel?.loading?.observe(this, Observer { isLoading ->
+        viewModel?.loading?.observe(this, { isLoading ->
             onLoadingChanged(isLoading)
         })
-        mBaseViewModel?.message?.observe(this, Observer { message ->
+        viewModel?.message?.observe(this, { message ->
             showError(message)
         })
     }
@@ -185,9 +142,11 @@ abstract class BaseFragment : Fragment() {
 
     private fun getRootParent(): Fragment {
         var rootParent = parentFragment
+
         while (rootParent?.parentFragment != null) {
             rootParent = rootParent.parentFragment
         }
+
         return rootParent ?: this
     }
 
@@ -231,165 +190,30 @@ abstract class BaseFragment : Fragment() {
 
     protected fun changeStatusBarIconsColor(toWhite: Boolean) {
         activity?.let {
-            it.window.decorView.systemUiVisibility = if (
-                toWhite || Build.VERSION.SDK_INT < Build.VERSION_CODES.M
-            ) {
-                0
+            if (isAtLeastR()) {
+                if (toWhite) {
+                    it.window.insetsController?.setSystemBarsAppearance(
+                        0,
+                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+                    )
+                } else {
+                    it.window.insetsController?.setSystemBarsAppearance(
+                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS,
+                        WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
+                    )
+                }
             } else {
-                View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                @Suppress("DEPRECATION")
+                it.window.decorView.systemUiVisibility = if (
+                    toWhite || Build.VERSION.SDK_INT < Build.VERSION_CODES.M
+                ) {
+                    0
+                } else {
+                    View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR
+                }
             }
         }
     }
     //endregion StatusBar
-
-    //region Navigation
-    fun navigate(
-        directions: NavDirections,
-        sharedElements: Pair<View, String>? = null
-    ) {
-        val transitionAnimation = if (sharedElements == null)
-            TransitionAnimation.TRANSLATE_FROM_RIGHT
-        else
-            null
-
-        navigate(directions, transitionAnimation, null, false, sharedElements)
-    }
-
-    fun navigate(
-        directions: NavDirections,
-        clearBackStack: Boolean? = false,
-        animation: TransitionAnimation? = TransitionAnimation.TRANSLATE_FROM_RIGHT
-    ) {
-        navigate(directions, animation, null, clearBackStack, null)
-    }
-
-    fun navigate(
-        directions: NavDirections,
-        animation: TransitionAnimation? = TransitionAnimation.TRANSLATE_FROM_RIGHT,
-        popUpTo: Int? = null,
-        clearBackStack: Boolean? = false,
-        sharedElements: Pair<View, String>? = null
-    ) {
-        val navController = NavHostFragment.findNavController(this)
-        val destinationId = if (clearBackStack == true) navController.graph.id else popUpTo
-        val transitionAnimation = if (sharedElements == null) animation else null
-        val options = buildOptions(transitionAnimation, clearBackStack, destinationId)
-        val extras = sharedElements?.let {
-            FragmentNavigatorExtras(it)
-        }
-
-        navController.navigate(directions.actionId, directions.arguments, options, extras)
-    }
-
-    fun navigate(
-        @IdRes resId: Int,
-        clearBackStack: Boolean? = false,
-        animation: TransitionAnimation? = TransitionAnimation.TRANSLATE_FROM_RIGHT
-    ) {
-        navigate(resId, animation, null, clearBackStack, this)
-    }
-
-    //todo No futuro adicionar parâmetro destinationId,
-    // para quando tiver que voltar de um Fragment para outro que não seja diretamente o anterior
-    fun navigate(
-        @IdRes resId: Int,
-        animation: TransitionAnimation? = TransitionAnimation.TRANSLATE_FROM_RIGHT,
-        bundle: Bundle? = null,
-        clearBackStack: Boolean? = false,
-        fragment: Fragment
-    ) {
-        try {
-            val navController = NavHostFragment.findNavController(fragment)
-            val destinationId = if (clearBackStack == true) navController.graph.id else null
-            val options = buildOptions(animation, clearBackStack, destinationId)
-            navController.navigate(resId, bundle, options)
-        } catch (exception: Exception) {
-            exception.printStackTrace()
-        }
-    }
-
-    fun navigate(
-        view: View,
-        @IdRes resId: Int,
-        animation: TransitionAnimation? = TransitionAnimation.TRANSLATE_FROM_RIGHT,
-        clearBackStack: Boolean? = false
-    ) {
-        val navController = Navigation.findNavController(view)
-        val destinationId = if (clearBackStack == true) navController.graph.id else null
-        val options = buildOptions(animation, clearBackStack, destinationId)
-
-        navController.navigate(resId, null, options)
-    }
-
-    fun popBackStack() {
-        findNavController().popBackStack()
-    }
-
-    fun popUpTo(@IdRes destinationId: Int) {
-        findNavController().popBackStack(destinationId, false)
-    }
-
-    fun navigateUp() {
-        findNavController().navigateUp()
-    }
-
-    private fun buildOptions(
-        transitionAnimation: TransitionAnimation?,
-        clearBackStack: Boolean?,
-        @IdRes destinationId: Int?
-    ): NavOptions {
-        return navOptions {
-            anim {
-                when (transitionAnimation) {
-                    TransitionAnimation.TRANSLATE_FROM_RIGHT -> {
-                        enter = R.anim.translate_left_enter
-                        exit = R.anim.translate_left_exit
-                        popEnter = R.anim.translate_right_enter
-                        popExit = R.anim.translate_right_exit
-                    }
-                    TransitionAnimation.TRANSLATE_FROM_DOWN -> {
-                        enter = R.anim.translate_slide_bottom_up
-                        exit = R.anim.translate_no_change
-                        popEnter = R.anim.translate_no_change
-                        popExit = R.anim.translate_slide_bottom_down
-                    }
-                    TransitionAnimation.TRANSLATE_FROM_LEFT -> {
-                        enter = R.anim.translate_right_enter
-                        exit = R.anim.translate_right_exit
-                        popEnter = R.anim.translate_left_enter
-                        popExit = R.anim.translate_left_exit
-                    }
-                    TransitionAnimation.TRANSLATE_FROM_UP -> {
-                        enter = R.anim.translate_slide_bottom_down
-                        exit = R.anim.translate_no_change
-                        popEnter = R.anim.translate_no_change
-                        popExit = R.anim.translate_slide_bottom_up
-                    }
-                    TransitionAnimation.NO_ANIMATION -> {
-                        enter = R.anim.translate_no_change
-                        exit = R.anim.translate_no_change
-                        popEnter = R.anim.translate_no_change
-                        popExit = R.anim.translate_no_change
-                    }
-                    TransitionAnimation.FADE -> {
-                        enter = R.anim.translate_fade_in
-                        exit = R.anim.translate_fade_out
-                        popEnter = R.anim.translate_fade_in
-                        popExit = R.anim.translate_fade_out
-                    }
-                    else -> { }
-                }
-            }
-
-            // To clean the stack below the current fragment,
-            // you must set the 'destinationId' = navGraphId and 'inclusive' = true
-            destinationId?.let {
-                popUpTo(destinationId) {
-                    inclusive = clearBackStack == true
-                }
-            }
-        }
-    }
-    //endregion Navigation
 
 }

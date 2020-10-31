@@ -9,7 +9,9 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
+import br.com.isgreen.archandroid.extension.TransitionAnimation
 import br.com.isgreen.archandroid.extension.appCompatActivity
+import br.com.isgreen.archandroid.extension.navigate
 import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
 import kotlinx.android.synthetic.main.appbar_and_toolbar.*

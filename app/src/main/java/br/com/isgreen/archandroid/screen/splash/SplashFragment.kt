@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.Observer
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
+import br.com.isgreen.archandroid.extension.TransitionAnimation
 import br.com.isgreen.archandroid.extension.loadImageResource
+import br.com.isgreen.archandroid.extension.navigate
 import kotlinx.android.synthetic.main.fragment_splash.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

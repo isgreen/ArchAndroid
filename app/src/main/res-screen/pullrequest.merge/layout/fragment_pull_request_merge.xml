@@ -3,17 +3,27 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:background="?attr/backgroundColor">
 
-    <include
-        android:id="@+id/includeToolbar"
-        layout="@layout/appbar_and_toolbar"
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtMergeTitle"
+        style="@style/AppTheme.TextViewStyle.Title"
+        android:padding="@dimen/margin_default"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:text="@string/merge"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <View android:id="@+id/vwMergeTitleDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/gray_alpha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtMergeTitle"/>
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtMergeBranches"
@@ -27,8 +37,8 @@
         app:drawableTint="?attr/colorOnBackground"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/includeToolbar"
-        android:text="Develop > Master" />
+        app:layout_constraintTop_toBottomOf="@id/vwMergeTitleDivider"
+        tools:text="Develop > Master" />
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilMergeMessage"

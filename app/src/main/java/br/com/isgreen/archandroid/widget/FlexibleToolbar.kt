@@ -120,6 +120,7 @@ class FlexibleToolbar : Toolbar {
             }
         }
     }
+
     inner class Builder(private val activity: AppCompatActivity?) {
 
         fun title(title: Int): Builder {

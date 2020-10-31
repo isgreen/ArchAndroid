@@ -2,7 +2,10 @@
 <resources>
 
     <!--Texts-->
+    <string name="squash">Squash</string>
     <string name="message">Message</string>
+    <string name="merge_commit">Merge commit</string>
+    <string name="fast_forward">Fast forward</string>
     <string name="merge_strategy">Merge strategy</string>
     <string name="close_source_branch">Close source branch</string>
     <!--Texts-->

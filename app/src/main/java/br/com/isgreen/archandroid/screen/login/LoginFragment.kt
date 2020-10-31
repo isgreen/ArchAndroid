@@ -2,11 +2,11 @@ package br.com.isgreen.archandroid.screen.login
 
 import android.view.inputmethod.EditorInfo
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.extension.hideKeyboard
 import br.com.isgreen.archandroid.extension.loadImageResource
+import br.com.isgreen.archandroid.extension.navigate
 import br.com.isgreen.archandroid.extension.showToast
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_login_content.*
@@ -25,7 +25,7 @@ class LoginFragment : BaseFragment(), LoginContract.View {
 
     //region BaseFragment
     override fun initObservers() {
-        viewModel.loginAuthorized.observe(this, Observer {
+        viewModel.loginAuthorized.observe(this, {
             showEvent()
         })
     }

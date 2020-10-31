@@ -1,6 +1,8 @@
 package br.com.isgreen.archandroid.screen.pullrequest.merge
 
+import androidx.lifecycle.LiveData
 import br.com.isgreen.archandroid.base.BaseContract
+import br.com.isgreen.archandroid.data.model.merge.MergeStrategy
 
 /**
  * Created by Éverdes Soares on 08/30/2020.
@@ -9,16 +11,14 @@ import br.com.isgreen.archandroid.base.BaseContract
 interface PullRequestMergeContract {
 
     interface ViewModel : BaseContract.ViewModel {
-        fun doMerge(
-            pullRequestId: Int?,
-            repoFullName: String?
-        )
+        val mergeStrategiesFetched: LiveData<List<MergeStrategy>>
+
+        fun fetchMergeStrategy()
+        fun doMerge(pullRequestId: Int?, repoFullName: String?)
     }
 
     interface Repository {
-        suspend fun doMerge(
-            pullRequestId: Int,
-            repoFullName: String
-        )
+        suspend fun fetchMergeStrategy(): List<MergeStrategy>
+        suspend fun doMerge(pullRequestId: Int, repoFullName: String)
     }
 }
