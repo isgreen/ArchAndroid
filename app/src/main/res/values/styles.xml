@@ -5,9 +5,13 @@
         <!-- Customize your theme here. -->
         <item name="android:splitMotionEvents">false</item>
         <item name="android:windowEnableSplitTouch">false</item>
+        <item name="android:spinnerStyle">@style/AppTheme.Spinner</item>
+        <item name="android:dialogTheme">@style/AppTheme.DialogTheme</item>
         <item name="android:textViewStyle">@style/AppTheme.TextViewStyle</item>
         <item name="textInputStyle">@style/AppTheme.TextInputLayoutStyle</item>
+        <item name="android:popupMenuStyle">@style/AppTheme.PopupMenuStyle</item>
         <item name="materialButtonStyle">@style/AppTheme.ButtonStyle.Accent</item>
+        <item name="materialAlertDialogTheme">@style/AppTheme.AlertDialogStyle</item>
         <item name="android:editTextStyle">@style/AppTheme.TextInputEditTextStyle</item>
     </style>
 
@@ -135,4 +139,40 @@
         <item name="android:actionMenuTextColor">?attr/colorSecondary</item>
     </style>
     <!-- Toolbar theme. -->
+
+    <!-- Dialog theme. -->
+    <style name="AppTheme.AlertDialogStyle" parent="Theme.MaterialComponents.DayNight.Dialog.Alert.Bridge">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:colorAccent">?attr/colorAccent</item>
+        <item name="android:windowEnterAnimation">@anim/scale_open</item>
+        <item name="android:windowExitAnimation">@anim/scale_close</item>
+<!--        <item name="android:buttonStyle">@style/AppTheme.AlertButtonStyle</item>-->
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+    </style>
+
+    <style name="AppTheme.DialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog">
+        <item name="android:windowMinWidthMajor">90%</item>
+        <item name="android:windowMinWidthMinor">90%</item>
+        <item name="android:colorAccent">?attr/colorSecondary</item>
+        <item name="android:windowEnterAnimation">@anim/scale_open</item>
+        <item name="android:windowExitAnimation">@anim/scale_close</item>
+        <item name="android:dialogCornerRadius">@dimen/shape_corner</item>
+        <item name="android:buttonStyle">@style/AppTheme.ButtonStyle.Accent</item>
+    </style>
+    <!-- Dialog theme. -->
+
+    <!-- Spinner theme. -->
+    <style name="AppTheme.Spinner" parent="Widget.AppCompat.Spinner">
+        <item name="android:overlapAnchor">false</item>
+        <item name="android:spinnerMode">dropdown</item>
+        <item name="android:dropDownVerticalOffset">@dimen/margin_small</item>
+        <item name="android:popupBackground">@drawable/shape_rectangle_rounded_gray</item>
+        <item name="android:background">@drawable/ripple_rectangle_small_rounded_outline_gray</item>
+    </style>
+    <!-- Spinner theme. -->
+
+    <style name="AppTheme.PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:background">@drawable/shape_rectangle_rounded_gray</item>
+    </style>
 </resources>

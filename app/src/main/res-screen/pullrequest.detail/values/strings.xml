@@ -3,6 +3,7 @@
 
     <!--Texts-->
     <string name="merge">Merge</string>
+    <string name="cancel">Cancel</string>
     <string name="approve">Approve</string>
     <string name="decline">Decline</string>
     <string name="commits">Commits</string>

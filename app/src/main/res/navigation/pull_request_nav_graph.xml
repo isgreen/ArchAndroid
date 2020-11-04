@@ -33,9 +33,13 @@
             app:argType="br.com.isgreen.archandroid.data.model.pullrequest.PullRequest"
             app:nullable="true" />
 
+        <action
+            android:id="@+id/action_pullRequestDetailFragment_to_pullRequestMergeFragment"
+            app:destination="@id/pullRequestMergeFragment" />
+
     </fragment>
 
-    <fragment
+    <dialog
         android:id="@+id/pullRequestMergeFragment"
         android:name="br.com.isgreen.archandroid.screen.pullrequest.merge.PullRequestMergeFragment"
         android:label="fragment_pull_request_merge"
@@ -47,6 +51,6 @@
             app:argType="br.com.isgreen.archandroid.data.model.pullrequest.PullRequest"
             app:nullable="true" />
 
-    </fragment>
+    </dialog>
 
 </navigation>

@@ -7,7 +7,9 @@ import android.os.Build
 import android.text.Html
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
 import android.widget.RelativeLayout
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
@@ -19,6 +21,7 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.setPadding
 import androidx.recyclerview.widget.RecyclerView
 import br.com.isgreen.archandroid.util.DateUtil
+import br.com.isgreen.archandroid.util.OnSpinnerItemSelectedListener
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException
@@ -165,3 +168,15 @@ fun RecyclerView?.enableVerticalIndicators() {
     }
 }
 //endregion RecyclerView
+
+//region Spinner
+fun Spinner?.setOnItemSelectedListener(listener: OnSpinnerItemSelectedListener) {
+    this?.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        override fun onNothingSelected(p0: AdapterView<*>?) {}
+
+        override fun onItemSelected(p0: AdapterView<*>?, v: View?, position: Int, id: Long) {
+            listener.invoke(position)
+        }
+    }
+}
+//endregion Spinner

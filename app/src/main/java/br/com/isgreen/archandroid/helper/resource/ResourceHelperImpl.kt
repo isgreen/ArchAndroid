@@ -1,5 +1,6 @@
 package br.com.isgreen.archandroid.helper.resource
 
+import android.content.Context
 import android.os.Build
 import androidx.appcompat.app.AppCompatDelegate
 import br.com.isgreen.archandroid.R
@@ -12,7 +13,7 @@ import kotlin.coroutines.resume
  * Created by Éverdes Soares on 01/14/2020.
  */
 
-class ResourceHelperImpl : ResourceHelper {
+class ResourceHelperImpl(private val context: Context) : ResourceHelper {
 
     companion object {
         val themes = listOf(
@@ -35,9 +36,9 @@ class ResourceHelperImpl : ResourceHelper {
     override suspend fun fetchMergeStrategies(): List<MergeStrategy> {
         return suspendCancellableCoroutine { continuation ->
             val mergeStrategies = listOf(
-                MergeStrategy(R.string.merge_commit, "merge_commit"),
-                MergeStrategy(R.string.squash, "squash"),
-                MergeStrategy(R.string.fast_forward, "fast_forward")
+                MergeStrategy(context.getString(R.string.merge_commit), "merge_commit"),
+                MergeStrategy(context.getString(R.string.squash), "squash"),
+                MergeStrategy(context.getString(R.string.fast_forward), "fast_forward")
             )
             continuation.resume(mergeStrategies)
         }

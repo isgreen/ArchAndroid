@@ -13,12 +13,22 @@ interface PullRequestMergeContract {
     interface ViewModel : BaseContract.ViewModel {
         val mergeStrategiesFetched: LiveData<List<MergeStrategy>>
 
-        fun fetchMergeStrategy()
-        fun doMerge(pullRequestId: Int?, repoFullName: String?)
+        fun fetchMergeStrategies()
+        fun doMerge(
+            pullRequestId: Int?,
+            repoFullName: String?,
+            mergeStrategyPosition: Int?,
+            isCloseSourceBranch: Boolean?
+        )
     }
 
     interface Repository {
         suspend fun fetchMergeStrategy(): List<MergeStrategy>
-        suspend fun doMerge(pullRequestId: Int, repoFullName: String)
+        suspend fun doMerge(
+            pullRequestId: Int,
+            repoFullName: String,
+            mergeStrategyValue: String,
+            isCloseSourceBranch: Boolean
+        )
     }
 }

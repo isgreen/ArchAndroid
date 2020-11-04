@@ -19,7 +19,12 @@ class PullRequestMergeRepository(
     //endregion Resource
 
     //region Api
-    override suspend fun doMerge(pullRequestId: Int, repoFullName: String) {
+    override suspend fun doMerge(
+        pullRequestId: Int,
+        repoFullName: String,
+        mergeStrategyValue: String,
+        isCloseSourceBranch: Boolean
+    ) {
 
     }
     //endregion Api

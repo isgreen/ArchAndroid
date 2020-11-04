@@ -11,6 +11,7 @@ import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.base.BasePagerAdapter
 import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.extension.appCompatActivity
+import br.com.isgreen.archandroid.extension.navigate
 import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.screen.pullrequest.comment.PullRequestCommentFragment
 import br.com.isgreen.archandroid.screen.pullrequest.commit.PullRequestCommitFragment
@@ -44,12 +45,13 @@ class PullRequestDetailFragment : BaseFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.menu_item_merge -> true
-            R.id.menu_item_approve -> true
-            R.id.menu_item_decline -> true
-            else -> super.onOptionsItemSelected(item)
+        when (item.itemId) {
+            R.id.menu_item_merge -> showPullRequestMerge()
+            R.id.menu_item_approve -> {}
+            R.id.menu_item_decline -> {}
         }
+
+        return true
     }
     //endregion Fragment
 
@@ -95,6 +97,13 @@ class PullRequestDetailFragment : BaseFragment() {
 
             tabPullRequestDetail?.setupWithViewPager(it)
         }
+    }
+
+    private fun showPullRequestMerge() {
+        val pullRequest = mArguments.argPullRequest
+        val directions = PullRequestDetailFragmentDirections
+            .actionPullRequestDetailFragmentToPullRequestMergeFragment(pullRequest)
+        navigate(directions)
     }
     //endregion Local
 }

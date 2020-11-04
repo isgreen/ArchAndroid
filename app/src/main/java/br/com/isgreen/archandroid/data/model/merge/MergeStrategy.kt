@@ -5,6 +5,6 @@ package br.com.isgreen.archandroid.data.model.merge
  */
 
 data class MergeStrategy(
-    val name: Int,
+    val name: String,
     val value: String
 )

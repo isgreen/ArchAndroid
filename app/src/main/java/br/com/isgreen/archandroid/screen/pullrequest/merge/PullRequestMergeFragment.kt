@@ -1,11 +1,16 @@
 package br.com.isgreen.archandroid.screen.pullrequest.merge
 
+import android.annotation.SuppressLint
+import android.os.Bundle
+import android.widget.ArrayAdapter
+import androidx.navigation.fragment.navArgs
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseDialogFragment
 import br.com.isgreen.archandroid.data.model.merge.MergeStrategy
-import br.com.isgreen.archandroid.extension.appCompatActivity
+import br.com.isgreen.archandroid.extension.hideKeyboard
+import br.com.isgreen.archandroid.extension.setOnItemSelectedListener
 import br.com.isgreen.archandroid.extension.showToast
-import kotlinx.android.synthetic.main.appbar_and_toolbar.*
+import kotlinx.android.synthetic.main.fragment_pull_request_merge.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -14,23 +19,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PullRequestMergeFragment : BaseDialogFragment() {
 
-//    companion object {
-//        const val ARG_REPO_FULL_NAME = "argRepoFullName"
-//        const val ARG_PULL_REQUEST_ID = "argPullRequestId"
-//
-//        fun newInstance(pullRequestId: Int?, repoFullName: String?): PullRequestMergeFragment {
-//            return PullRequestMergeFragment().apply {
-//                this.arguments = bundleOf(
-//                    ARG_REPO_FULL_NAME to repoFullName,
-//                    ARG_PULL_REQUEST_ID to pullRequestId
-//                )
-//            }
-//        }
-//    }
-
     override val module = pullRequestMergeModule
     override val screenLayout = R.layout.fragment_pull_request_merge
     override val viewModel: PullRequestMergeViewModel by viewModel()
+
+    private val mArguments: PullRequestMergeFragmentArgs by navArgs()
 
     //region BaseFragment
     override fun initObservers() {
@@ -40,14 +33,30 @@ class PullRequestMergeFragment : BaseDialogFragment() {
     }
 
     override fun initView() {
-        toolbar?.Builder(appCompatActivity)
-            ?.homeIcon(R.drawable.ic_back)
-            ?.title(R.string.merge)
-            ?.build()
+        context?.let {
+            spnMergeStrategy?.let { spinner ->
+                spinner.adapter = ArrayAdapter<String>(it, android.R.layout.simple_spinner_dropdown_item)
+                spinner.setOnItemSelectedListener { position ->
+
+                }
+            }
+        }
+
+        edtMergeMessage?.requestFocus()
+
+        btnMerge?.setOnClickListener {
+            doMerge()
+        }
+
+        btnMergeCancel?.setOnClickListener {
+            dismiss()
+        }
+
+        setDataInView()
     }
 
     override fun fetchInitialData() {
-
+        viewModel.fetchMergeStrategies()
     }
 
     override fun onLoadingChanged(isLoading: Boolean) {
@@ -61,11 +70,44 @@ class PullRequestMergeFragment : BaseDialogFragment() {
 
     //region Local
     private fun changeLoading(isLoading: Boolean) {
+        btnMerge?.isEnabled = !isLoading
+        btnMergeCancel?.isEnabled = !isLoading
+        edtMergeMessage?.isEnabled = !isLoading
+        cbMergeCloseSourceBranch?.isEnabled = !isLoading
+    }
 
+    @SuppressLint("SetTextI18n")
+    private fun setDataInView() {
+        val pullRequest = mArguments.argPullRequest
+
+        txtMergeBranches?.text = "${pullRequest?.source?.branch?.name} > ${pullRequest?.destination?.branch?.name}"
     }
 
     private fun setDataInSpinner(mergeStrategies: List<MergeStrategy>) {
+        val names = mergeStrategies.map { it.name }.toMutableList()
 
+        context?.let {
+            spnMergeStrategy?.let { spinner ->
+                spinner.adapter = ArrayAdapter(
+                    it,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    names
+                )
+            }
+        }
+    }
+
+    private fun doMerge() {
+//        val pullRequest = mArguments.argPullRequest
+//
+//        viewModel.doMerge(
+//            pullRequestId = pullRequest?.id,
+//            repoFullName = pullRequest?.destination?.repository?.fullName,
+//            isCloseSourceBranch = cbMergeCloseSourceBranch?.isChecked,
+//            mergeStrategyPosition = spnMergeStrategy?.selectedItemPosition
+//        )
+
+        hideKeyboard()
     }
     //endregion Local
 }

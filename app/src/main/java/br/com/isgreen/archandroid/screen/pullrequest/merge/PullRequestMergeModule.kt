@@ -11,6 +11,6 @@ import org.koin.dsl.module
 
 val pullRequestMergeModule = module {
     viewModel { PullRequestMergeViewModel(get(), get()) }
-    factory<ResourceHelper> { ResourceHelperImpl() }
-    factory<PullRequestMergeContract.Repository> { PullRequestMergeRepository(get()) }
+    factory<ResourceHelper> { ResourceHelperImpl(get()) }
+    factory<PullRequestMergeContract.Repository> { PullRequestMergeRepository(get(), get()) }
 }

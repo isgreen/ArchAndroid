@@ -30,7 +30,7 @@ abstract class BaseDialogFragment : DialogFragment(), FragmentCompat {
         initDefaultObservers()
 
         super.onCreate(savedInstanceState)
-
+        isCancelable = false
         initObservers()
     }
 
@@ -52,6 +52,8 @@ abstract class BaseDialogFragment : DialogFragment(), FragmentCompat {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dialog?.window?.setBackgroundDrawableResource(R.drawable.shape_rectangle_rounded_gray)
+
         if (!mIsLayoutCreated) {
             initView()
             fetchInitialData()
