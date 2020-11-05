@@ -9,9 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
-import br.com.isgreen.archandroid.extension.appCompatActivity
-import br.com.isgreen.archandroid.extension.navigate
-import br.com.isgreen.archandroid.extension.showToast
+import br.com.isgreen.archandroid.extension.*
+import br.com.isgreen.archandroid.screen.pullrequest.merge.PullRequestMergeFragment
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
 import kotlinx.android.synthetic.main.appbar_and_toolbar.*
 import kotlinx.android.synthetic.main.fragment_pull_request.*
@@ -161,12 +160,26 @@ class PullRequestFragment : BaseFragment() {
     private fun showPullRequestMerge(pullRequest: PullRequest) {
         val direction = PullRequestFragmentDirections
             .actionPullRequestFragmentToPullRequestMergeFragment(pullRequest)
-        navigate(direction)
+        navigateForResult<Boolean>(
+            directions = direction,
+            key = PullRequestMergeFragment.RESULT_KEY_PULL_REQUEST_MERGED,
+            onNavigationResult = {
+                fetchInitialData()
+            }
+        )
     }
 
     private fun showPullRequestDetail(pullRequest: PullRequest) {
         val direction = PullRequestFragmentDirections
             .actionPullRequestFragmentToPullRequestDetailFragment(pullRequest)
+
+        setNavigationResultObserver<Boolean>(
+            key = PullRequestMergeFragment.RESULT_KEY_PULL_REQUEST_MERGED,
+            onNavigationResult = {
+                fetchInitialData()
+            }
+        )
+
         navigate(directions = direction, sharedElements = clPullRequest to getString(R.string.shared_element_pull_request))
         hideNavigationBottom()
     }

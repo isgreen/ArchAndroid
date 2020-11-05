@@ -9,7 +9,7 @@
         <item name="android:dialogTheme">@style/AppTheme.DialogTheme</item>
         <item name="android:textViewStyle">@style/AppTheme.TextViewStyle</item>
         <item name="textInputStyle">@style/AppTheme.TextInputLayoutStyle</item>
-        <item name="android:popupMenuStyle">@style/AppTheme.PopupMenuStyle</item>
+<!--        <item name="android:popupMenuStyle">@style/AppTheme.PopupMenuStyle</item>-->
         <item name="materialButtonStyle">@style/AppTheme.ButtonStyle.Accent</item>
         <item name="materialAlertDialogTheme">@style/AppTheme.AlertDialogStyle</item>
         <item name="android:editTextStyle">@style/AppTheme.TextInputEditTextStyle</item>
@@ -172,7 +172,7 @@
     </style>
     <!-- Spinner theme. -->
 
-    <style name="AppTheme.PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
-        <item name="android:background">@drawable/shape_rectangle_rounded_gray</item>
-    </style>
+<!--    <style name="AppTheme.PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">-->
+<!--        <item name="android:background">@drawable/shape_rectangle_rounded_gray</item>-->
+<!--    </style>-->
 </resources>

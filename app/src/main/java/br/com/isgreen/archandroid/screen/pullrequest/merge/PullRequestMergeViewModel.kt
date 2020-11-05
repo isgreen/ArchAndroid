@@ -17,9 +17,12 @@ class PullRequestMergeViewModel(
     private val repository: PullRequestMergeContract.Repository
 ) : BaseViewModel(exceptionHandlerHelper), PullRequestMergeContract.ViewModel {
 
+    override val pullRequestMerged: LiveData<Unit>
+        get() = mPullRequestMerged
     override val mergeStrategiesFetched: LiveData<List<MergeStrategy>>
         get() = mMergeStrategiesFetched
 
+    private val mPullRequestMerged = MutableLiveData<Unit>()
     private val mMergeStrategiesFetched = MutableLiveData<List<MergeStrategy>>()
 
     override fun fetchMergeStrategies() {
@@ -36,18 +39,20 @@ class PullRequestMergeViewModel(
         isCloseSourceBranch: Boolean?
     ) {
         defaultLaunch {
-            val mergeStrategies = mMergeStrategiesFetched.value
-            val mergeStrategyValue = if (mergeStrategyPosition != null && mergeStrategies != null)
-                mergeStrategies[mergeStrategyPosition].value
-            else
-                "merge_commit"
+//            val mergeStrategies = mMergeStrategiesFetched.value
+//            val mergeStrategyValue = if (mergeStrategyPosition != null && mergeStrategies != null)
+//                mergeStrategies[mergeStrategyPosition].value
+//            else
+//                "merge_commit"
+//
+//            repository.doMerge(
+//                pullRequestId = pullRequestId ?: 0,
+//                repoFullName = repoFullName ?: "",
+//                mergeStrategyValue = mergeStrategyValue,
+//                isCloseSourceBranch = isCloseSourceBranch == true
+//            )
 
-            repository.doMerge(
-                pullRequestId = pullRequestId ?: 0,
-                repoFullName = repoFullName ?: "",
-                mergeStrategyValue = mergeStrategyValue,
-                isCloseSourceBranch = isCloseSourceBranch == true
-            )
+            mPullRequestMerged.postValue(Unit)
         }
     }
 }

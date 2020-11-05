@@ -11,6 +11,7 @@ import br.com.isgreen.archandroid.data.model.merge.MergeStrategy
 interface PullRequestMergeContract {
 
     interface ViewModel : BaseContract.ViewModel {
+        val pullRequestMerged: LiveData<Unit>
         val mergeStrategiesFetched: LiveData<List<MergeStrategy>>
 
         fun fetchMergeStrategies()

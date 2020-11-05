@@ -1,15 +1,12 @@
 package br.com.isgreen.archandroid.screen.pullrequest.merge
 
 import android.annotation.SuppressLint
-import android.os.Bundle
 import android.widget.ArrayAdapter
 import androidx.navigation.fragment.navArgs
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseDialogFragment
 import br.com.isgreen.archandroid.data.model.merge.MergeStrategy
-import br.com.isgreen.archandroid.extension.hideKeyboard
-import br.com.isgreen.archandroid.extension.setOnItemSelectedListener
-import br.com.isgreen.archandroid.extension.showToast
+import br.com.isgreen.archandroid.extension.*
 import kotlinx.android.synthetic.main.fragment_pull_request_merge.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,6 +16,10 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PullRequestMergeFragment : BaseDialogFragment() {
 
+    companion object {
+        const val RESULT_KEY_PULL_REQUEST_MERGED = "pullRequestMerged"
+    }
+
     override val module = pullRequestMergeModule
     override val screenLayout = R.layout.fragment_pull_request_merge
     override val viewModel: PullRequestMergeViewModel by viewModel()
@@ -27,6 +28,10 @@ class PullRequestMergeFragment : BaseDialogFragment() {
 
     //region BaseFragment
     override fun initObservers() {
+        viewModel.pullRequestMerged.observe(this, {
+            setNavigationResult(key = RESULT_KEY_PULL_REQUEST_MERGED, result = true, destinationId = R.id.pullRequestFragment)
+            popUpTo(R.id.pullRequestFragment)
+        })
         viewModel.mergeStrategiesFetched.observe(this, { mergeStrategies ->
             setDataInSpinner(mergeStrategies)
         })
@@ -98,14 +103,14 @@ class PullRequestMergeFragment : BaseDialogFragment() {
     }
 
     private fun doMerge() {
-//        val pullRequest = mArguments.argPullRequest
-//
-//        viewModel.doMerge(
-//            pullRequestId = pullRequest?.id,
-//            repoFullName = pullRequest?.destination?.repository?.fullName,
-//            isCloseSourceBranch = cbMergeCloseSourceBranch?.isChecked,
-//            mergeStrategyPosition = spnMergeStrategy?.selectedItemPosition
-//        )
+        val pullRequest = mArguments.argPullRequest
+
+        viewModel.doMerge(
+            pullRequestId = pullRequest?.id,
+            repoFullName = pullRequest?.destination?.repository?.fullName,
+            isCloseSourceBranch = cbMergeCloseSourceBranch?.isChecked,
+            mergeStrategyPosition = spnMergeStrategy?.selectedItemPosition
+        )
 
         hideKeyboard()
     }
