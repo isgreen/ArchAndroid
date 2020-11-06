@@ -2,7 +2,6 @@ package br.com.isgreen.archandroid.screen.pullrequest.comment
 
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
@@ -53,13 +52,16 @@ class PullRequestCommentFragment : BaseFragment() {
 
     //region BaseFragment
     override fun initObservers() {
-        viewModel.loadingMoreChanged.observe(this, Observer { isLoading ->
+        viewModel.loadingMoreChanged.observe(this, { isLoading ->
             changeLoadingMore(isLoading)
         })
-        viewModel.commentsCleared.observe(this, Observer {
+        viewModel.commentsCleared.observe(this, {
             mAdapter.clearData()
         })
-        viewModel.commentsFetched.observe(this, Observer { comments ->
+        viewModel.commentsNotFound.observe(this, {
+            showPlaceholderMessage(getString(R.string.no_data))
+        })
+        viewModel.commentsFetched.observe(this, { comments ->
             mAdapter.addData(comments)
         })
     }
@@ -77,10 +79,6 @@ class PullRequestCommentFragment : BaseFragment() {
 
         pvPullRequestComment?.onClickTryAgain = {
             fetchInitialData()
-        }
-
-        btnAddComment?.setOnClickListener {
-
         }
     }
 
@@ -120,6 +118,13 @@ class PullRequestCommentFragment : BaseFragment() {
         } else {
             mAdapter.hideLoading()
         }
+    }
+
+    private fun showPlaceholderMessage(message: String) {
+        pvPullRequestComment?.icon(R.drawable.ic_alert_triangle)
+            ?.hideTryAgain()
+            ?.text(message)
+            ?.show()
     }
 
     private fun showCommentDetail(comment: Comment) {

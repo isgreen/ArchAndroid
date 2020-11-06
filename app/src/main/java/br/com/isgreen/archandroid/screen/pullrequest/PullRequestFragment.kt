@@ -127,6 +127,7 @@ class PullRequestFragment : BaseFragment() {
 
     private fun showPlaceholderMessage(message: String) {
         pvPullRequest?.icon(R.drawable.ic_alert_triangle)
+            ?.hideTryAgain()
             ?.text(message)
             ?.show()
     }

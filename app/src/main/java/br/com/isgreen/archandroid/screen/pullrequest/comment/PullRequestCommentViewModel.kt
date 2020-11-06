@@ -20,12 +20,15 @@ class PullRequestCommentViewModel(
 
     override val commentsCleared: LiveData<Unit>
         get() = mCommentsCleared
-    override val commentsFetched: LiveData<List<Comment>>
-        get() = mCommentsFetched
+    override val commentsNotFound: LiveData<Unit>
+        get() = mCommentsNotFound
     override val loadingMoreChanged: LiveData<Boolean>
         get() = mLoadingMoreChanged
+    override val commentsFetched: LiveData<List<Comment>>
+        get() = mCommentsFetched
 
     private val mCommentsCleared = MutableLiveData<Unit>()
+    private val mCommentsNotFound = MutableLiveData<Unit>()
     private val mLoadingMoreChanged = MutableLiveData<Boolean>()
     private val mCommentsFetched = MutableLiveData<List<Comment>>()
 
@@ -54,7 +57,13 @@ class PullRequestCommentViewModel(
                         pullRequestId = pullRequestId ?: 0,
                         repoFullName = repoFullName ?: ""
                     )
-                    mCommentsFetched.postValue(pullRequestResponse.comments)
+
+                    if (pullRequestResponse.comments.isNullOrEmpty()) {
+                        mCommentsNotFound.postValue(Unit)
+                    } else {
+                        mCommentsFetched.postValue(pullRequestResponse.comments)
+                    }
+
                     changeLoading(false)
                     getNextPage(pullRequestResponse.next)
                 } catch (exception: Exception) {

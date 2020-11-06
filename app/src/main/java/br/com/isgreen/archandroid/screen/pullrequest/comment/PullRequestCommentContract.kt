@@ -13,6 +13,7 @@ interface PullRequestCommentContract {
 
     interface ViewModel : BaseContract.ViewModel {
         val commentsCleared: LiveData<Unit>
+        val commentsNotFound: LiveData<Unit>
         val loadingMoreChanged: LiveData<Boolean>
         val commentsFetched: LiveData<List<Comment>>
 

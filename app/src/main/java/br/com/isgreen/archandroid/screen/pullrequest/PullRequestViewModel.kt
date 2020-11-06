@@ -54,11 +54,13 @@ class PullRequestViewModel(
                     changeLoading(true)
                     val pullRequestResponse = repository.fetchPullRequests(/*null, ROLE_MEMBER, mAfter*/)
                     val pullRequests = pullRequestResponse.pullRequests
+
                     if (pullRequests.isNullOrEmpty()) {
                         mPullRequestsNotFound.postValue(Unit)
                     } else {
                         mPullRequestsFetched.postValue(pullRequestResponse.pullRequests)
                     }
+
                     changeLoading(false)
 //                    getNextDate(pullRequestResponse.next, pullRequestResponse.pullRequests.last().createdOn)
                 } catch (exception: Exception) {
