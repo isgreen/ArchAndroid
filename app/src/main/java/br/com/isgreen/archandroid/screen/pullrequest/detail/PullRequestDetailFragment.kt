@@ -37,7 +37,6 @@ class PullRequestDetailFragment : BaseFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         sharedElementEnterTransition = MaterialContainerTransform()
-        setHasOptionsMenu(true)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -45,13 +44,21 @@ class PullRequestDetailFragment : BaseFragment() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_item_merge -> showPullRequestMerge()
-            R.id.menu_item_approve -> {}
-            R.id.menu_item_decline -> {}
+        return when (item.itemId) {
+            R.id.menu_item_merge -> {
+                showPullRequestMerge()
+                true
+            }
+            R.id.menu_item_approve -> {
+                true
+            }
+            R.id.menu_item_decline -> {
+                true
+            }
+            else -> {
+                super.onOptionsItemSelected(item)
+            }
         }
-
-        return true
     }
     //endregion Fragment
 
