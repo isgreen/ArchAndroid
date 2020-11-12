@@ -1,6 +1,7 @@
 package br.com.isgreen.archandroid.screen.pullrequest.merge
 
 import br.com.isgreen.archandroid.data.model.merge.MergeStrategy
+import br.com.isgreen.archandroid.data.model.merge.PullRequestMergeParameter
 import br.com.isgreen.archandroid.data.remote.apihelper.ApiHelper
 import br.com.isgreen.archandroid.helper.resource.ResourceHelper
 
@@ -22,10 +23,20 @@ class PullRequestMergeRepository(
     override suspend fun doMerge(
         pullRequestId: Int,
         repoFullName: String,
+        message: String,
         mergeStrategyValue: String,
         isCloseSourceBranch: Boolean
     ) {
-
+        apiHelper.doPullRequestsMerge(
+            pullRequestId = pullRequestId,
+            repoFullName = repoFullName,
+            pullRequestMergeParameter = PullRequestMergeParameter(
+                type = "",
+                message = message,
+                mergeStrategy = mergeStrategyValue,
+                closeSourceBranch = isCloseSourceBranch
+            )
+        )
     }
     //endregion Api
 

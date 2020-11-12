@@ -108,6 +108,7 @@ class PullRequestMergeFragment : BaseDialogFragment() {
         viewModel.doMerge(
             pullRequestId = pullRequest?.id,
             repoFullName = pullRequest?.destination?.repository?.fullName,
+            message = edtMergeMessage?.text?.toString(),
             isCloseSourceBranch = cbMergeCloseSourceBranch?.isChecked,
             mergeStrategyPosition = spnMergeStrategy?.selectedItemPosition
         )

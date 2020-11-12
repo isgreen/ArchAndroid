@@ -25,6 +25,10 @@ class PullRequestViewModel(
 
     override val pullRequestsCleared: LiveData<Unit>
         get() = mPullRequestsCleared
+    override val pullRequestApproved: LiveData<Unit>
+        get() = mPullRequestApproved
+    override val pullRequestDeclined: LiveData<Unit>
+        get() = mPullRequestDeclined
     override val pullRequestsNotFound: LiveData<Unit>
         get() = mPullRequestsNotFound
     override val loadingMoreChanged: LiveData<Boolean>
@@ -33,6 +37,8 @@ class PullRequestViewModel(
         get() = mPullRequestsFetched
 
     private val mPullRequestsCleared = MutableLiveData<Unit>()
+    private val mPullRequestApproved = MutableLiveData<Unit>()
+    private val mPullRequestDeclined = MutableLiveData<Unit>()
     private val mPullRequestsNotFound = MutableLiveData<Unit>()
     private val mLoadingMoreChanged = MutableLiveData<Boolean>()
     private val mPullRequestsFetched = MutableLiveData<List<PullRequest>>()
@@ -91,6 +97,24 @@ class PullRequestViewModel(
         } else {
             mAfter = null
             mHasMorePages = false
+        }
+    }
+
+    override fun doPullRequestApprove(pullRequestId: Int?, repoFullName: String?) {
+        defaultLaunch {
+            if (pullRequestId != null && repoFullName != null) {
+                repository.doPullRequestApprove(pullRequestId, repoFullName)
+                mPullRequestApproved.postValue(Unit)
+            }
+        }
+    }
+
+    override fun doPullRequestDecline(pullRequestId: Int?, repoFullName: String?) {
+        defaultLaunch {
+            if (pullRequestId != null && repoFullName != null) {
+                repository.doPullRequestDecline(pullRequestId, repoFullName)
+                mPullRequestDeclined.postValue(Unit)
+            }
         }
     }
 }

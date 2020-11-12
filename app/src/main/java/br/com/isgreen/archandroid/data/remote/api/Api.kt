@@ -6,6 +6,7 @@ import br.com.isgreen.archandroid.data.model.comment.FetchPullRequestCommentsRes
 import br.com.isgreen.archandroid.data.model.commit.FetchPullRequestCommitsResponse
 import br.com.isgreen.archandroid.data.model.login.Authorization
 import br.com.isgreen.archandroid.data.model.login.User
+import br.com.isgreen.archandroid.data.model.merge.PullRequestMergeParameter
 import br.com.isgreen.archandroid.data.model.pullrequest.FetchPullRequestsResponse
 import br.com.isgreen.archandroid.data.model.repository.FetchReposResponse
 import com.google.gson.GsonBuilder
@@ -99,12 +100,6 @@ interface Api {
         @Path("userUuid") userUuid: String
     ): FetchPullRequestsResponse
 
-    @POST(ApiConstant.DO_PULL_REQUEST_MERGE)
-    suspend fun doPullRequestsMerge(
-        @Path("pullRequestId") pullRequestId: Int,
-        @Path("repoFullName") repoFullName: String
-    ): FetchPullRequestsResponse
-
     @GET(ApiConstant.FETCH_PULL_REQUEST_COMMITS)
     suspend fun fetchPullRequestCommits(
         @Path("pullRequestId") pullRequestId: Int,
@@ -118,5 +113,24 @@ interface Api {
         @Path("repoFullName") repoFullName: String,
         @Query("page") page: String?
     ): FetchPullRequestCommentsResponse
+
+    @POST(ApiConstant.DO_PULL_REQUEST_MERGE)
+    suspend fun doPullRequestsMerge(
+        @Path("pullRequestId") pullRequestId: Int,
+        @Path("repoFullName") repoFullName: String,
+        @Field("pullrequest_merge_parameters") pullRequestMergeParameter: PullRequestMergeParameter
+    )
+
+    @POST(ApiConstant.DO_PULL_REQUEST_APPROVE)
+    suspend fun doPullRequestsApprove(
+        @Path("pullRequestId") pullRequestId: Int,
+        @Path("repoFullName") repoFullName: String
+    )
+
+    @POST(ApiConstant.DO_PULL_REQUEST_DECLINE)
+    suspend fun doPullRequestsDecline(
+        @Path("pullRequestId") pullRequestId: Int,
+        @Path("repoFullName") repoFullName: String
+    )
     //endregion Pull Request
 }

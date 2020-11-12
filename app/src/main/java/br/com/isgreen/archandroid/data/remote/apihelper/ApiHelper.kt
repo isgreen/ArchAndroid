@@ -4,6 +4,7 @@ import br.com.isgreen.archandroid.data.model.comment.FetchPullRequestCommentsRes
 import br.com.isgreen.archandroid.data.model.commit.FetchPullRequestCommitsResponse
 import br.com.isgreen.archandroid.data.model.login.Authorization
 import br.com.isgreen.archandroid.data.model.login.User
+import br.com.isgreen.archandroid.data.model.merge.PullRequestMergeParameter
 import br.com.isgreen.archandroid.data.model.pullrequest.FetchPullRequestsResponse
 import br.com.isgreen.archandroid.data.model.repository.FetchReposResponse
 
@@ -40,6 +41,22 @@ interface ApiHelper {
         pullRequestId: Int,
         repoFullName: String
     ): FetchPullRequestCommentsResponse
+
+    suspend fun doPullRequestsMerge(
+        pullRequestId: Int,
+        repoFullName: String,
+        pullRequestMergeParameter: PullRequestMergeParameter
+    )
+
+    suspend fun doPullRequestsApprove(
+        pullRequestId: Int,
+        repoFullName: String
+    )
+
+    suspend fun doPullRequestsDecline(
+        pullRequestId: Int,
+        repoFullName: String
+    )
     //endregion Pull Request
 
 }

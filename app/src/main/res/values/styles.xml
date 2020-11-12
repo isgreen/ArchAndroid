@@ -9,10 +9,12 @@
         <item name="android:dialogTheme">@style/AppTheme.DialogTheme</item>
         <item name="android:textViewStyle">@style/AppTheme.TextViewStyle</item>
         <item name="textInputStyle">@style/AppTheme.TextInputLayoutStyle</item>
-<!--        <item name="android:popupMenuStyle">@style/AppTheme.PopupMenuStyle</item>-->
+        <item name="android:popupMenuStyle">@style/AppTheme.PopupMenuStyle</item>
+        <item name="popupMenuStyle">@style/AppTheme.PopupMenuStyle</item>
         <item name="materialButtonStyle">@style/AppTheme.ButtonStyle.Accent</item>
         <item name="materialAlertDialogTheme">@style/AppTheme.AlertDialogStyle</item>
         <item name="android:editTextStyle">@style/AppTheme.TextInputEditTextStyle</item>
+        <item name="android:actionOverflowButtonStyle">@style/AppTheme.PopupMenuOverflow</item>
     </style>
 
     <style name="WindowAnimationTransition">
@@ -124,7 +126,9 @@
     <!--TabLayout-->
 
     <!-- Toolbar theme. -->
-    <style name="AppTheme.NoActionBar.PopupOverlay" parent="@style/AppTheme.ThemeOverlay" />
+    <style name="AppTheme.NoActionBar.PopupOverlay" parent="@style/AppTheme.ThemeOverlay">
+        <item name="android:actionOverflowMenuStyle">@style/AppTheme.PopupMenuOverflow</item>
+    </style>
 
     <style name="Toolbar.TitleText" parent="TextAppearance.Widget.AppCompat.Toolbar.Title">
         <item name="android:textAllCaps">false</item>
@@ -137,6 +141,7 @@
         <item name="android:textAllCaps">false</item>
         <item name="android:fontFamily">@font/montserrat_regular</item>
         <item name="android:actionMenuTextColor">?attr/colorSecondary</item>
+        <item name="android:actionOverflowMenuStyle">@style/AppTheme.PopupMenuOverflow</item>
     </style>
     <!-- Toolbar theme. -->
 
@@ -172,7 +177,13 @@
     </style>
     <!-- Spinner theme. -->
 
-<!--    <style name="AppTheme.PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">-->
-<!--        <item name="android:background">@drawable/shape_rectangle_rounded_gray</item>-->
-<!--    </style>-->
+    <style name="AppTheme.PopupMenuOverflow" parent="@style/Widget.MaterialComponents.PopupMenu.Overflow">
+        <item name="android:src">@drawable/ic_more_vertical</item>
+        <item name="android:dropDownSelector">?attr/listChoiceBackgroundIndicator</item>
+        <item name="android:popupBackground">@drawable/shape_rectangle_rounded_gray</item>
+    </style>
+
+    <style name="AppTheme.PopupMenuStyle">
+        <item name="android:popupBackground">@drawable/shape_rectangle_rounded_gray</item>
+    </style>
 </resources>

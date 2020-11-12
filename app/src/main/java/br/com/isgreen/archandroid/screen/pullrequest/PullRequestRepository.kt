@@ -9,7 +9,7 @@ import br.com.isgreen.archandroid.data.remote.apihelper.ApiHelper
 
 class PullRequestRepository(
     private val apiHelper: ApiHelper
-): PullRequestContract.Repository {
+) : PullRequestContract.Repository {
 
     //region Api
     override suspend fun fetchPullRequests(): FetchPullRequestsResponse {
@@ -17,6 +17,12 @@ class PullRequestRepository(
         val user = apiHelper.fetchUser()
         return apiHelper.fetchPullRequests(user.uuid)
     }
+
+    override suspend fun doPullRequestApprove(pullRequestId: Int, repoFullName: String) =
+        apiHelper.doPullRequestsApprove(pullRequestId, repoFullName)
+
+    override suspend fun doPullRequestDecline(pullRequestId: Int, repoFullName: String) =
+        apiHelper.doPullRequestsDecline(pullRequestId, repoFullName)
     //endregion Api
 
 }

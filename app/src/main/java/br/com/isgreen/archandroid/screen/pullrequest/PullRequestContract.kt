@@ -13,15 +13,21 @@ interface PullRequestContract {
 
     interface ViewModel : BaseContract.ViewModel {
         val pullRequestsCleared: LiveData<Unit>
+        val pullRequestApproved: LiveData<Unit>
+        val pullRequestDeclined: LiveData<Unit>
         val pullRequestsNotFound: LiveData<Unit>
         val loadingMoreChanged: LiveData<Boolean>
         val pullRequestsFetched: LiveData<List<PullRequest>>
 
+        fun doPullRequestApprove(pullRequestId: Int?, repoFullName: String?)
+        fun doPullRequestDecline(pullRequestId: Int?, repoFullName: String?)
         fun fetchPullRequests(isRefresh: Boolean = false)
     }
 
     interface Repository {
         suspend fun fetchPullRequests(): FetchPullRequestsResponse
+        suspend fun doPullRequestApprove(pullRequestId: Int, repoFullName: String)
+        suspend fun doPullRequestDecline(pullRequestId: Int, repoFullName: String)
     }
 
 }

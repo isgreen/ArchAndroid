@@ -35,22 +35,26 @@ class PullRequestMergeViewModel(
     override fun doMerge(
         pullRequestId: Int?,
         repoFullName: String?,
+        message: String?,
         mergeStrategyPosition: Int?,
         isCloseSourceBranch: Boolean?
     ) {
         defaultLaunch {
-//            val mergeStrategies = mMergeStrategiesFetched.value
-//            val mergeStrategyValue = if (mergeStrategyPosition != null && mergeStrategies != null)
-//                mergeStrategies[mergeStrategyPosition].value
-//            else
-//                "merge_commit"
-//
-//            repository.doMerge(
-//                pullRequestId = pullRequestId ?: 0,
-//                repoFullName = repoFullName ?: "",
-//                mergeStrategyValue = mergeStrategyValue,
-//                isCloseSourceBranch = isCloseSourceBranch == true
-//            )
+            val mergeStrategies = mMergeStrategiesFetched.value
+            val mergeStrategyValue = if (mergeStrategyPosition != null && mergeStrategies != null)
+                mergeStrategies[mergeStrategyPosition].value
+            else
+                "merge_commit"
+
+            val mergeMessage = message ?: ""
+
+            repository.doMerge(
+                message = mergeMessage,
+                pullRequestId = pullRequestId ?: 0,
+                repoFullName = repoFullName ?: "",
+                mergeStrategyValue = mergeStrategyValue,
+                isCloseSourceBranch = isCloseSourceBranch == true
+            )
 
             mPullRequestMerged.postValue(Unit)
         }

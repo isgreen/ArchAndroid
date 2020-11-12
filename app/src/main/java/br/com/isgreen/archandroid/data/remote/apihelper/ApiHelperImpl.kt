@@ -7,6 +7,7 @@ import br.com.isgreen.archandroid.data.local.PreferencesHelper
 import br.com.isgreen.archandroid.data.model.comment.FetchPullRequestCommentsResponse
 import br.com.isgreen.archandroid.data.model.commit.FetchPullRequestCommitsResponse
 import br.com.isgreen.archandroid.data.model.login.User
+import br.com.isgreen.archandroid.data.model.merge.PullRequestMergeParameter
 import br.com.isgreen.archandroid.data.model.pullrequest.FetchPullRequestsResponse
 import br.com.isgreen.archandroid.data.model.repository.FetchReposResponse
 import java.util.*
@@ -106,6 +107,25 @@ class ApiHelperImpl(
     ): FetchPullRequestCommentsResponse {
         checkTokenExpired()
         return api.fetchPullRequestComments(pullRequestId, repoFullName, page)
+    }
+
+    override suspend fun doPullRequestsMerge(
+        pullRequestId: Int,
+        repoFullName: String,
+        pullRequestMergeParameter: PullRequestMergeParameter
+    ) {
+        checkTokenExpired()
+        api.doPullRequestsMerge(pullRequestId, repoFullName, pullRequestMergeParameter)
+    }
+
+    override suspend fun doPullRequestsApprove(pullRequestId: Int, repoFullName: String) {
+        checkTokenExpired()
+        api.doPullRequestsApprove(pullRequestId, repoFullName)
+    }
+
+    override suspend fun doPullRequestsDecline(pullRequestId: Int, repoFullName: String) {
+        checkTokenExpired()
+        api.doPullRequestsDecline(pullRequestId, repoFullName)
     }
     //endregion Pull Request
 }

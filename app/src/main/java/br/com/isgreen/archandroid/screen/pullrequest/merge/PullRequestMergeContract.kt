@@ -18,6 +18,7 @@ interface PullRequestMergeContract {
         fun doMerge(
             pullRequestId: Int?,
             repoFullName: String?,
+            message: String?,
             mergeStrategyPosition: Int?,
             isCloseSourceBranch: Boolean?
         )
@@ -28,6 +29,7 @@ interface PullRequestMergeContract {
         suspend fun doMerge(
             pullRequestId: Int,
             repoFullName: String,
+            message: String,
             mergeStrategyValue: String,
             isCloseSourceBranch: Boolean
         )

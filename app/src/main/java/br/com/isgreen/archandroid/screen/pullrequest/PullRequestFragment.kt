@@ -137,11 +137,11 @@ class PullRequestFragment : BaseFragment() {
         popup.setOnMenuItemClickListener {
             when (it.itemId) {
                 R.id.menu_item_approve -> {
-                    // TODO: 26/08/20 code to approve
+                    doPullRequestApprove(pullRequest)
                     true
                 }
                 R.id.menu_item_decline -> {
-                    // TODO: 26/08/20 code to decline
+                    doPullRequestDecline(pullRequest)
                     true
                 }
                 R.id.menu_item_merge -> {
@@ -156,6 +156,20 @@ class PullRequestFragment : BaseFragment() {
         val inflater: MenuInflater = popup.menuInflater
         inflater.inflate(R.menu.menu_pull_request_detail, popup.menu)
         popup.show()
+    }
+
+    private fun doPullRequestApprove(pullRequest: PullRequest) {
+        viewModel.doPullRequestApprove(
+            pullRequestId = pullRequest.id,
+            repoFullName = pullRequest.destination?.repository?.fullName
+        )
+    }
+
+    private fun doPullRequestDecline(pullRequest: PullRequest) {
+        viewModel.doPullRequestDecline(
+            pullRequestId = pullRequest.id,
+            repoFullName = pullRequest.destination?.repository?.fullName
+        )
     }
 
     private fun showPullRequestMerge(pullRequest: PullRequest) {

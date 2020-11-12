@@ -11,6 +11,7 @@
     <color name="colorTextSecondary">#616161</color>
 
     <color name="black">#121212</color>
+    <color name="black_light">#1C1C1C</color>
     <color name="green">#5BC348</color>
     <color name="green_dark">#4DA53D</color>
     <color name="green_light">#9CCC65</color>
