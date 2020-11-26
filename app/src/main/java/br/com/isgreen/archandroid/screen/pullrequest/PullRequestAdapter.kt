@@ -8,8 +8,7 @@ import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseAdapter
 import br.com.isgreen.archandroid.common.LoadingViewHolder
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
-import br.com.isgreen.archandroid.extension.loadImageRounded
-import br.com.isgreen.archandroid.extension.setDate
+import br.com.isgreen.archandroid.extension.*
 import br.com.isgreen.archandroid.util.OnInnerViewItemClickListener
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.fragment_pull_request_item.*
@@ -57,9 +56,14 @@ class PullRequestAdapter : BaseAdapter<PullRequest>() {
     private fun setDataView(holder: PullRequestViewHolder, pullRequest: PullRequest?) {
         holder.itemView.apply {
             imgRepositoryIcon?.loadImageRounded(pullRequest?.author?.links?.avatar?.href, R.drawable.ic_user, R.dimen.margin_small)
-            txtPullRequestCreatedDate?.setDate(R.string.created_on, pullRequest?.createdOn?.substring(0, 19))
+            txtPullRequestCreatedDate?.setDate(R.string.on_date, pullRequest?.createdOn?.substring(0, 19))
             txtRepositoryName?.text = pullRequest?.source?.repository?.name
             txtPullRequestAuthor?.text = context?.getString(R.string.created_by, pullRequest?.author?.displayName)
+            txtPullRequestStatus?.text = pullRequest?.state
+
+            val color = if (pullRequest?.state == "OPEN") R.color.yellow else R.color.red
+            txtPullRequestStatus?.putTextColor(color)
+            txtPullRequestStatus?.setBackgroundDrawableColor(color)
         }
     }
 

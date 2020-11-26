@@ -19,10 +19,10 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtRepositoryName"
+        style="@style/AppTheme.TextViewStyle.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/margin_default"
-        style="@style/AppTheme.TextViewStyle.Title"
         app:layout_constraintEnd_toStartOf="@id/imgPullRequestMenu"
         app:layout_constraintStart_toEndOf="@+id/imgRepositoryIcon"
         app:layout_constraintTop_toTopOf="@id/imgRepositoryIcon"
@@ -30,36 +30,64 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtPullRequestAuthor"
+        style="@style/AppTheme.TextViewStyle.Content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin_small"
-        style="@style/AppTheme.TextViewStyle.Content"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:layout_marginStart="@dimen/margin_micro"
         app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
-        app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
+        app:layout_constraintStart_toEndOf="@id/txtPullRequestCreatedDate"
         app:layout_constraintTop_toBottomOf="@id/txtRepositoryName"
         tools:text="By Darth Maul" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtPullRequestCreatedDate"
+        style="@style/AppTheme.TextViewStyle.Content"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_small"
-        style="@style/AppTheme.TextViewStyle.Content"
-        app:layout_constraintEnd_toEndOf="@id/txtRepositoryName"
         app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
-        app:layout_constraintTop_toBottomOf="@id/txtPullRequestAuthor"
-        tools:text="Created on 09/22/2019" />
+        app:layout_constraintTop_toTopOf="@id/txtPullRequestAuthor"
+        tools:text="On 09/22/2019 •" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtPullRequestStatusTitle"
+        style="@style/AppTheme.TextViewStyle.Content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="@id/txtRepositoryName"
+        app:layout_constraintTop_toBottomOf="@id/txtPullRequestCreatedDate"
+        android:text="@string/status" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtPullRequestStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:background="@drawable/shape_rectangle_rounded_translucent_small"
+        android:backgroundTint="@color/red"
+        android:paddingHorizontal="@dimen/margin_micro"
+        android:paddingVertical="1dp"
+        android:textColor="@color/red"
+        android:textSize="10sp"
+        app:layout_constraintBaseline_toBaselineOf="@id/txtPullRequestStatusTitle"
+        android:layout_marginStart="@dimen/margin_micro"
+        app:layout_constraintStart_toEndOf="@+id/txtPullRequestStatusTitle"
+        app:layout_constraintTop_toBottomOf="@id/txtPullRequestCreatedDate"
+        tools:ignore="SmallSp"
+        tools:text="OPEN" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgPullRequestMenu"
         android:layout_width="@dimen/image_size_default"
         android:layout_height="@dimen/image_size_default"
-        android:padding="@dimen/margin_small"
         android:layout_marginTop="@dimen/margin_small"
-        app:tint="?attr/colorOnSurface"
-        app:srcCompat="@drawable/ic_more_vertical"
+        android:padding="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_more_vertical"
+        app:tint="?attr/colorOnSurface" />
 
     <View
         android:layout_width="0dp"
@@ -68,6 +96,6 @@
         android:background="@color/gray_alpha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtPullRequestCreatedDate" />
+        app:layout_constraintTop_toBottomOf="@id/txtPullRequestStatus" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

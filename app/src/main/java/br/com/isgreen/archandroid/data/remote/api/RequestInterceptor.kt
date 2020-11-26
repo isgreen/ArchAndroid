@@ -15,17 +15,12 @@ class RequestInterceptor(private val preferencesHelper: PreferencesHelper) : Int
     override fun intercept(chain: Interceptor.Chain): Response {
         val requestBuilder = chain.request().newBuilder()
         requestBuilder.addHeader("Content-Type", "application/json")
+        requestBuilder.addHeader("Content-Type", "charset=utf-8")
 
         val authorization = preferencesHelper.getAuthorization()
 
         authorization?.accessToken?.let {
             requestBuilder.addHeader("Authorization", "Bearer ${authorization.accessToken}")
-//            requestBuilder.header(
-//                "Authorization",
-//                "Basic " + Base64.encodeToString(
-//                    (authorization.username + ":" + authorization.password).toByteArray(), Base64.NO_WRAP
-//                )
-//            )
         }
 
         val request = requestBuilder.build()

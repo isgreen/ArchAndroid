@@ -2,14 +2,17 @@ package br.com.isgreen.archandroid.extension
 
 import android.animation.ValueAnimator
 import android.content.Context
+import android.graphics.Color
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Html
+import android.text.TextUtils
 import android.view.View
-import android.view.ViewGroup
 import android.widget.AdapterView
-import android.widget.RelativeLayout
 import android.widget.Spinner
+import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
@@ -69,6 +72,16 @@ fun View?.setColor(@ColorRes resId: Int) {
         setBackgroundColor(ContextCompat.getColor(context, resId))
     }
 }
+
+fun View?.setBackgroundDrawableColor(@ColorRes resId: Int) {
+    this?.let {
+        val background = it.background
+        background?.mutate()
+        background?.colorFilter = PorterDuffColorFilter(ContextCompat.getColor(context, resId), PorterDuff.Mode.SRC_ATOP)
+
+        it.background = background
+    }
+}
 //endregion View
 
 //region TextView
@@ -94,6 +107,10 @@ fun AppCompatTextView?.setHtml(htmlText: String){
     } else {
         this?.text = Html.fromHtml(htmlText)
     }
+}
+
+fun AppCompatTextView?.putTextColor(@ColorRes colorRes: Int) {
+    this?.setTextColor(ContextCompat.getColor(context, colorRes))
 }
 //endregion TextView
 

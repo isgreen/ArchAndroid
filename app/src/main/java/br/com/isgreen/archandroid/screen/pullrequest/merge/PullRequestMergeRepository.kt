@@ -27,7 +27,7 @@ class PullRequestMergeRepository(
         mergeStrategyValue: String,
         isCloseSourceBranch: Boolean
     ) {
-        apiHelper.doPullRequestsMerge(
+        apiHelper.doPullRequestMerge(
             pullRequestId = pullRequestId,
             repoFullName = repoFullName,
             pullRequestMergeParameter = PullRequestMergeParameter(

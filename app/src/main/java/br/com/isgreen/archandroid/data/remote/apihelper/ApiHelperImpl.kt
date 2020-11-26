@@ -86,9 +86,9 @@ class ApiHelperImpl(
     //endregion Repositories
 
     //region Pull Request
-    override suspend fun fetchPullRequests(userUuid: String): FetchPullRequestsResponse {
+    override suspend fun fetchPullRequests(userUuid: String, state: String): FetchPullRequestsResponse {
         checkTokenExpired()
-        return api.fetchPullRequests(userUuid)
+        return api.fetchPullRequests(userUuid, state)
     }
 
     override suspend fun fetchPullRequestCommits(
@@ -109,7 +109,7 @@ class ApiHelperImpl(
         return api.fetchPullRequestComments(pullRequestId, repoFullName, page)
     }
 
-    override suspend fun doPullRequestsMerge(
+    override suspend fun doPullRequestMerge(
         pullRequestId: Int,
         repoFullName: String,
         pullRequestMergeParameter: PullRequestMergeParameter
@@ -118,14 +118,22 @@ class ApiHelperImpl(
         api.doPullRequestsMerge(pullRequestId, repoFullName, pullRequestMergeParameter)
     }
 
-    override suspend fun doPullRequestsApprove(pullRequestId: Int, repoFullName: String) {
+    override suspend fun doPullRequestApprove(
+        workspace: String,
+        repoSlug: String,
+        pullRequestId: Int
+    ) {
         checkTokenExpired()
-        api.doPullRequestsApprove(pullRequestId, repoFullName)
+        api.doPullRequestApprove(workspace, repoSlug, pullRequestId)
     }
 
-    override suspend fun doPullRequestsDecline(pullRequestId: Int, repoFullName: String) {
+    override suspend fun doPullRequestDecline(
+        workspace: String,
+        repoSlug: String,
+        pullRequestId: Int
+    ) {
         checkTokenExpired()
-        api.doPullRequestsDecline(pullRequestId, repoFullName)
+        api.doPullRequestDecline(workspace, repoSlug, pullRequestId)
     }
     //endregion Pull Request
 }

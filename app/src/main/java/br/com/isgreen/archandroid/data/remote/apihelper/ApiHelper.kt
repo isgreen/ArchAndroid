@@ -28,7 +28,7 @@ interface ApiHelper {
     //endregion Repositories
 
     //region Pull Request
-    suspend fun fetchPullRequests(userUuid: String): FetchPullRequestsResponse
+    suspend fun fetchPullRequests(userUuid: String, state: String): FetchPullRequestsResponse
 
     suspend fun fetchPullRequestCommits(
         page: String?,
@@ -42,20 +42,22 @@ interface ApiHelper {
         repoFullName: String
     ): FetchPullRequestCommentsResponse
 
-    suspend fun doPullRequestsMerge(
+    suspend fun doPullRequestMerge(
         pullRequestId: Int,
         repoFullName: String,
         pullRequestMergeParameter: PullRequestMergeParameter
     )
 
-    suspend fun doPullRequestsApprove(
-        pullRequestId: Int,
-        repoFullName: String
+    suspend fun doPullRequestApprove(
+        workspace: String,
+        repoSlug: String,
+        pullRequestId: Int
     )
 
-    suspend fun doPullRequestsDecline(
-        pullRequestId: Int,
-        repoFullName: String
+    suspend fun doPullRequestDecline(
+        workspace: String,
+        repoSlug: String,
+        pullRequestId: Int
     )
     //endregion Pull Request
 

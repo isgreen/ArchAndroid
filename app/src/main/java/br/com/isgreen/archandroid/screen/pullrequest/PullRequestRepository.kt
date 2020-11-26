@@ -12,17 +12,23 @@ class PullRequestRepository(
 ) : PullRequestContract.Repository {
 
     //region Api
-    override suspend fun fetchPullRequests(): FetchPullRequestsResponse {
+    override suspend fun fetchPullRequests(state: String): FetchPullRequestsResponse {
         // TODO: 08/08/20 save and fetch user (or only uuid) from preferences
         val user = apiHelper.fetchUser()
-        return apiHelper.fetchPullRequests(user.uuid)
+        return apiHelper.fetchPullRequests(user.uuid, state)
     }
 
-    override suspend fun doPullRequestApprove(pullRequestId: Int, repoFullName: String) =
-        apiHelper.doPullRequestsApprove(pullRequestId, repoFullName)
+    override suspend fun doPullRequestApprove(
+        workspace: String,
+        repoSlug: String,
+        pullRequestId: Int
+    ) = apiHelper.doPullRequestApprove(workspace, repoSlug, pullRequestId)
 
-    override suspend fun doPullRequestDecline(pullRequestId: Int, repoFullName: String) =
-        apiHelper.doPullRequestsDecline(pullRequestId, repoFullName)
+    override suspend fun doPullRequestDecline(
+        workspace: String,
+        repoSlug: String,
+        pullRequestId: Int
+    ) = apiHelper.doPullRequestDecline(workspace, repoSlug, pullRequestId)
     //endregion Api
 
 }

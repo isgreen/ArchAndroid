@@ -2,6 +2,8 @@
 <resources>
 
     <!--Texts-->
+    <string name="status">Status</string>
+    <string name="on_date">On %s •</string>
     <string name="created_by">By %s</string>
     <!--Texts-->
 

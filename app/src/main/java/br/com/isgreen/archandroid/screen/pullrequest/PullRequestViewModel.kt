@@ -58,7 +58,8 @@ class PullRequestViewModel(
             viewModelScope.launch {
                 try {
                     changeLoading(true)
-                    val pullRequestResponse = repository.fetchPullRequests(/*null, ROLE_MEMBER, mAfter*/)
+                    val state = "OPEN,DECLINED"
+                    val pullRequestResponse = repository.fetchPullRequests(state/*null, ROLE_MEMBER, mAfter*/)
                     val pullRequests = pullRequestResponse.pullRequests
 
                     if (pullRequests.isNullOrEmpty()) {
@@ -103,8 +104,16 @@ class PullRequestViewModel(
     override fun doPullRequestApprove(pullRequestId: Int?, repoFullName: String?) {
         defaultLaunch {
             if (pullRequestId != null && repoFullName != null) {
-                repository.doPullRequestApprove(pullRequestId, repoFullName)
-                mPullRequestApproved.postValue(Unit)
+                val names = repoFullName.split("/")
+
+                if (names.size == 2) {
+                    repository.doPullRequestApprove(
+                        workspace = names[0],
+                        repoSlug = names[1],
+                        pullRequestId = pullRequestId
+                    )
+                    mPullRequestApproved.postValue(Unit)
+                }
             }
         }
     }
@@ -112,8 +121,19 @@ class PullRequestViewModel(
     override fun doPullRequestDecline(pullRequestId: Int?, repoFullName: String?) {
         defaultLaunch {
             if (pullRequestId != null && repoFullName != null) {
-                repository.doPullRequestDecline(pullRequestId, repoFullName)
-                mPullRequestDeclined.postValue(Unit)
+                val names = repoFullName.split("/")
+
+                if (names.size == 2) {
+                    repository.doPullRequestDecline(
+                        workspace = names[0],
+                        repoSlug = names[1],
+                        pullRequestId = pullRequestId
+                    )
+
+                    // TODO: 20/11/20 After implement screen and endpoint to send message
+
+                    mPullRequestDeclined.postValue(Unit)
+                }
             }
         }
     }

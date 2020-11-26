@@ -8,6 +8,7 @@ import br.com.isgreen.archandroid.data.model.login.Authorization
 import br.com.isgreen.archandroid.data.model.login.User
 import br.com.isgreen.archandroid.data.model.merge.PullRequestMergeParameter
 import br.com.isgreen.archandroid.data.model.pullrequest.FetchPullRequestsResponse
+import br.com.isgreen.archandroid.data.model.pullrequest.PullRequestDeclineResponse
 import br.com.isgreen.archandroid.data.model.repository.FetchReposResponse
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
@@ -82,7 +83,7 @@ interface Api {
 
     @GET(ApiConstant.FETCH_USER_REPOS)
     suspend fun fetchUserRepos(
-        @Path("userUuid") userUuid: String
+        @Path("user_uuid") userUuid: String
     ): FetchReposResponse
 
     //region Repositories
@@ -97,20 +98,21 @@ interface Api {
     //region Pull Request
     @GET(ApiConstant.FETCH_PULL_REQUESTS)
     suspend fun fetchPullRequests(
-        @Path("userUuid") userUuid: String
+        @Path("user_uuid") userUuid: String,
+        @Query("state") state: String
     ): FetchPullRequestsResponse
 
     @GET(ApiConstant.FETCH_PULL_REQUEST_COMMITS)
     suspend fun fetchPullRequestCommits(
-        @Path("pullRequestId") pullRequestId: Int,
-        @Path("repoFullName") repoFullName: String,
+        @Path("pull_request_id") pullRequestId: Int,
+        @Path("repo_full_name") repoFullName: String,
         @Query("page") page: String?
     ): FetchPullRequestCommitsResponse
 
     @GET(ApiConstant.FETCH_PULL_REQUEST_COMMENTS)
     suspend fun fetchPullRequestComments(
-        @Path("pullRequestId") pullRequestId: Int,
-        @Path("repoFullName") repoFullName: String,
+        @Path("pull_request_id") pullRequestId: Int,
+        @Path("repo_full_name") repoFullName: String,
         @Query("page") page: String?
     ): FetchPullRequestCommentsResponse
 
@@ -122,15 +124,17 @@ interface Api {
     )
 
     @POST(ApiConstant.DO_PULL_REQUEST_APPROVE)
-    suspend fun doPullRequestsApprove(
-        @Path("pullRequestId") pullRequestId: Int,
-        @Path("repoFullName") repoFullName: String
+    suspend fun doPullRequestApprove(
+        @Path("workspace") workspace: String,
+        @Path("repo_slug") repoSlug: String,
+        @Path("pull_request_id") pullRequestId: Int
     )
 
     @POST(ApiConstant.DO_PULL_REQUEST_DECLINE)
-    suspend fun doPullRequestsDecline(
-        @Path("pullRequestId") pullRequestId: Int,
-        @Path("repoFullName") repoFullName: String
-    )
+    suspend fun doPullRequestDecline(
+        @Path("workspace") workspace: String,
+        @Path("repo_slug") repoSlug: String,
+        @Path("pull_request_id") pullRequestId: Int
+    ): PullRequestDeclineResponse
     //endregion Pull Request
 }
