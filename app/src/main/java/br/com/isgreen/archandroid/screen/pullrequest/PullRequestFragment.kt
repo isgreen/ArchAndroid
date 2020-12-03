@@ -94,7 +94,7 @@ class PullRequestFragment : BaseFragment() {
     }
 
     override fun fetchInitialData() {
-        viewModel.fetchPullRequests(isRefresh = true)
+        viewModel.fetchPullRequests(isInitialRequest = true)
     }
 
     override fun onLoadingChanged(isLoading: Boolean) {

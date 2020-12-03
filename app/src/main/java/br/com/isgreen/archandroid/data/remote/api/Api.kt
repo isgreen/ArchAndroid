@@ -96,11 +96,8 @@ interface Api {
     //endregion Repositories
 
     //region Pull Request
-    @GET(ApiConstant.FETCH_PULL_REQUESTS)
-    suspend fun fetchPullRequests(
-        @Path("user_uuid") userUuid: String,
-        @Query("state") state: String
-    ): FetchPullRequestsResponse
+    @GET
+    suspend fun fetchPullRequests(@Url url: String): FetchPullRequestsResponse
 
     @GET(ApiConstant.FETCH_PULL_REQUEST_COMMITS)
     suspend fun fetchPullRequestCommits(

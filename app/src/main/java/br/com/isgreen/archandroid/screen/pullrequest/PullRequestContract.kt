@@ -21,11 +21,11 @@ interface PullRequestContract {
 
         fun doPullRequestApprove(pullRequestId: Int?, repoFullName: String?)
         fun doPullRequestDecline(pullRequestId: Int?, repoFullName: String?)
-        fun fetchPullRequests(isRefresh: Boolean = false)
+        fun fetchPullRequests(isInitialRequest: Boolean = false)
     }
 
     interface Repository {
-        suspend fun fetchPullRequests(state: String): FetchPullRequestsResponse
+        suspend fun fetchPullRequests(nextUrl: String?, state: String): FetchPullRequestsResponse
         suspend fun doPullRequestApprove(
             workspace: String,
             repoSlug: String,
