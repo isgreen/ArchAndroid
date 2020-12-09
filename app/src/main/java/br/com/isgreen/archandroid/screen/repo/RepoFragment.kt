@@ -66,7 +66,7 @@ class RepoFragment : BaseFragment() {
     }
 
     override fun fetchInitialData() {
-        viewModel.fetchRepos(isRefresh = true)
+        viewModel.fetchRepos(isInitialRequest = true)
     }
 
     override fun onLoadingChanged(isLoading: Boolean) {

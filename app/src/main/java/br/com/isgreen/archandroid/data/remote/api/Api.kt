@@ -87,12 +87,8 @@ interface Api {
     ): FetchReposResponse
 
     //region Repositories
-    @GET(ApiConstant.FETCH_REPOS)
-    suspend fun fetchRepos(
-        @Query("sort") sort: String?,
-        @Query("role") role: String?,
-        @Query("after") after: String?
-    ): FetchReposResponse
+    @GET
+    suspend fun fetchRepos(@Url url: String): FetchReposResponse
     //endregion Repositories
 
     //region Pull Request

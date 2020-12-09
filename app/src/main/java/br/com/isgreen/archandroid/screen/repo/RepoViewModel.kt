@@ -6,9 +6,7 @@ import androidx.lifecycle.viewModelScope
 import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.data.model.repository.Repo
 import br.com.isgreen.archandroid.helper.exception.ExceptionHandlerHelper
-import br.com.isgreen.archandroid.util.DateUtil
 import kotlinx.coroutines.launch
-import java.util.*
 
 /**
  * Created by Éverdes Soares on 09/22/2019.
@@ -38,29 +36,30 @@ class RepoViewModel(
     private val mLoadingMoreChanged = MutableLiveData<Boolean>()
 
     private var mIsLoading = false
-    private var mHasMorePages = true
-    private var mAfter: String? = null
+    private var mNextRequestUrl: String? = null
 
-    override fun fetchRepos(isRefresh: Boolean) {
-        if (isRefresh) {
-            mAfter = null
-            mHasMorePages = true
+    override fun fetchRepos(isInitialRequest: Boolean) {
+        if (isInitialRequest) {
             mReposCleared.postValue(Unit)
         }
 
-        if (mHasMorePages && !mIsLoading) {
+        val isRequestingMoreData = !isInitialRequest && mNextRequestUrl != null
+
+        if ((isInitialRequest || isRequestingMoreData) && !mIsLoading) {
             viewModelScope.launch {
                 try {
                     changeLoading(true)
-                    val repoResponse = repository.fetchRepos(null, ROLE_MEMBER, mAfter)
+                    val repoResponse = repository.fetchRepos(mNextRequestUrl, null, ROLE_MEMBER)
                     val repos = repoResponse.repos
+
                     if (repos.isNullOrEmpty()) {
                         mReposNotFound.postValue(Unit)
                     } else {
                         mReposFetched.postValue(repoResponse.repos)
                     }
+
                     changeLoading(false)
-                    getNextDate(repoResponse.next, repoResponse.repos.last().createdOn)
+                    mNextRequestUrl = repoResponse.next
                 } catch (exception: Exception) {
                     changeLoading(false)
                     handleException(exception)
@@ -71,24 +70,10 @@ class RepoViewModel(
 
     private fun changeLoading(isLoading: Boolean) {
         mIsLoading = isLoading
-        if (mAfter.isNullOrEmpty()) {
+        if (mNextRequestUrl.isNullOrEmpty()) {
             mLoadingChanged.postValue(isLoading)
         } else {
             mLoadingMoreChanged.postValue(isLoading)
-        }
-    }
-
-    private fun getNextDate(nextUrl: String?, lastItemDate: String?) {
-        if (nextUrl != null) {
-            mAfter = DateUtil.increaseTime(
-                dateAsString = lastItemDate,
-                format = DateUtil.DATE_TIME_FORMAT_API,
-                calendarTimeType = Calendar.SECOND,
-                amountToIncrease = 1
-            )
-        } else {
-            mAfter = null
-            mHasMorePages = false
         }
     }
 }

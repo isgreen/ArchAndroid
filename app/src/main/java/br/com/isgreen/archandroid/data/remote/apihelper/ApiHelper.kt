@@ -24,7 +24,7 @@ interface ApiHelper {
     //endregion User
 
     //region Repositories
-    suspend fun fetchRepos(sort: String?, role: String?, after: String?): FetchReposResponse
+    suspend fun fetchRepos(url: String): FetchReposResponse
     //endregion Repositories
 
     //region Pull Request

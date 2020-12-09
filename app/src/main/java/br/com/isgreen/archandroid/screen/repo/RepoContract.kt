@@ -17,11 +17,10 @@ interface RepoContract {
         val reposFetched: LiveData<List<Repo>>
         val loadingMoreChanged: LiveData<Boolean>
 
-        fun fetchRepos(isRefresh: Boolean = false)
+        fun fetchRepos(isInitialRequest: Boolean = false)
     }
 
     interface Repository {
-        suspend fun fetchRepos(sort: String?, role: String?, after: String?): FetchReposResponse
+        suspend fun fetchRepos(nextUrl: String?, sort: String?, role: String?): FetchReposResponse
     }
-
 }
