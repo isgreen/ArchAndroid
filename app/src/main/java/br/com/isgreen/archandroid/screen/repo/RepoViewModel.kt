@@ -40,6 +40,7 @@ class RepoViewModel(
 
     override fun fetchRepos(isInitialRequest: Boolean) {
         if (isInitialRequest) {
+            mNextRequestUrl = null
             mReposCleared.postValue(Unit)
         }
 

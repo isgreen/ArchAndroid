@@ -2,6 +2,7 @@ package br.com.isgreen.archandroid.screen.pullrequest.merge
 
 import android.annotation.SuppressLint
 import android.widget.ArrayAdapter
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseDialogFragment
@@ -78,6 +79,7 @@ class PullRequestMergeFragment : BaseDialogFragment() {
         btnMerge?.isEnabled = !isLoading
         btnMergeCancel?.isEnabled = !isLoading
         edtMergeMessage?.isEnabled = !isLoading
+        pbPullRequestMerge?.isVisible = isLoading
         cbMergeCloseSourceBranch?.isEnabled = !isLoading
     }
 

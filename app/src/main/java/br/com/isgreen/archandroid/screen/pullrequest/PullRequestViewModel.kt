@@ -42,6 +42,7 @@ class PullRequestViewModel(
 
     override fun fetchPullRequests(isInitialRequest: Boolean) {
         if (isInitialRequest) {
+            mNextRequestUrl = null
             mPullRequestsCleared.postValue(Unit)
         }
 

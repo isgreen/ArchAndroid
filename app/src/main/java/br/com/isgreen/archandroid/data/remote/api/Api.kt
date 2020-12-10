@@ -109,6 +109,7 @@ interface Api {
         @Query("page") page: String?
     ): FetchPullRequestCommentsResponse
 
+    @FormUrlEncoded
     @POST(ApiConstant.DO_PULL_REQUEST_MERGE)
     suspend fun doPullRequestsMerge(
         @Path("pullRequestId") pullRequestId: Int,
