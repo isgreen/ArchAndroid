@@ -50,8 +50,8 @@ class PullRequestViewModel(
             viewModelScope.launch {
                 try {
                     changeLoading(true)
-                    val state = "OPEN,DECLINED"
-                    val pullRequestResponse = repository.fetchPullRequests(mNextRequestUrl, state)
+                    val states = listOf("OPEN", "DECLINED")
+                    val pullRequestResponse = repository.fetchPullRequests(mNextRequestUrl, states)
                     val pullRequests = pullRequestResponse.pullRequests
 
                     if (pullRequests.isNullOrEmpty()) {

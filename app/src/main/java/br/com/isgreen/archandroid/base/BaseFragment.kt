@@ -4,9 +4,7 @@ import android.content.Intent
 import android.graphics.Color
 import android.os.Build
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.*
-import androidx.annotation.RequiresApi
 import androidx.fragment.app.Fragment
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.extension.*
@@ -54,7 +52,6 @@ abstract class BaseFragment : Fragment(), FragmentCompat {
         baseActivity?.addOnEventReceivedListener(mOnEventReceivedListener)
 
         setHasOptionsMenu(true)
-        setDefaultStatusBarColor()
         initObservers()
     }
 
@@ -164,19 +161,6 @@ abstract class BaseFragment : Fragment(), FragmentCompat {
     //endregion Local
 
     //region StatusBar
-    private fun setDefaultStatusBarColor() {
-        val themeStatusColor =
-            if (isAtLeastMarshmallow()) getThemeStatusColor() else R.color.colorAccent
-        changeStatusBarColor(themeStatusColor)
-    }
-
-    @RequiresApi(Build.VERSION_CODES.M)
-    private fun getThemeStatusColor(): Int {
-        val outTypedValue = TypedValue()
-        context?.theme?.resolveAttribute(R.attr.colorSurface, outTypedValue, true)
-        return outTypedValue.data
-    }
-
     protected fun changeStatusBarColor(color: Int) {
         activity?.let {
             if (isAtLeastMarshmallow()) {

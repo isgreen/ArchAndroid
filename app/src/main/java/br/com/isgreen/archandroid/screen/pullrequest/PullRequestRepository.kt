@@ -13,13 +13,13 @@ class PullRequestRepository(
 ) : PullRequestContract.Repository {
 
     //region Api
-    override suspend fun fetchPullRequests(nextUrl: String?, state: String): FetchPullRequestsResponse {
+    override suspend fun fetchPullRequests(nextUrl: String?, states: List<String>): FetchPullRequestsResponse {
         // TODO: 08/08/20 save and fetch user (or only uuid) from preferences
         val user = apiHelper.fetchUser()
 
         val fullUrl = if (nextUrl == null) {
             val url = ApiConstant.FETCH_PULL_REQUESTS.replace("{user_uuid}", user.uuid)
-            val query = "state=$state"
+            val query = states.map { "state=$it" }
             "$url?$query"
         } else {
             nextUrl

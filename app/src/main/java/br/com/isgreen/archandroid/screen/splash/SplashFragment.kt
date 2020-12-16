@@ -2,7 +2,6 @@ package br.com.isgreen.archandroid.screen.splash
 
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.lifecycle.Observer
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.extension.TransitionAnimation
@@ -23,13 +22,13 @@ class SplashFragment : BaseFragment() {
 
     //region BaseFragment
     override fun initObservers() {
-        viewModel.isAuthenticated.observe(this, Observer {
+        viewModel.isAuthenticated.observe(this, {
             showHome()
         })
-        viewModel.isNotAuthenticated.observe(this, Observer {
+        viewModel.isNotAuthenticated.observe(this, {
             showLogin()
         })
-        viewModel.themeFetched.observe(this, Observer { theme ->
+        viewModel.themeFetched.observe(this, { theme ->
             AppCompatDelegate.setDefaultNightMode(theme)
             viewModel.checkIsAuthenticated()
         })

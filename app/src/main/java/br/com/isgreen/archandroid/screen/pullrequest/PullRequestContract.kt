@@ -25,7 +25,7 @@ interface PullRequestContract {
     }
 
     interface Repository {
-        suspend fun fetchPullRequests(nextUrl: String?, state: String): FetchPullRequestsResponse
+        suspend fun fetchPullRequests(nextUrl: String?, states: List<String>): FetchPullRequestsResponse
         suspend fun doPullRequestApprove(
             workspace: String,
             repoSlug: String,

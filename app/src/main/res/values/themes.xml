@@ -1,25 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="AppTheme.DarkLight" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
-        <item name="colorOnPrimary">@color/black</item>
+        <!-- Primary brand color. -->
         <item name="colorPrimary">@android:color/white</item>
         <item name="colorPrimaryVariant">@android:color/white</item>
+        <item name="colorOnPrimary">@color/black</item>
 
+        <!-- Secondary brand color. -->
         <item name="colorSecondary">@color/green</item>
-        <item name="colorOnSecondary">@android:color/white</item>
         <item name="colorSecondaryVariant">@color/green_dark</item>
+        <item name="colorOnSecondary">@android:color/white</item>
 
-        <item name="colorOnBackground">@color/black</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+
+        <!-- Background color. -->
         <item name="backgroundColor">@android:color/white</item>
-        <!--        <item name="android:colorBackground">@android:color/white</item>-->
+        <item name="colorOnBackground">@color/black</item>
 
+        <!-- Surface color. -->
         <item name="colorOnSurface">@color/black</item>
         <item name="colorSurface">@android:color/white</item>
-<!--        <item name="android:textColorPrimary">@android:color/white</item>-->
-<!--                <item name="colorPrimarySurface">@color/colorTextPrimary</item>-->
-        <!--        <item name="colorOnPrimarySurface"></item>-->
+
+        <item name="colorPrimarySurface">@color/colorTextPrimary</item>
+        <item name="colorOnPrimarySurface">@android:color/white</item>
 
         <item name="android:windowAnimationStyle">@style/WindowAnimationTransition</item>
     </style>
