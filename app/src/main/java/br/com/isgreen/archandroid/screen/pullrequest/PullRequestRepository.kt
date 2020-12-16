@@ -19,7 +19,13 @@ class PullRequestRepository(
 
         val fullUrl = if (nextUrl == null) {
             val url = ApiConstant.FETCH_PULL_REQUESTS.replace("{user_uuid}", user.uuid)
-            val query = states.map { "state=$it" }
+            var query = ""
+
+            states.forEach {
+                query += "&state=$it"
+            }
+
+            query = query.replaceFirst("&", "")
             "$url?$query"
         } else {
             nextUrl
