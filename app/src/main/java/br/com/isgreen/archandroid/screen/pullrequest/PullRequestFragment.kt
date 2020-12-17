@@ -1,9 +1,7 @@
 package br.com.isgreen.archandroid.screen.pullrequest
 
 import android.os.Bundle
-import android.view.MenuInflater
 import android.view.View
-import android.widget.PopupMenu
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
@@ -133,29 +131,29 @@ class PullRequestFragment : BaseFragment() {
     }
 
     private fun showMenu(view: View?, pullRequest: PullRequest) {
-        val popup = PopupMenu(context, view)
-        popup.setOnMenuItemClickListener {
-            when (it.itemId) {
-                R.id.menu_item_approve -> {
-                    doPullRequestApprove(pullRequest)
-                    true
-                }
-                R.id.menu_item_decline -> {
-                    doPullRequestDecline(pullRequest)
-                    true
-                }
-                R.id.menu_item_merge -> {
-                    showPullRequestMerge(pullRequest)
-                    true
-                }
-                else -> {
-                    false
+        showPopupMenu(
+            anchorView = view,
+            menuRes = R.menu.menu_pull_request,
+            onMenuItemClickListener = {
+                when (it.itemId) {
+                    R.id.menu_item_approve -> {
+                        doPullRequestApprove(pullRequest)
+                        true
+                    }
+                    R.id.menu_item_decline -> {
+                        doPullRequestDecline(pullRequest)
+                        true
+                    }
+                    R.id.menu_item_merge -> {
+                        showPullRequestMerge(pullRequest)
+                        true
+                    }
+                    else -> {
+                        false
+                    }
                 }
             }
-        }
-        val inflater: MenuInflater = popup.menuInflater
-        inflater.inflate(R.menu.menu_pull_request_detail, popup.menu)
-        popup.show()
+        )
     }
 
     private fun doPullRequestApprove(pullRequest: PullRequest) {

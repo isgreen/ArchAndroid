@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="?attr/colorSurface">
+
+    <View
+        android:id="@+id/vwDividerTop"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/gray_alpha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtMerge"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:drawablePadding="@dimen/margin_default"
+        android:gravity="center_vertical"
+        android:padding="@dimen/margin_default"
+        android:text="@string/merge"
+        app:drawableStartCompat="@drawable/ic_merge"
+        app:drawableTint="?attr/colorOnBackground"
+        app:fontFamily="@font/montserrat_semibold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vwDividerTop" />
+
+    <View
+        android:id="@+id/vwDividerApprove"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_default"
+        android:background="@color/gray_alpha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtMerge" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtApprove"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:drawablePadding="@dimen/margin_default"
+        android:gravity="center_vertical"
+        android:padding="@dimen/margin_default"
+        android:text="@string/approve"
+        app:drawableStartCompat="@drawable/ic_check"
+        app:drawableTint="?attr/colorOnBackground"
+        app:fontFamily="@font/montserrat_semibold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vwDividerApprove" />
+
+    <View
+        android:id="@+id/vwDividerDecline"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="@dimen/margin_default"
+        android:background="@color/gray_alpha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtApprove" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtDecline"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="?attr/selectableItemBackground"
+        android:drawablePadding="@dimen/margin_default"
+        android:gravity="center_vertical"
+        android:padding="@dimen/margin_default"
+        android:text="@string/decline"
+        app:drawableStartCompat="@drawable/ic_block"
+        app:drawableTint="?attr/colorOnBackground"
+        app:fontFamily="@font/montserrat_semibold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vwDividerDecline" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

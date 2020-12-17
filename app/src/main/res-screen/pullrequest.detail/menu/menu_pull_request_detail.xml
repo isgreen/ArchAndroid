@@ -3,19 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_item_merge"
-        android:title="@string/merge"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/menu_item_approve"
-        android:title="@string/approve"
-        app:showAsAction="never" />
-
-    <item
-        android:id="@+id/menu_item_decline"
-        android:title="@string/decline"
-        app:iconTint="?attr/colorAccent"
-        app:showAsAction="never" />
+        android:id="@+id/menu_item_option"
+        android:title="@string/clear"
+        android:icon="@drawable/ic_more_vertical"
+        app:showAsAction="always" />
 
 </menu>

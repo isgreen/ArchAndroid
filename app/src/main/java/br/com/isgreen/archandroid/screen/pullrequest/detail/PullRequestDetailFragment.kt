@@ -45,14 +45,8 @@ class PullRequestDetailFragment : BaseFragment() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.menu_item_merge -> {
-                showPullRequestMerge()
-                true
-            }
-            R.id.menu_item_approve -> {
-                true
-            }
-            R.id.menu_item_decline -> {
+            R.id.menu_item_option -> {
+                showPullRequestOption()
                 true
             }
             else -> {
@@ -106,10 +100,10 @@ class PullRequestDetailFragment : BaseFragment() {
         }
     }
 
-    private fun showPullRequestMerge() {
+    private fun showPullRequestOption() {
         val pullRequest = mArguments.argPullRequest
         val directions = PullRequestDetailFragmentDirections
-            .actionPullRequestDetailFragmentToPullRequestMergeFragment(pullRequest)
+            .actionPullRequestDetailFragmentToPullRequestOptionFragment()
         navigate(directions)
     }
     //endregion Local

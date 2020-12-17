@@ -10,7 +10,6 @@
         <item name="android:textViewStyle">@style/AppTheme.TextViewStyle</item>
         <item name="textInputStyle">@style/AppTheme.TextInputLayoutStyle</item>
         <item name="android:popupMenuStyle">@style/AppTheme.PopupMenuStyle</item>
-        <item name="popupMenuStyle">@style/AppTheme.PopupMenuStyle</item>
         <item name="materialButtonStyle">@style/AppTheme.ButtonStyle.Accent</item>
         <item name="materialAlertDialogTheme">@style/AppTheme.AlertDialogStyle</item>
         <item name="android:editTextStyle">@style/AppTheme.TextInputEditTextStyle</item>
@@ -183,7 +182,9 @@
         <item name="android:popupBackground">@drawable/shape_rectangle_rounded_gray</item>
     </style>
 
-    <style name="AppTheme.PopupMenuStyle">
+    <style name="AppTheme.PopupMenuStyle" parent="Widget.AppCompat.PopupMenu">
+        <item name="android:tint">?attr/colorOnBackground</item>
+        <item name="android:iconTint">?attr/colorOnBackground</item>
         <item name="android:popupBackground">@drawable/shape_rectangle_rounded_gray</item>
     </style>
 </resources>

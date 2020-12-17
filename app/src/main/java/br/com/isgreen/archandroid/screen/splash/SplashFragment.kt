@@ -1,6 +1,5 @@
 package br.com.isgreen.archandroid.screen.splash
 
-import android.graphics.Color
 import androidx.appcompat.app.AppCompatDelegate
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
@@ -35,7 +34,6 @@ class SplashFragment : BaseFragment() {
     }
 
     override fun initView() {
-        changeStatusBarColor(Color.WHITE)
         imgLogo?.loadImageResource(R.drawable.logo_jetpack)
     }
 
@@ -52,7 +50,11 @@ class SplashFragment : BaseFragment() {
     //region Local
     private fun showLogin() {
         val direction = SplashFragmentDirections.actionSplashFragmentToLoginFragment()
-        navigate(directions = direction, clearBackStack =  true, animation = TransitionAnimation.FADE)
+        navigate(
+            directions = direction,
+            clearBackStack = true,
+            animation = TransitionAnimation.FADE
+        )
     }
 
     private fun showHome() {

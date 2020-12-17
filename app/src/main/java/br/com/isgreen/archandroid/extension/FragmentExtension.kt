@@ -5,8 +5,10 @@ package br.com.isgreen.archandroid.extension
 import android.content.Context
 import android.os.Build
 import android.os.Bundle
+import android.view.MenuInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.PopupMenu
 import androidx.annotation.IdRes
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -65,6 +67,24 @@ fun Fragment.hideKeyboard() {
     val inputMethodManager =
         context?.getSystemService(Context.INPUT_METHOD_SERVICE) as? InputMethodManager
     inputMethodManager?.hideSoftInputFromWindow(view?.windowToken, 0)
+}
+
+fun Fragment.showPopupMenu(
+    anchorView: View?,
+    menuRes: Int,
+    onMenuItemClickListener: PopupMenu.OnMenuItemClickListener
+) {
+    val popup = PopupMenu(context, anchorView)
+    popup.setOnMenuItemClickListener(onMenuItemClickListener)
+
+    val inflater: MenuInflater = popup.menuInflater
+    inflater.inflate(menuRes, popup.menu)
+
+    if (isAtLeastQ()) {
+        popup.setForceShowIcon(true)
+    }
+
+    popup.show()
 }
 
 //region Navigation

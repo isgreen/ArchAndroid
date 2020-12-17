@@ -84,23 +84,23 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_default"
         android:gravity="center"
-        app:tint="?attr/colorOnBackground"
         app:layout_constraintBottom_toBottomOf="@id/spnMergeStrategy"
         app:layout_constraintEnd_toEndOf="@id/spnMergeStrategy"
         app:layout_constraintTop_toTopOf="@id/spnMergeStrategy"
-        app:srcCompat="@drawable/ic_chevron_down" />
+        app:srcCompat="@drawable/ic_chevron_down"
+        app:tint="?attr/colorOnBackground" />
 
     <com.google.android.material.textview.MaterialTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_micro"
         android:background="?attr/colorPrimary"
+        android:paddingHorizontal="@dimen/margin_micro"
         android:text="@string/merge_strategy"
         android:textSize="@dimen/text_size_mini"
-        android:layout_marginStart="@dimen/margin_micro"
-        android:paddingHorizontal="@dimen/margin_micro"
         app:layout_constraintBottom_toTopOf="@id/spnMergeStrategy"
-        app:layout_constraintTop_toTopOf="@id/spnMergeStrategy"
-        app:layout_constraintStart_toStartOf="@id/spnMergeStrategy" />
+        app:layout_constraintStart_toStartOf="@id/spnMergeStrategy"
+        app:layout_constraintTop_toTopOf="@id/spnMergeStrategy" />
 
     <com.google.android.material.checkbox.MaterialCheckBox
         android:id="@+id/cbMergeCloseSourceBranch"
@@ -128,14 +128,14 @@
         style="@style/AppTheme.ButtonStyle.Accent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/margin_default"
         android:layout_marginStart="@dimen/margin_small"
         android:layout_marginEnd="@dimen/margin_default"
+        android:layout_marginBottom="@dimen/margin_default"
         android:paddingVertical="@dimen/margin_small"
         android:text="@string/merge"
-        app:layout_constraintStart_toEndOf="@id/btnMergeCancel"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnMergeCancel"
         app:layout_constraintTop_toBottomOf="@id/cbMergeCloseSourceBranch" />
 
     <com.google.android.material.button.MaterialButton
@@ -143,23 +143,25 @@
         style="@style/AppTheme.ButtonStyle.Outline.Accent.SmallCorner"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="@dimen/margin_small"
         android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_small"
         android:paddingVertical="@dimen/margin_small"
         android:text="@string/cancel"
-        app:strokeColor="@color/gray_alpha"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@id/btnMerge"
         app:layout_constraintEnd_toStartOf="@id/btnMerge"
-        app:layout_constraintTop_toTopOf="@id/btnMerge" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnMerge"
+        app:strokeColor="@color/gray_alpha" />
 
     <ProgressBar
         android:id="@+id/pbPullRequestMerge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
