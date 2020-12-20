@@ -7,7 +7,7 @@ apply from: '../api.gradle'
 
 android {
     compileSdkVersion 30
-    buildToolsVersion "30.0.2"
+    buildToolsVersion "30.0.3"
     defaultConfig {
         applicationId "br.com.isgreen.archandroid"
         minSdkVersion 21

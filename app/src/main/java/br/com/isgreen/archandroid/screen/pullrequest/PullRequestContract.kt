@@ -19,18 +19,23 @@ interface PullRequestContract {
         val loadingMoreChanged: LiveData<Boolean>
         val pullRequestsFetched: LiveData<List<PullRequest>>
 
+        fun fetchPullRequests(isInitialRequest: Boolean = false)
         fun doPullRequestApprove(pullRequestId: Int?, repoFullName: String?)
         fun doPullRequestDecline(pullRequestId: Int?, repoFullName: String?)
-        fun fetchPullRequests(isInitialRequest: Boolean = false)
     }
 
     interface Repository {
-        suspend fun fetchPullRequests(nextUrl: String?, states: List<String>): FetchPullRequestsResponse
+        suspend fun fetchPullRequests(
+            nextUrl: String?,
+            states: List<String>
+        ): FetchPullRequestsResponse
+
         suspend fun doPullRequestApprove(
             workspace: String,
             repoSlug: String,
             pullRequestId: Int
         )
+
         suspend fun doPullRequestDecline(
             workspace: String,
             repoSlug: String,

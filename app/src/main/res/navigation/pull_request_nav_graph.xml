@@ -19,6 +19,10 @@
             android:id="@+id/action_pullRequestFragment_to_pullRequestMergeFragment"
             app:destination="@id/pullRequestMergeFragment" />
 
+        <action
+            android:id="@+id/action_pullRequestFragment_to_pullRequestDeclineFragment"
+            app:destination="@id/pullRequestDeclineFragment" />
+
     </fragment>
 
     <fragment
@@ -36,9 +40,10 @@
         <action
             android:id="@+id/action_pullRequestDetailFragment_to_pullRequestMergeFragment"
             app:destination="@id/pullRequestMergeFragment" />
+
         <action
-            android:id="@+id/action_pullRequestDetailFragment_to_pullRequestOptionFragment"
-            app:destination="@id/pullRequestOptionFragment" />
+            android:id="@+id/action_pullRequestDetailFragment_to_pullRequestDeclineFragment"
+            app:destination="@id/pullRequestDeclineFragment" />
 
     </fragment>
 
@@ -57,16 +62,16 @@
     </dialog>
 
     <dialog
-        android:id="@+id/pullRequestOptionFragment"
-        android:name="br.com.isgreen.archandroid.screen.pullrequest.option.PullRequestOptionFragment"
-        android:label="fragment_pull_request_option"
-        tools:layout="@layout/fragment_pull_request_option">
+        android:id="@+id/pullRequestDeclineFragment"
+        android:name="br.com.isgreen.archandroid.screen.pullrequest.decline.PullRequestDeclineFragment"
+        android:label="fragment_pull_request_decline"
+        tools:layout="@layout/fragment_pull_request_decline">
 
-<!--        <argument-->
-<!--            android:name="arg_pull_request"-->
-<!--            android:defaultValue="@null"-->
-<!--            app:argType="br.com.isgreen.archandroid.data.model.pullrequest.PullRequest"-->
-<!--            app:nullable="true" />-->
+        <argument
+            android:name="arg_pull_request"
+            android:defaultValue="@null"
+            app:argType="br.com.isgreen.archandroid.data.model.pullrequest.PullRequest"
+            app:nullable="true" />
 
     </dialog>
 

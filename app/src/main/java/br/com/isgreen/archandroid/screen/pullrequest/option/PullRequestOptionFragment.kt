@@ -4,20 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import br.com.isgreen.archandroid.R
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import kotlinx.android.synthetic.main.fragment_pull_request_option.*
 
 class PullRequestOptionFragment : BottomSheetDialogFragment() {
 
-    companion object {
-//        private const val TASK_EXTRA_KEY = "task"
-
-        fun newInstance() = PullRequestOptionFragment().apply {
-//            arguments = bundleOf(TASK_EXTRA_KEY to task)
-        }
-    }
+    var onMergeClickListener: (() -> Unit)? = null
+    var onApproveClickListener: (() -> Unit)? = null
+    var onDeclineClickListener: (() -> Unit)? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -27,7 +22,21 @@ class PullRequestOptionFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initView()
+    }
 
-//        val task = arguments?.getParcelable<Task>(TASK_EXTRA_KEY)
+    private fun initView() {
+        txtMerge?.setOnClickListener {
+            onMergeClickListener?.invoke()
+            dismiss()
+        }
+        txtApprove?.setOnClickListener {
+            onApproveClickListener?.invoke()
+            dismiss()
+        }
+        txtDecline?.setOnClickListener {
+            onDeclineClickListener?.invoke()
+            dismiss()
+        }
     }
 }

@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    tools:background="@drawable/shape_rectangle_rounded_gray">
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtDeclineTitle"
+        style="@style/AppTheme.TextViewStyle.Title"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_default"
+        android:text="@string/decline"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/vwDeclineTitleDivider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:background="@color/gray_alpha"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtDeclineTitle" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtDeclineWarning"
+        style="@style/AppTheme.TextViewStyle.Content"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        android:drawablePadding="@dimen/margin_default"
+        android:gravity="center_vertical"
+        android:text="@string/this_action_cannot_be_undone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vwDeclineTitleDivider" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/tilDeclineMessage"
+        style="@style/AppTheme.TextInputLayoutStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_default"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtDeclineWarning">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/edtDeclineMessage"
+            style="@style/AppTheme.TextInputEditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="start"
+            android:hint="@string/message"
+            android:inputType="textCapSentences|textMultiLine"
+            android:maxLines="3"
+            android:minHeight="@dimen/edit_text_height"
+            android:textColor="@drawable/selector_edit_text" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDecline"
+        style="@style/AppTheme.ButtonStyle.Accent"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_small"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:layout_marginVertical="@dimen/margin_default"
+        android:paddingVertical="@dimen/margin_small"
+        android:text="@string/merge"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/btnDeclineCancel"
+        app:layout_constraintTop_toBottomOf="@id/tilDeclineMessage" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnDeclineCancel"
+        style="@style/AppTheme.ButtonStyle.Outline.Accent.SmallCorner"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/margin_default"
+        android:layout_marginEnd="@dimen/margin_small"
+        android:paddingVertical="@dimen/margin_small"
+        android:text="@string/cancel"
+        app:layout_constraintBottom_toBottomOf="@id/btnDecline"
+        app:layout_constraintEnd_toStartOf="@id/btnDecline"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btnDecline"
+        app:strokeColor="@color/gray_alpha" />
+
+    <ProgressBar
+        android:id="@+id/pbPullRequestDecline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

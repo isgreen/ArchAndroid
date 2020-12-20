@@ -141,7 +141,7 @@ class PullRequestFragment : BaseFragment() {
                         true
                     }
                     R.id.menu_item_decline -> {
-                        doPullRequestDecline(pullRequest)
+                        showPullRequestDecline(pullRequest)
                         true
                     }
                     R.id.menu_item_merge -> {
@@ -163,13 +163,6 @@ class PullRequestFragment : BaseFragment() {
         )
     }
 
-    private fun doPullRequestDecline(pullRequest: PullRequest) {
-        viewModel.doPullRequestDecline(
-            pullRequestId = pullRequest.id,
-            repoFullName = pullRequest.destination?.repository?.fullName
-        )
-    }
-
     private fun showPullRequestMerge(pullRequest: PullRequest) {
         val direction = PullRequestFragmentDirections
             .actionPullRequestFragmentToPullRequestMergeFragment(pullRequest)
@@ -180,6 +173,14 @@ class PullRequestFragment : BaseFragment() {
                 fetchInitialData()
             }
         )
+    }
+
+    private fun showPullRequestDecline(pullRequest: PullRequest) {
+        // TODO: 19/12/20 usar navigateForResult
+        // TODO: 19/12/20 implementar endpoint de envio da msg de decline
+        val direction = PullRequestFragmentDirections
+            .actionPullRequestFragmentToPullRequestDeclineFragment(pullRequest)
+        navigate(direction)
     }
 
     private fun showPullRequestDetail(pullRequest: PullRequest) {

@@ -15,6 +15,7 @@ import br.com.isgreen.archandroid.extension.navigate
 import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.screen.pullrequest.comment.PullRequestCommentFragment
 import br.com.isgreen.archandroid.screen.pullrequest.commit.PullRequestCommitFragment
+import br.com.isgreen.archandroid.screen.pullrequest.option.PullRequestOptionFragment
 import br.com.isgreen.archandroid.screen.pullrequest.overview.PullRequestOverviewFragment
 import com.google.android.material.transition.platform.MaterialContainerTransform
 import kotlinx.android.synthetic.main.appbar_and_toolbar.*
@@ -101,10 +102,25 @@ class PullRequestDetailFragment : BaseFragment() {
     }
 
     private fun showPullRequestOption() {
-        val pullRequest = mArguments.argPullRequest
-        val directions = PullRequestDetailFragmentDirections
-            .actionPullRequestDetailFragmentToPullRequestOptionFragment()
-        navigate(directions)
+        val fragment = PullRequestOptionFragment()
+        fragment.onMergeClickListener = { showPullRequestMerge() }
+        fragment.onApproveClickListener = {
+
+        }
+        fragment.onDeclineClickListener = { showPullRequestDecline() }
+        fragment.show(childFragmentManager, null)
+    }
+
+    private fun showPullRequestMerge() {
+        val direction = PullRequestDetailFragmentDirections
+            .actionPullRequestDetailFragmentToPullRequestMergeFragment(mArguments.argPullRequest)
+        navigate(direction)
+    }
+
+    private fun showPullRequestDecline() {
+        val direction = PullRequestDetailFragmentDirections
+            .actionPullRequestDetailFragmentToPullRequestDeclineFragment(mArguments.argPullRequest)
+        navigate(direction)
     }
     //endregion Local
 }
