@@ -12,8 +12,8 @@
         android:layout_height="wrap_content">
 
         <include
-            android:id="@+id/includeAuthor"
-            layout="@layout/fragment_pull_request_overview_author"
+            android:id="@+id/includeDestination"
+            layout="@layout/fragment_pull_request_overview_destination"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
@@ -21,13 +21,13 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <include
-            android:id="@+id/includeDestination"
-            layout="@layout/fragment_pull_request_overview_destination"
+            android:id="@+id/includeAuthor"
+            layout="@layout/fragment_pull_request_overview_author"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/includeAuthor" />
+             app:layout_constraintTop_toBottomOf="@id/includeDestination"/>
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtDescriptionTitle"
@@ -38,7 +38,7 @@
             android:text="@string/description"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/includeDestination" />
+            app:layout_constraintTop_toBottomOf="@id/includeAuthor" />
 
         <com.google.android.material.textview.MaterialTextView
             android:id="@+id/txtPullRequestDescription"

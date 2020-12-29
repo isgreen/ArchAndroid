@@ -7,9 +7,7 @@ import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
-import br.com.isgreen.archandroid.extension.loadImageRounded
-import br.com.isgreen.archandroid.extension.setDate
-import br.com.isgreen.archandroid.extension.showToast
+import br.com.isgreen.archandroid.extension.*
 import kotlinx.android.synthetic.main.fragment_pull_request_overview.*
 import kotlinx.android.synthetic.main.fragment_pull_request_overview_author.*
 import kotlinx.android.synthetic.main.fragment_pull_request_overview_destination.*
@@ -65,10 +63,15 @@ class PullRequestOverviewFragment : BaseFragment() {
                 R.drawable.ic_user, R.dimen.margin_small
             )
 
+            val color = pullRequest?.stateColor ?: R.color.red
+            txtPullRequestStatus?.putTextColor(color)
+            txtPullRequestStatus?.setBackgroundDrawableColor(color)
+            txtPullRequestStatus?.text = pullRequest?.state?.value
             txtPullRequestDescription?.text = pullRequest?.description
             txtRepositoryName?.text = pullRequest?.destination?.repository?.name
             txtPullRequestCreatedDate?.setDate(R.string.created_on, pullRequest?.createdOn?.substring(0, 19))
-            txtPullRequestBranches?.text = "${pullRequest?.source?.branch?.name} > ${pullRequest?.destination?.branch?.name}"
+            txtPullRequestBranches?.text =
+                "${pullRequest?.source?.branch?.name} > ${pullRequest?.destination?.branch?.name}"
             imgRepositoryIcon?.loadImageRounded(
                 pullRequest?.destination?.repository?.links?.avatar?.href,
                 R.drawable.ic_user, R.dimen.margin_small

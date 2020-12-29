@@ -7,14 +7,31 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtRepoTitle"
+        style="@style/AppTheme.TextViewStyle.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        style="@style/AppTheme.TextViewStyle.Title"
-        android:text="@string/destination"
         android:layout_margin="@dimen/margin_default"
-        app:layout_constraintStart_toStartOf="parent"
+        android:text="@string/destination"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.textview.MaterialTextView
+        android:id="@+id/txtPullRequestStatus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/margin_default"
+        android:background="@drawable/shape_rectangle_rounded_translucent_small"
+        tools:backgroundTint="@color/red"
+        android:paddingHorizontal="@dimen/margin_micro"
+        android:paddingVertical="1dp"
+        tools:textColor="@color/red"
+        android:textSize="@dimen/text_size_mini"
+        app:layout_constraintBaseline_toBaselineOf="@id/txtRepoTitle"
+        app:layout_constraintBottom_toBottomOf="@id/txtRepoTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/txtRepoTitle"
+        tools:text="OPEN" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgRepositoryIcon"
@@ -27,10 +44,10 @@
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtRepositoryName"
+        style="@style/AppTheme.TextViewStyle.Title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/margin_default"
-        style="@style/AppTheme.TextViewStyle.Title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/imgRepositoryIcon"
         app:layout_constraintTop_toTopOf="@id/imgRepositoryIcon"

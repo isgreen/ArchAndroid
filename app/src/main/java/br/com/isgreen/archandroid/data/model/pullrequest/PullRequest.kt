@@ -1,6 +1,7 @@
 package br.com.isgreen.archandroid.data.model.pullrequest
 
 import android.os.Parcelable
+import br.com.isgreen.archandroid.R
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -30,7 +31,7 @@ data class PullRequest(
     @SerializedName("source")
     val source: Source?,
     @SerializedName("state")
-    val state: String?,
+    val state: PullRequestState?,
     @SerializedName("summary")
     val summary: Summary?,
     @SerializedName("task_count")
@@ -42,4 +43,16 @@ data class PullRequest(
     @SerializedName("updated_on")
     val updatedOn: String?
 
-) : Parcelable
+) : Parcelable {
+
+    val stateColor: Int get() {
+        return when(state) {
+            PullRequestState.OPEN -> R.color.yellow
+            PullRequestState.MERGED -> R.color.green
+            PullRequestState.DECLINED -> R.color.red
+            PullRequestState.SUPERSEDED -> R.color.red
+            else -> R.color.yellow
+        }
+    }
+
+}
