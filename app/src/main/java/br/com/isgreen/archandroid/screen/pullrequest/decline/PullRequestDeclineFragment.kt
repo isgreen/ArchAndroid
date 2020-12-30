@@ -30,7 +30,12 @@ class PullRequestDeclineFragment : BaseDialogFragment() {
     //region BaseFragment
     override fun initObservers() {
         viewModel.pullRequestDeclined.observe(this, {
-            setNavigationResult(key = RESULT_KEY_PULL_REQUEST_DECLINED, result = true, destinationId = R.id.pullRequestFragment)
+            // TODO: 29/12/20 atualizar o objeto PullRequest na tela de PullRequestDetailFragment e na (PullRequestFragment)
+            setNavigationResult(
+                key = RESULT_KEY_PULL_REQUEST_DECLINED,
+                result = true,
+                destinationId = R.id.pullRequestFragment
+            )
             popUpTo(R.id.pullRequestFragment)
         })
     }
@@ -71,6 +76,7 @@ class PullRequestDeclineFragment : BaseDialogFragment() {
 
         viewModel.doPullRequestDecline(
             pullRequestId = pullRequest?.id,
+            message = edtDeclineMessage?.text?.toString(),
             repoFullName = pullRequest?.destination?.repository?.fullName
         )
 

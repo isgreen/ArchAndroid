@@ -72,7 +72,7 @@
         android:layout_marginEnd="@dimen/margin_default"
         android:layout_marginVertical="@dimen/margin_default"
         android:paddingVertical="@dimen/margin_small"
-        android:text="@string/merge"
+        android:text="@string/decline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnDeclineCancel"

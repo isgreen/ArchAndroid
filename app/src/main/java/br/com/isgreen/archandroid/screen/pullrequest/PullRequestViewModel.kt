@@ -21,8 +21,6 @@ class PullRequestViewModel(
         get() = mPullRequestsCleared
     override val pullRequestApproved: LiveData<Unit>
         get() = mPullRequestApproved
-    override val pullRequestDeclined: LiveData<Unit>
-        get() = mPullRequestDeclined
     override val pullRequestsNotFound: LiveData<Unit>
         get() = mPullRequestsNotFound
     override val loadingMoreChanged: LiveData<Boolean>
@@ -32,7 +30,6 @@ class PullRequestViewModel(
 
     private val mPullRequestsCleared = MutableLiveData<Unit>()
     private val mPullRequestApproved = MutableLiveData<Unit>()
-    private val mPullRequestDeclined = MutableLiveData<Unit>()
     private val mPullRequestsNotFound = MutableLiveData<Unit>()
     private val mLoadingMoreChanged = MutableLiveData<Boolean>()
     private val mPullRequestsFetched = MutableLiveData<List<PullRequest>>()
@@ -91,26 +88,6 @@ class PullRequestViewModel(
                         pullRequestId = pullRequestId
                     )
                     mPullRequestApproved.postValue(Unit)
-                }
-            }
-        }
-    }
-
-    override fun doPullRequestDecline(pullRequestId: Int?, repoFullName: String?) {
-        defaultLaunch {
-            if (pullRequestId != null && repoFullName != null) {
-                val names = repoFullName.split("/")
-
-                if (names.size == 2) {
-                    repository.doPullRequestDecline(
-                        workspace = names[0],
-                        repoSlug = names[1],
-                        pullRequestId = pullRequestId
-                    )
-
-                    // TODO: 20/11/20 After implement screen and endpoint to send message
-
-                    mPullRequestDeclined.postValue(Unit)
                 }
             }
         }

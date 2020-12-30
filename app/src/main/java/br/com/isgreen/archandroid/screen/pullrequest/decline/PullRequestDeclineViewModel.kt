@@ -19,13 +19,18 @@ class PullRequestDeclineViewModel(
 
     private val mPullRequestDeclined = MutableLiveData<Unit>()
 
-    override fun doPullRequestDecline(pullRequestId: Int?, repoFullName: String?) {
+    override fun doPullRequestDecline(
+        pullRequestId: Int?,
+        repoFullName: String?,
+        message: String?
+    ) {
         defaultLaunch {
             if (pullRequestId != null && repoFullName != null) {
                 val names = repoFullName.split("/")
 
                 if (names.size == 2) {
                     repository.doPullRequestDecline(
+                        message = message,
                         workspace = names[0],
                         repoSlug = names[1],
                         pullRequestId = pullRequestId

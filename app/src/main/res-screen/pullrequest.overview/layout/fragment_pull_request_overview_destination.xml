@@ -22,16 +22,16 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_default"
         android:background="@drawable/shape_rectangle_rounded_translucent_small"
-        tools:backgroundTint="@color/red"
         android:paddingHorizontal="@dimen/margin_micro"
         android:paddingVertical="1dp"
-        tools:textColor="@color/red"
         android:textSize="@dimen/text_size_mini"
         app:layout_constraintBaseline_toBaselineOf="@id/txtRepoTitle"
         app:layout_constraintBottom_toBottomOf="@id/txtRepoTitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@id/txtRepoTitle"
-        tools:text="OPEN" />
+        tools:backgroundTint="@color/red"
+        tools:text="OPEN"
+        tools:textColor="@color/red" />
 
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/imgRepositoryIcon"

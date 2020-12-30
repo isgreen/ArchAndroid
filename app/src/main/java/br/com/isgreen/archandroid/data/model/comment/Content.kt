@@ -15,4 +15,13 @@ data class Content(
     val raw: String?,
     @SerializedName("type")
     val type: String?
-)
+) {
+    constructor(
+        raw: String?
+    ) : this(
+        raw = raw,
+        html = null,
+        markup = null,
+        type = null
+    )
+}

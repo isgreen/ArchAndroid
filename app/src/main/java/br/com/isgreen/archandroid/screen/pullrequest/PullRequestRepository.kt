@@ -39,12 +39,6 @@ class PullRequestRepository(
         repoSlug: String,
         pullRequestId: Int
     ) = apiHelper.doPullRequestApprove(workspace, repoSlug, pullRequestId)
-
-    override suspend fun doPullRequestDecline(
-        workspace: String,
-        repoSlug: String,
-        pullRequestId: Int
-    ) = apiHelper.doPullRequestDecline(workspace, repoSlug, pullRequestId)
     //endregion Api
 
 }
