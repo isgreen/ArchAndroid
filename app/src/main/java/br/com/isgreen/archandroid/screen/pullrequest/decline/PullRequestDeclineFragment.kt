@@ -4,10 +4,7 @@ import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseDialogFragment
-import br.com.isgreen.archandroid.extension.hideKeyboard
-import br.com.isgreen.archandroid.extension.popUpTo
-import br.com.isgreen.archandroid.extension.setNavigationResult
-import br.com.isgreen.archandroid.extension.showToast
+import br.com.isgreen.archandroid.extension.*
 import kotlinx.android.synthetic.main.fragment_pull_request_decline.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -29,14 +26,10 @@ class PullRequestDeclineFragment : BaseDialogFragment() {
 
     //region BaseFragment
     override fun initObservers() {
-        viewModel.pullRequestDeclined.observe(this, {
+        viewModel.pullRequestDeclined.observe(this, { pullRequest ->
             // TODO: 29/12/20 atualizar o objeto PullRequest na tela de PullRequestDetailFragment e na (PullRequestFragment)
-            setNavigationResult(
-                key = RESULT_KEY_PULL_REQUEST_DECLINED,
-                result = true,
-                destinationId = R.id.pullRequestFragment
-            )
-            popUpTo(R.id.pullRequestFragment)
+            setNavigationResult(key = RESULT_KEY_PULL_REQUEST_DECLINED, result = pullRequest)
+            popBackStack()
         })
     }
 

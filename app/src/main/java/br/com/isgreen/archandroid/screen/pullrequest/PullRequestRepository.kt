@@ -18,7 +18,7 @@ class PullRequestRepository(
         val user = apiHelper.fetchUser()
 
         val fullUrl = if (nextUrl == null) {
-            val url = ApiConstant.FETCH_PULL_REQUESTS.replace("{user_uuid}", user.uuid)
+            val url = ApiConstant.FETCH_PULL_REQUESTS.replace("{user_uuid}", user.uuid ?: "")
             var query = ""
 
             states.forEach {

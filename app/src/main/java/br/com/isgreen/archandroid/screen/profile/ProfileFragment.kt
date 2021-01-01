@@ -78,7 +78,7 @@ class ProfileFragment : BaseFragment() {
         nsvUser.isVisible = true
         txtNickname?.text = user.nickname
         txtDisplayName?.text = user.displayName
-        imgUser?.loadImageRounded(user.links.avatar?.href, R.drawable.ic_user, R.dimen.margin_default)
+        imgUser?.loadImageRounded(user.links?.avatar?.href, R.drawable.ic_user, R.dimen.margin_default)
     }
 
     private fun showTheme() {

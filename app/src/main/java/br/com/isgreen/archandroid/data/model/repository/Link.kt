@@ -25,7 +25,7 @@ data class Link(
     @SerializedName("issues")
     val issues: Href?,
     @SerializedName("pullrequests")
-    val pullrequests: Href?,
+    val pullRequests: Href?,
     @SerializedName("self")
     val self: Href?,
     @SerializedName("source")

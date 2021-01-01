@@ -1,6 +1,7 @@
 package br.com.isgreen.archandroid.screen.pullrequest.decline
 
 import br.com.isgreen.archandroid.data.model.comment.Content
+import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequestMessage
 import br.com.isgreen.archandroid.data.remote.apihelper.ApiHelper
 
@@ -18,14 +19,16 @@ class PullRequestDeclineRepository(
         repoSlug: String,
         pullRequestId: Int,
         message: String?
-    ) {
-        apiHelper.doPullRequestDecline(workspace, repoSlug, pullRequestId)
+    ): PullRequest {
+        val declinedPullRequest = apiHelper.doPullRequestDecline(workspace, repoSlug, pullRequestId)
 
         if (message != null) {
             val content = Content(message)
             val pullRequestMessage = PullRequestMessage(content)
             apiHelper.sendPullRequestComment(workspace, repoSlug, pullRequestId, pullRequestMessage)
         }
+
+        return declinedPullRequest
     }
     //endregion Api
 

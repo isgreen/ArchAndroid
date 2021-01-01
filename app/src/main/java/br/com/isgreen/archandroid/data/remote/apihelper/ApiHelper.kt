@@ -7,6 +7,7 @@ import br.com.isgreen.archandroid.data.model.login.Authorization
 import br.com.isgreen.archandroid.data.model.login.User
 import br.com.isgreen.archandroid.data.model.merge.PullRequestMergeParameter
 import br.com.isgreen.archandroid.data.model.pullrequest.FetchPullRequestsResponse
+import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequestMessage
 import br.com.isgreen.archandroid.data.model.repository.FetchReposResponse
 
@@ -60,7 +61,7 @@ interface ApiHelper {
         workspace: String,
         repoSlug: String,
         pullRequestId: Int
-    )
+    ): PullRequest
 
     suspend fun sendPullRequestComment(
         workspace: String,

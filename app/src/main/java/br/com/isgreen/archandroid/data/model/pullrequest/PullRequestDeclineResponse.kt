@@ -9,7 +9,9 @@ import kotlinx.android.parcel.Parcelize
  */
 
 @Parcelize
+@Deprecated("Unused - 01/01/2021")
 data class PullRequestDeclineResponse(
+
     @SerializedName("id")
     val id: Int?,
     @SerializedName("state")
@@ -19,5 +21,6 @@ data class PullRequestDeclineResponse(
     @SerializedName("closed_on")
     val closedOn: String?,
     @SerializedName("updated_on")
-    val updatedOn: String?
+    val updatedOn: String?,
+
 ) : Parcelable

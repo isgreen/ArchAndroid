@@ -2,6 +2,7 @@ package br.com.isgreen.archandroid.screen.pullrequest.overview
 
 import android.annotation.SuppressLint
 import androidx.core.os.bundleOf
+import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
@@ -69,6 +70,7 @@ class PullRequestOverviewFragment : BaseFragment() {
             txtPullRequestStatus?.text = pullRequest?.state?.value
             txtPullRequestDescription?.text = pullRequest?.description
             txtRepositoryName?.text = pullRequest?.destination?.repository?.name
+            txtDescriptionTitle?.isVisible = !pullRequest?.description.isNullOrEmpty()
             txtPullRequestCreatedDate?.setDate(R.string.created_on, pullRequest?.createdOn?.substring(0, 19))
             txtPullRequestBranches?.text =
                 "${pullRequest?.source?.branch?.name} > ${pullRequest?.destination?.branch?.name}"
@@ -77,6 +79,11 @@ class PullRequestOverviewFragment : BaseFragment() {
                 R.drawable.ic_user, R.dimen.margin_small
             )
         }
+    }
+
+    fun updatePullRequest(pullRequest: PullRequest){
+        arguments = bundleOf(ARG_PULL_REQUEST to pullRequest)
+        setDataInView()
     }
     //endregion Local
 }

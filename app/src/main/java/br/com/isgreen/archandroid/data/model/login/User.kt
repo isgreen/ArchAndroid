@@ -13,24 +13,24 @@ import kotlinx.android.parcel.Parcelize
 data class User(
 
     @SerializedName("account_id")
-    val accountId: String,
+    val accountId: String?,
     @SerializedName("account_status")
-    val accountStatus: String,
+    val accountStatus: String?,
     @SerializedName("created_on")
-    val createdOn: String,
+    val createdOn: String?,
     @SerializedName("display_name")
-    val displayName: String,
+    val displayName: String?,
     @SerializedName("is_staff")
-    val isStaff: Boolean,
+    val isStaff: Boolean?,
     @SerializedName("links")
-    val links: Link,
+    val links: Link?,
     @SerializedName("nickname")
-    val nickname: String,
+    val nickname: String?,
     @SerializedName("type")
-    val type: String,
+    val type: String?,
     @SerializedName("username")
-    val username: String,
+    val username: String?,
     @SerializedName("uuid")
-    val uuid: String
+    val uuid: String?
 
 ) : Parcelable

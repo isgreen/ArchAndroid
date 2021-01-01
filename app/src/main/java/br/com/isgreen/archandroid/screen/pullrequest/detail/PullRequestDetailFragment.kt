@@ -10,11 +10,14 @@ import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.base.BasePagerAdapter
 import br.com.isgreen.archandroid.base.BaseViewModel
+import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.extension.appCompatActivity
 import br.com.isgreen.archandroid.extension.navigate
+import br.com.isgreen.archandroid.extension.navigateForResult
 import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.screen.pullrequest.comment.PullRequestCommentFragment
 import br.com.isgreen.archandroid.screen.pullrequest.commit.PullRequestCommitFragment
+import br.com.isgreen.archandroid.screen.pullrequest.decline.PullRequestDeclineFragment
 import br.com.isgreen.archandroid.screen.pullrequest.option.PullRequestOptionFragment
 import br.com.isgreen.archandroid.screen.pullrequest.overview.PullRequestOverviewFragment
 import com.google.android.material.transition.platform.MaterialContainerTransform
@@ -33,6 +36,7 @@ class PullRequestDetailFragment : BaseFragment() {
     override val screenLayout = R.layout.fragment_pull_request_detail
 
     private val mArguments: PullRequestDetailFragmentArgs by navArgs()
+    private val mPagerFragments = mutableListOf<BaseFragment>()
 
     //region Fragment
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -83,16 +87,25 @@ class PullRequestDetailFragment : BaseFragment() {
     //region Local
     private fun initViewPager() {
         val pullRequest = mArguments.argPullRequest
-        val fragments = listOf(
-            PullRequestOverviewFragment.newInstance(pullRequest),
-            PullRequestCommitFragment.newInstance(pullRequest?.id, pullRequest?.destination?.repository?.fullName),
-            PullRequestCommentFragment.newInstance(pullRequest?.id, pullRequest?.destination?.repository?.fullName)
+        mPagerFragments.addAll(
+            listOf(
+                PullRequestOverviewFragment.newInstance(pullRequest),
+                PullRequestCommitFragment.newInstance(
+                    pullRequest?.id,
+                    pullRequest?.destination?.repository?.fullName
+                ),
+                PullRequestCommentFragment.newInstance(
+                    pullRequest?.id,
+                    pullRequest?.destination?.repository?.fullName
+                )
+            )
         )
+
         pagerPullRequestDetail?.let {
-            it.offscreenPageLimit = fragments.size
+            it.offscreenPageLimit = mPagerFragments.size
             it.adapter = BasePagerAdapter(
                 context = context,
-                fragments = fragments,
+                fragments = mPagerFragments,
                 fragmentManager = childFragmentManager,
                 pageTitles = R.array.pull_request_tab_titles
             )
@@ -120,7 +133,13 @@ class PullRequestDetailFragment : BaseFragment() {
     private fun showPullRequestDecline() {
         val direction = PullRequestDetailFragmentDirections
             .actionPullRequestDetailFragmentToPullRequestDeclineFragment(mArguments.argPullRequest)
-        navigate(direction)
+        navigateForResult<PullRequest>(
+            directions = direction,
+            key = PullRequestDeclineFragment.RESULT_KEY_PULL_REQUEST_DECLINED,
+            onNavigationResult = { pullRequest ->
+                (mPagerFragments[0] as? PullRequestOverviewFragment)?.updatePullRequest(pullRequest)
+            }
+        )
     }
     //endregion Local
 }

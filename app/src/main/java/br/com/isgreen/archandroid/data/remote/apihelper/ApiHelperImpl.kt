@@ -8,6 +8,7 @@ import br.com.isgreen.archandroid.data.model.commit.FetchPullRequestCommitsRespo
 import br.com.isgreen.archandroid.data.model.login.User
 import br.com.isgreen.archandroid.data.model.merge.PullRequestMergeParameter
 import br.com.isgreen.archandroid.data.model.pullrequest.FetchPullRequestsResponse
+import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequestMessage
 import br.com.isgreen.archandroid.data.model.repository.FetchReposResponse
 import br.com.isgreen.archandroid.data.remote.api.Api
@@ -132,9 +133,9 @@ class ApiHelperImpl(
         workspace: String,
         repoSlug: String,
         pullRequestId: Int
-    ) {
+    ): PullRequest {
         checkTokenExpired()
-        api.doPullRequestDecline(workspace, repoSlug, pullRequestId)
+        return api.doPullRequestDecline(workspace, repoSlug, pullRequestId)
     }
 
     override suspend fun sendPullRequestComment(
