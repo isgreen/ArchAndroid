@@ -3,7 +3,6 @@ package br.com.isgreen.archandroid.screen.profile
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.login.User
@@ -52,7 +51,7 @@ class ProfileFragment : BaseFragment() {
     }
 
     override fun initObservers() {
-        viewModel.userFetched.observe(this, Observer { user ->
+        viewModel.userFetched.observe(this, { user ->
             setDataInView(user)
         })
     }

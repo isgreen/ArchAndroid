@@ -12,6 +12,7 @@ import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequestMessage
 import br.com.isgreen.archandroid.data.model.repository.FetchReposResponse
 import br.com.isgreen.archandroid.data.remote.api.Api
+import br.com.isgreen.archandroid.data.remote.api.ApiConstant
 import java.util.*
 
 /**
@@ -88,18 +89,50 @@ class ApiHelperImpl(
     //endregion Repositories
 
     //region Pull Request
-    override suspend fun fetchPullRequests(url: String): FetchPullRequestsResponse {
+    override suspend fun fetchPullRequests(
+        nextUrl: String?,
+        userUuid: String,
+        states: List<String>
+    ): FetchPullRequestsResponse {
         checkTokenExpired()
-        return api.fetchPullRequests(url)
+
+        val fullUrl = if (nextUrl == null) {
+            val url = ApiConstant.FETCH_PULL_REQUESTS.replace("{user_uuid}", userUuid)
+            var query = ""
+
+            states.forEach {
+                query += "&state=$it"
+            }
+
+            query = query.replaceFirst("&", "")
+            "$url?$query"
+        } else {
+            nextUrl
+        }
+
+        return api.fetchPullRequests(fullUrl)
     }
 
     override suspend fun fetchPullRequestCommits(
-        page: String?,
+        nextUrl: String?,
+        repoSlug: String,
+        workspace: String,
         pullRequestId: Int,
-        repoFullName: String
     ): FetchPullRequestCommitsResponse {
         checkTokenExpired()
-        return api.fetchPullRequestCommits(pullRequestId, repoFullName, page)
+
+        val fullUrl = if (nextUrl == null) {
+            val url = ApiConstant.FETCH_PULL_REQUEST_COMMITS
+                .replace("{workspace}", workspace)
+                .replace("{repo_slug}", repoSlug)
+                .replace("{pull_request_id}", pullRequestId.toString())
+
+            url
+        } else {
+            nextUrl
+        }
+
+        return api.fetchPullRequestCommits(fullUrl)
     }
 
     override suspend fun fetchPullRequestComments(

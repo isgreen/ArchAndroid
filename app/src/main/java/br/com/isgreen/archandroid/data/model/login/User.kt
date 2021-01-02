@@ -13,7 +13,7 @@ import kotlinx.android.parcel.Parcelize
 data class User(
 
     @SerializedName("account_id")
-    val accountId: String?,
+    val accountId: String,
     @SerializedName("account_status")
     val accountStatus: String?,
     @SerializedName("created_on")
@@ -25,12 +25,12 @@ data class User(
     @SerializedName("links")
     val links: Link?,
     @SerializedName("nickname")
-    val nickname: String?,
+    val nickname: String,
     @SerializedName("type")
     val type: String?,
     @SerializedName("username")
     val username: String?,
     @SerializedName("uuid")
-    val uuid: String?
+    val uuid: String
 
 ) : Parcelable

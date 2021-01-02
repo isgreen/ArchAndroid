@@ -30,8 +30,7 @@ class PullRequestCommitViewModel(
     private val mCommitsFetched = MutableLiveData<List<Commit>>()
 
     private var mIsLoading = false
-    private var mHasMorePages = true
-    private var mPage: String? = null
+    private var mNextRequestUrl: String? = null
 
     override fun fetchPullRequestCommits(
         isRefresh: Boolean,
@@ -39,24 +38,35 @@ class PullRequestCommitViewModel(
         repoFullName: String?
     ) {
         if (isRefresh) {
-            mPage = null
-            mHasMorePages = true
+            mNextRequestUrl = null
             mCommitsCleared.postValue(Unit)
         }
 
-        if (mHasMorePages && !mIsLoading) {
+        if ((isRefresh || !isRefresh && mNextRequestUrl != null) && !mIsLoading) {
             viewModelScope.launch {
-                delay(1000)
+                if (isRefresh) {
+                    delay(1000)
+                }
+
                 try {
-                    changeLoading(true)
-                    val pullRequestResponse = repository.fetchCommits(
-                        mPage,
-                        pullRequestId = pullRequestId ?: 0,
-                        repoFullName = repoFullName ?: ""
-                    )
-                    mCommitsFetched.postValue(pullRequestResponse.commits)
-                    changeLoading(false)
-                    getNextPage(pullRequestResponse.next)
+                    if (repoFullName != null) {
+                        changeLoading(true)
+
+                        val names = repoFullName.split("/")
+
+                        if (names.size == 2) {
+                            val pullRequestResponse = repository.fetchCommits(
+                                workspace = names[0],
+                                repoSlug = names[1],
+                                nextUrl = mNextRequestUrl,
+                                pullRequestId = pullRequestId ?: 0
+                            )
+
+                            mCommitsFetched.postValue(pullRequestResponse.commits)
+                            changeLoading(false)
+                            mNextRequestUrl = pullRequestResponse.next
+                        }
+                    }
                 } catch (exception: Exception) {
                     changeLoading(false)
                     handleException(exception)
@@ -67,19 +77,10 @@ class PullRequestCommitViewModel(
 
     private fun changeLoading(isLoading: Boolean) {
         mIsLoading = isLoading
-        if (mPage.isNullOrEmpty()) {
+        if (mNextRequestUrl.isNullOrEmpty()) {
             mLoadingChanged.postValue(isLoading)
         } else {
             mLoadingMoreChanged.postValue(isLoading)
-        }
-    }
-
-    private fun getNextPage(nextUrl: String?) {
-        if (nextUrl != null) {
-            mPage = nextUrl.substring(nextUrl.indexOf("page=") + 5)
-        } else {
-            mPage = null
-            mHasMorePages = false
         }
     }
 }

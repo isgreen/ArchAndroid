@@ -22,7 +22,7 @@ class PullRequestDeclineRepository(
     ): PullRequest {
         val declinedPullRequest = apiHelper.doPullRequestDecline(workspace, repoSlug, pullRequestId)
 
-        if (message != null) {
+        if (!message.isNullOrEmpty()) {
             val content = Content(message)
             val pullRequestMessage = PullRequestMessage(content)
             apiHelper.sendPullRequestComment(workspace, repoSlug, pullRequestId, pullRequestMessage)

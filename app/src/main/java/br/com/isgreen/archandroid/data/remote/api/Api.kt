@@ -2,7 +2,6 @@ package br.com.isgreen.archandroid.data.remote.api
 
 import br.com.isgreen.archandroid.BuildConfig
 import br.com.isgreen.archandroid.data.local.PreferencesHelper
-import br.com.isgreen.archandroid.data.model.comment.Content
 import br.com.isgreen.archandroid.data.model.comment.FetchPullRequestCommentsResponse
 import br.com.isgreen.archandroid.data.model.commit.FetchPullRequestCommitsResponse
 import br.com.isgreen.archandroid.data.model.login.Authorization
@@ -10,7 +9,6 @@ import br.com.isgreen.archandroid.data.model.login.User
 import br.com.isgreen.archandroid.data.model.merge.PullRequestMergeParameter
 import br.com.isgreen.archandroid.data.model.pullrequest.FetchPullRequestsResponse
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
-import br.com.isgreen.archandroid.data.model.pullrequest.PullRequestDeclineResponse
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequestMessage
 import br.com.isgreen.archandroid.data.model.repository.FetchReposResponse
 import com.google.gson.GsonBuilder
@@ -98,12 +96,8 @@ interface Api {
     @GET
     suspend fun fetchPullRequests(@Url url: String): FetchPullRequestsResponse
 
-    @GET(ApiConstant.FETCH_PULL_REQUEST_COMMITS)
-    suspend fun fetchPullRequestCommits(
-        @Path("pull_request_id") pullRequestId: Int,
-        @Path("repo_full_name") repoFullName: String,
-        @Query("page") page: String?
-    ): FetchPullRequestCommitsResponse
+    @GET
+    suspend fun fetchPullRequestCommits(@Url url: String): FetchPullRequestCommitsResponse
 
     @GET(ApiConstant.FETCH_PULL_REQUEST_COMMENTS)
     suspend fun fetchPullRequestComments(

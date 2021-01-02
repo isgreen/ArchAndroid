@@ -2,7 +2,6 @@ package br.com.isgreen.archandroid.screen.pullrequest.commit
 
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
@@ -53,13 +52,13 @@ class PullRequestCommitFragment : BaseFragment() {
 
     //region BaseFragment
     override fun initObservers() {
-        viewModel.loadingMoreChanged.observe(this, Observer { isLoading ->
+        viewModel.loadingMoreChanged.observe(this, { isLoading ->
             changeLoadingMore(isLoading)
         })
-        viewModel.commitsCleared.observe(this, Observer {
+        viewModel.commitsCleared.observe(this, {
             mAdapter.clearData()
         })
-        viewModel.commitsFetched.observe(this, Observer { commits ->
+        viewModel.commitsFetched.observe(this, { commits ->
             mAdapter.addData(commits)
         })
     }

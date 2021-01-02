@@ -11,8 +11,12 @@ class PullRequestCommitRepository(
 ): PullRequestCommitContract.Repository {
 
     //region Api
-    override suspend fun fetchCommits(page: String?, pullRequestId: Int, repoFullName: String) =
-        apiHelper.fetchPullRequestCommits(page, pullRequestId, repoFullName)
+    override suspend fun fetchCommits(
+        nextUrl: String?,
+        repoSlug: String,
+        workspace: String,
+        pullRequestId: Int,
+    ) = apiHelper.fetchPullRequestCommits(nextUrl, repoSlug, workspace, pullRequestId)
     //endregion Api
 
 }

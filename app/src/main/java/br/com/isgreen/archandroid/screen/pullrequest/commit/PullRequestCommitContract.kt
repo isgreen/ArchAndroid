@@ -25,9 +25,10 @@ interface PullRequestCommitContract {
 
     interface Repository {
         suspend fun fetchCommits(
-            page: String?,
+            nextUrl: String?,
+            repoSlug: String,
+            workspace: String,
             pullRequestId: Int,
-            repoFullName: String
         ): FetchPullRequestCommitsResponse
     }
 }
