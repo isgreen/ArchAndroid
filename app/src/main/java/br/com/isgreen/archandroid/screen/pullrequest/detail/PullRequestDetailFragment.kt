@@ -91,12 +91,12 @@ class PullRequestDetailFragment : BaseFragment() {
             listOf(
                 PullRequestOverviewFragment.newInstance(pullRequest),
                 PullRequestCommitFragment.newInstance(
-                    pullRequest?.id,
-                    pullRequest?.destination?.repository?.fullName
+                    pullRequestId = pullRequest?.id,
+                    repoFullName = pullRequest?.destination?.repository?.fullName
                 ),
                 PullRequestCommentFragment.newInstance(
-                    pullRequest?.id,
-                    pullRequest?.destination?.repository?.fullName
+                    pullRequestId = pullRequest?.id,
+                    repoFullName = pullRequest?.destination?.repository?.fullName
                 )
             )
         )
@@ -138,6 +138,10 @@ class PullRequestDetailFragment : BaseFragment() {
             key = PullRequestDeclineFragment.RESULT_KEY_PULL_REQUEST_DECLINED,
             onNavigationResult = { pullRequest ->
                 (mPagerFragments[0] as? PullRequestOverviewFragment)?.updatePullRequest(pullRequest)
+                (mPagerFragments[1] as? PullRequestCommitFragment)?.updateArguments(
+                    pullRequestId = pullRequest.id,
+                    repoFullName = pullRequest.destination?.repository?.fullName
+                )
             }
         )
     }

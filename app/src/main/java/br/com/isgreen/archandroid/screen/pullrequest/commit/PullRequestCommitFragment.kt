@@ -1,5 +1,6 @@
 package br.com.isgreen.archandroid.screen.pullrequest.commit
 
+import android.os.Bundle
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -23,10 +24,7 @@ class PullRequestCommitFragment : BaseFragment() {
 
         fun newInstance(pullRequestId: Int?, repoFullName: String?): PullRequestCommitFragment {
             return PullRequestCommitFragment().apply {
-                this.arguments = bundleOf(
-                    ARG_REPO_FULL_NAME to repoFullName,
-                    ARG_PULL_REQUEST_ID to pullRequestId
-                )
+                this.arguments = generateArgBundle(pullRequestId, repoFullName)
             }
         }
     }
@@ -103,6 +101,13 @@ class PullRequestCommitFragment : BaseFragment() {
     //endregion BaseFragment
 
     //region Local
+    private fun generateArgBundle(pullRequestId: Int?, repoFullName: String?): Bundle {
+        return bundleOf(
+            ARG_REPO_FULL_NAME to repoFullName,
+            ARG_PULL_REQUEST_ID to pullRequestId
+        )
+    }
+
     private fun changeLoading(isLoading: Boolean) {
         pbPullRequestCommit?.isVisible = isLoading
     }
@@ -119,6 +124,11 @@ class PullRequestCommitFragment : BaseFragment() {
 
     private fun showCommitDetail(commit: Commit) {
 
+    }
+
+    fun updateArguments(pullRequestId: Int?, repoFullName: String?){
+        arguments = generateArgBundle(pullRequestId, repoFullName)
+        fetchInitialData()
     }
     //endregion Local
 }
