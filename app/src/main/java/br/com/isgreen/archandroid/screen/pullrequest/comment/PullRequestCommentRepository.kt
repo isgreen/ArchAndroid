@@ -11,8 +11,12 @@ class PullRequestCommentRepository(
 ): PullRequestCommentContract.Repository {
 
     //region Api
-    override suspend fun fetchComments(page: String?, pullRequestId: Int, repoFullName: String) =
-        apiHelper.fetchPullRequestComments(page, pullRequestId, repoFullName)
+    override suspend fun fetchComments(
+        nextUrl: String?,
+        repoSlug: String,
+        workspace: String,
+        pullRequestId: Int
+    ) = apiHelper.fetchPullRequestComments(nextUrl, repoSlug, workspace, pullRequestId)
     //endregion Api
 
 }

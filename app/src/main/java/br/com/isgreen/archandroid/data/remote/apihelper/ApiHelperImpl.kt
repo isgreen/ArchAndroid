@@ -136,12 +136,25 @@ class ApiHelperImpl(
     }
 
     override suspend fun fetchPullRequestComments(
-        page: String?,
-        pullRequestId: Int,
-        repoFullName: String
+        nextUrl: String?,
+        repoSlug: String,
+        workspace: String,
+        pullRequestId: Int
     ): FetchPullRequestCommentsResponse {
         checkTokenExpired()
-        return api.fetchPullRequestComments(pullRequestId, repoFullName, page)
+
+        val fullUrl = if (nextUrl == null) {
+            val url = ApiConstant.FETCH_PULL_REQUEST_COMMENTS
+                .replace("{workspace}", workspace)
+                .replace("{repo_slug}", repoSlug)
+                .replace("{pull_request_id}", pullRequestId.toString())
+
+            url
+        } else {
+            nextUrl
+        }
+
+        return api.fetchPullRequestComments(fullUrl)
     }
 
     override suspend fun doPullRequestMerge(

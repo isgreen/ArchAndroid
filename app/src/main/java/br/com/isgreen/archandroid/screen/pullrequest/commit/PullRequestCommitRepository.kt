@@ -15,7 +15,7 @@ class PullRequestCommitRepository(
         nextUrl: String?,
         repoSlug: String,
         workspace: String,
-        pullRequestId: Int,
+        pullRequestId: Int
     ) = apiHelper.fetchPullRequestCommits(nextUrl, repoSlug, workspace, pullRequestId)
     //endregion Api
 

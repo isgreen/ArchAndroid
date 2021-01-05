@@ -26,9 +26,10 @@ interface PullRequestCommentContract {
 
     interface Repository {
         suspend fun fetchComments(
-            page: String?,
-            pullRequestId: Int,
-            repoFullName: String
+            nextUrl: String?,
+            repoSlug: String,
+            workspace: String,
+            pullRequestId: Int
         ): FetchPullRequestCommentsResponse
     }
 }

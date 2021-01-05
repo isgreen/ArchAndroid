@@ -99,12 +99,8 @@ interface Api {
     @GET
     suspend fun fetchPullRequestCommits(@Url url: String): FetchPullRequestCommitsResponse
 
-    @GET(ApiConstant.FETCH_PULL_REQUEST_COMMENTS)
-    suspend fun fetchPullRequestComments(
-        @Path("pull_request_id") pullRequestId: Int,
-        @Path("repo_full_name") repoFullName: String,
-        @Query("page") page: String?
-    ): FetchPullRequestCommentsResponse
+    @GET
+    suspend fun fetchPullRequestComments(@Url url: String): FetchPullRequestCommentsResponse
 
     @FormUrlEncoded
     @POST(ApiConstant.DO_PULL_REQUEST_MERGE)

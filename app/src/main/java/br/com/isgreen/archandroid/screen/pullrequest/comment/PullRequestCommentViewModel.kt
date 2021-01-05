@@ -33,8 +33,7 @@ class PullRequestCommentViewModel(
     private val mCommentsFetched = MutableLiveData<List<Comment>>()
 
     private var mIsLoading = false
-    private var mHasMorePages = true
-    private var mPage: String? = null
+    private var mNextRequestUrl: String? = null
 
     override fun fetchPullRequestComments(
         isRefresh: Boolean,
@@ -42,33 +41,40 @@ class PullRequestCommentViewModel(
         repoFullName: String?
     ) {
         if (isRefresh) {
-            mPage = null
-            mHasMorePages = true
+            mNextRequestUrl = null
             mCommentsCleared.postValue(Unit)
         }
 
-        if (mHasMorePages && !mIsLoading) {
+        if ((isRefresh || !isRefresh && mNextRequestUrl != null) && !mIsLoading) {
             viewModelScope.launch {
-                delay(1000)
-                try {
-                    changeLoading(true)
-                    val pullRequestResponse = repository.fetchComments(
-                        mPage,
-                        pullRequestId = pullRequestId ?: 0,
-                        repoFullName = repoFullName ?: ""
-                    )
-
-                    if (pullRequestResponse.comments.isNullOrEmpty()) {
-                        mCommentsNotFound.postValue(Unit)
-                    } else {
-                        mCommentsFetched.postValue(pullRequestResponse.comments)
+                if (repoFullName != null) {
+                    if (isRefresh) {
+                        delay(1000)
                     }
 
-                    changeLoading(false)
-                    getNextPage(pullRequestResponse.next)
-                } catch (exception: Exception) {
-                    changeLoading(false)
-                    handleException(exception)
+                    try {
+                        changeLoading(true)
+
+                        val names = repoFullName.split("/")
+                        val pullRequestResponse = repository.fetchComments(
+                            workspace = names[0],
+                            repoSlug = names[1],
+                            nextUrl = mNextRequestUrl,
+                            pullRequestId = pullRequestId ?: 0
+                        )
+
+                        if (pullRequestResponse.comments.isNullOrEmpty()) {
+                            mCommentsNotFound.postValue(Unit)
+                        } else {
+                            mCommentsFetched.postValue(pullRequestResponse.comments)
+                        }
+
+                        changeLoading(false)
+                        mNextRequestUrl = pullRequestResponse.next
+                    } catch (exception: Exception) {
+                        changeLoading(false)
+                        handleException(exception)
+                    }
                 }
             }
         }
@@ -76,19 +82,10 @@ class PullRequestCommentViewModel(
 
     private fun changeLoading(isLoading: Boolean) {
         mIsLoading = isLoading
-        if (mPage.isNullOrEmpty()) {
+        if (mNextRequestUrl.isNullOrEmpty()) {
             mLoadingChanged.postValue(isLoading)
         } else {
             mLoadingMoreChanged.postValue(isLoading)
-        }
-    }
-
-    private fun getNextPage(nextUrl: String?) {
-        if (nextUrl != null) {
-            mPage = nextUrl.substring(nextUrl.indexOf("page=") + 5)
-        } else {
-            mPage = null
-            mHasMorePages = false
         }
     }
 }

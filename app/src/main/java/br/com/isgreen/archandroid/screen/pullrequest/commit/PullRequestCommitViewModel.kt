@@ -44,16 +44,15 @@ class PullRequestCommitViewModel(
 
         if ((isRefresh || !isRefresh && mNextRequestUrl != null) && !mIsLoading) {
             viewModelScope.launch {
-                if (isRefresh) {
-                    delay(1000)
-                }
+                if (repoFullName != null) {
+                    if (isRefresh) {
+                        delay(1000)
+                    }
 
-                try {
-                    if (repoFullName != null) {
+                    try {
                         changeLoading(true)
 
                         val names = repoFullName.split("/")
-
                         if (names.size == 2) {
                             val pullRequestResponse = repository.fetchCommits(
                                 workspace = names[0],
@@ -66,10 +65,10 @@ class PullRequestCommitViewModel(
                             changeLoading(false)
                             mNextRequestUrl = pullRequestResponse.next
                         }
+                    } catch (exception: Exception) {
+                        changeLoading(false)
+                        handleException(exception)
                     }
-                } catch (exception: Exception) {
-                    changeLoading(false)
-                    handleException(exception)
                 }
             }
         }

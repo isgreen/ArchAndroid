@@ -44,9 +44,10 @@ interface ApiHelper {
     ): FetchPullRequestCommitsResponse
 
     suspend fun fetchPullRequestComments(
-        page: String?,
-        pullRequestId: Int,
-        repoFullName: String
+        nextUrl: String?,
+        repoSlug: String,
+        workspace: String,
+        pullRequestId: Int
     ): FetchPullRequestCommentsResponse
 
     suspend fun doPullRequestMerge(
