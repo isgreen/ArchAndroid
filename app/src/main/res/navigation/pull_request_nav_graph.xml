@@ -45,6 +45,10 @@
             android:id="@+id/action_pullRequestDetailFragment_to_pullRequestDeclineFragment"
             app:destination="@id/pullRequestDeclineFragment" />
 
+        <action
+            android:id="@+id/action_pullRequestDetailFragment_to_pullRequestCommentAdderFragment"
+            app:destination="@id/pullRequestCommentAdderFragment" />
+
     </fragment>
 
     <dialog
@@ -66,6 +70,20 @@
         android:name="br.com.isgreen.archandroid.screen.pullrequest.decline.PullRequestDeclineFragment"
         android:label="fragment_pull_request_decline"
         tools:layout="@layout/fragment_pull_request_decline">
+
+        <argument
+            android:name="arg_pull_request"
+            android:defaultValue="@null"
+            app:argType="br.com.isgreen.archandroid.data.model.pullrequest.PullRequest"
+            app:nullable="true" />
+
+    </dialog>
+
+    <dialog
+        android:id="@+id/pullRequestCommentAdderFragment"
+        android:name="br.com.isgreen.archandroid.screen.pullrequest.comment.adder.PullRequestCommentAdderFragment"
+        android:label="fragment_pull_request_comment_adder"
+        tools:layout="@layout/fragment_pull_request_comment_adder">
 
         <argument
             android:name="arg_pull_request"

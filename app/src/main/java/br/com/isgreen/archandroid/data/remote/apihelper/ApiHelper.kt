@@ -1,5 +1,6 @@
 package br.com.isgreen.archandroid.data.remote.apihelper
 
+import br.com.isgreen.archandroid.data.model.comment.Comment
 import br.com.isgreen.archandroid.data.model.comment.FetchPullRequestCommentsResponse
 import br.com.isgreen.archandroid.data.model.commit.FetchPullRequestCommitsResponse
 import br.com.isgreen.archandroid.data.model.login.Authorization
@@ -73,7 +74,7 @@ interface ApiHelper {
         repoSlug: String,
         pullRequestId: Int,
         pullRequestMessage: PullRequestMessage
-    )
+    ): Comment
     //endregion Pull Request
 
 }

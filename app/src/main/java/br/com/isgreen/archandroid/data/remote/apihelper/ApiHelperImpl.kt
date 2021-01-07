@@ -3,6 +3,7 @@ package br.com.isgreen.archandroid.data.remote.apihelper
 import android.util.Base64
 import br.com.isgreen.archandroid.BuildConfig
 import br.com.isgreen.archandroid.data.local.PreferencesHelper
+import br.com.isgreen.archandroid.data.model.comment.Comment
 import br.com.isgreen.archandroid.data.model.comment.FetchPullRequestCommentsResponse
 import br.com.isgreen.archandroid.data.model.commit.FetchPullRequestCommitsResponse
 import br.com.isgreen.archandroid.data.model.login.User
@@ -189,9 +190,9 @@ class ApiHelperImpl(
         repoSlug: String,
         pullRequestId: Int,
         pullRequestMessage: PullRequestMessage
-    ) {
+    ): Comment {
         checkTokenExpired()
-        api.sendPullRequestComment(pullRequestMessage, workspace, repoSlug, pullRequestId)
+        return api.sendPullRequestComment(pullRequestMessage, workspace, repoSlug, pullRequestId)
     }
     //endregion Pull Request
 }

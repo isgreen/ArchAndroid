@@ -1,13 +1,16 @@
 package br.com.isgreen.archandroid.data.model.comment
 
+import android.os.Parcelable
 import br.com.isgreen.archandroid.data.model.login.User
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import com.google.gson.annotations.SerializedName
+import kotlinx.android.parcel.Parcelize
 
 /**
  * Created by Éverdes Soares on 08/17/2020.
  */
 
+@Parcelize
 data class Comment(
 
     @SerializedName("id")
@@ -26,6 +29,6 @@ data class Comment(
     val updatedOn: String?,
     @SerializedName("user")
     val user: User?
-)
+): Parcelable
 
 

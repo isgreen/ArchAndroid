@@ -25,35 +25,21 @@
         android:background="@color/gray_alpha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/tilCommentMessage" />
+        app:layout_constraintBottom_toTopOf="@id/btnAddComment" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilCommentMessage"
-        style="@style/AppTheme.TextInputLayoutStyle"
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAddComment"
+        style="@style/AppTheme.ButtonStyle.Outline.Accent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_default"
-        app:hintEnabled="false"
-        app:endIconMode="custom"
-        app:endIconTint="?attr/colorSecondary"
-        app:endIconDrawable="@drawable/ic_send"
+        android:text="@string/add_comment"
+        android:layout_marginHorizontal="@dimen/margin_default"
+        android:layout_marginVertical="@dimen/margin_small"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/edtCommentMessage"
-            style="@style/AppTheme.TextInputEditTextStyle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="start"
-            android:hint="@string/message"
-            android:inputType="textCapSentences|textMultiLine"
-            android:maxLines="3"
-            android:minHeight="@dimen/edit_text_height"
-            android:textColor="@drawable/selector_edit_text" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:rippleColor="@color/gray_light_alpha"
+        app:strokeColor="@color/gray_alpha" />
 
     <ProgressBar
         android:id="@+id/pbPullRequestComment"

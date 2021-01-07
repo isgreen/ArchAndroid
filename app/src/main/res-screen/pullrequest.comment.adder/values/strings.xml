@@ -2,7 +2,8 @@
 <resources>
 
     <!--Texts-->
-    <string name="comment">Comentário</string>
+    <string name="save">Save</string>
+    <string name="comment">Comment</string>
     <!--Texts-->
 
 </resources>

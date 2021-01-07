@@ -2,6 +2,7 @@ package br.com.isgreen.archandroid.data.remote.api
 
 import br.com.isgreen.archandroid.BuildConfig
 import br.com.isgreen.archandroid.data.local.PreferencesHelper
+import br.com.isgreen.archandroid.data.model.comment.Comment
 import br.com.isgreen.archandroid.data.model.comment.FetchPullRequestCommentsResponse
 import br.com.isgreen.archandroid.data.model.commit.FetchPullRequestCommitsResponse
 import br.com.isgreen.archandroid.data.model.login.Authorization
@@ -130,6 +131,6 @@ interface Api {
         @Path("workspace") workspace: String,
         @Path("repo_slug") repoSlug: String,
         @Path("pull_request_id") pullRequestId: Int
-    )
+    ): Comment
     //endregion Pull Request
 }

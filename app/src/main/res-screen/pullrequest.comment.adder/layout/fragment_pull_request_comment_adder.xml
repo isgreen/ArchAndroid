@@ -26,19 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtCommentTitle" />
 
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtCommentWarning"
-        style="@style/AppTheme.TextViewStyle.Content"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_default"
-        android:drawablePadding="@dimen/margin_default"
-        android:gravity="center_vertical"
-        android:text="@string/this_action_cannot_be_undone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/vwCommentTitleDivider" />
-
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tilCommentMessage"
         style="@style/AppTheme.TextInputLayoutStyle"
@@ -47,7 +34,7 @@
         android:layout_margin="@dimen/margin_default"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtCommentWarning">
+        app:layout_constraintTop_toBottomOf="@id/vwCommentTitleDivider">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/edtCommentMessage"
@@ -64,7 +51,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnComment"
+        android:id="@+id/btnCommentSave"
         style="@style/AppTheme.ButtonStyle.Accent"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -72,7 +59,7 @@
         android:layout_marginEnd="@dimen/margin_default"
         android:layout_marginVertical="@dimen/margin_default"
         android:paddingVertical="@dimen/margin_small"
-        android:text="@string/comment"
+        android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/btnCommentCancel"
@@ -87,10 +74,10 @@
         android:layout_marginEnd="@dimen/margin_small"
         android:paddingVertical="@dimen/margin_small"
         android:text="@string/cancel"
-        app:layout_constraintBottom_toBottomOf="@id/btnComment"
-        app:layout_constraintEnd_toStartOf="@id/btnComment"
+        app:layout_constraintBottom_toBottomOf="@id/btnCommentSave"
+        app:layout_constraintEnd_toStartOf="@id/btnCommentSave"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btnComment"
+        app:layout_constraintTop_toTopOf="@id/btnCommentSave"
         app:strokeColor="@color/gray_alpha" />
 
     <ProgressBar

@@ -6,7 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.comment.Comment
+import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
+import br.com.isgreen.archandroid.extension.navigateForResult
 import br.com.isgreen.archandroid.extension.showToast
+import br.com.isgreen.archandroid.screen.pullrequest.comment.adder.PullRequestCommentAdderFragment
+import br.com.isgreen.archandroid.screen.pullrequest.detail.PullRequestDetailFragmentDirections
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
 import kotlinx.android.synthetic.main.fragment_pull_request_comment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -18,15 +22,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class PullRequestCommentFragment : BaseFragment() {
 
     companion object {
-        const val ARG_REPO_FULL_NAME = "argRepoFullName"
-        const val ARG_PULL_REQUEST_ID = "argPullRequestId"
+        const val ARG_PULL_REQUEST = "argPullRequest"
 
-        fun newInstance(pullRequestId: Int?, repoFullName: String?): PullRequestCommentFragment {
+        fun newInstance(pullRequest: PullRequest?): PullRequestCommentFragment {
             return PullRequestCommentFragment().apply {
-                this.arguments = bundleOf(
-                    ARG_REPO_FULL_NAME to repoFullName,
-                    ARG_PULL_REQUEST_ID to pullRequestId
-                )
+                this.arguments = bundleOf(ARG_PULL_REQUEST to pullRequest)
             }
         }
     }
@@ -41,10 +41,11 @@ class PullRequestCommentFragment : BaseFragment() {
     private val onRecyclerScrollListener =
         object : OnRecyclerViewScrollListener(mLayoutManager, DIRECTION_END) {
             override fun loadMore(page: Int) {
+                val pullRequest = arguments?.getParcelable<PullRequest>(ARG_PULL_REQUEST)
                 viewModel.fetchPullRequestComments(
                     isRefresh = false,
-                    pullRequestId = arguments?.getInt(ARG_PULL_REQUEST_ID),
-                    repoFullName = arguments?.getString(ARG_REPO_FULL_NAME)
+                    pullRequestId = pullRequest?.id,
+                    repoFullName = pullRequest?.destination?.repository?.fullName
                 )
             }
         }
@@ -80,13 +81,19 @@ class PullRequestCommentFragment : BaseFragment() {
         pvPullRequestComment?.onClickTryAgain = {
             fetchInitialData()
         }
+
+        btnAddComment?.setOnClickListener {
+            showCommentAdder()
+        }
     }
 
     override fun fetchInitialData() {
+        val pullRequest = arguments?.getParcelable<PullRequest>(ARG_PULL_REQUEST)
+
         viewModel.fetchPullRequestComments(
             isRefresh = true,
-            pullRequestId = arguments?.getInt(ARG_PULL_REQUEST_ID),
-            repoFullName = arguments?.getString(ARG_REPO_FULL_NAME)
+            pullRequestId = pullRequest?.id,
+            repoFullName = pullRequest?.destination?.repository?.fullName
         )
     }
 
@@ -125,6 +132,19 @@ class PullRequestCommentFragment : BaseFragment() {
             ?.hideTryAgain()
             ?.text(message)
             ?.show()
+    }
+
+    private fun showCommentAdder() {
+        val pullRequest = arguments?.getParcelable<PullRequest>(ARG_PULL_REQUEST)
+        val direction = PullRequestDetailFragmentDirections
+            .actionPullRequestDetailFragmentToPullRequestCommentAdderFragment(pullRequest)
+        navigateForResult<Comment>(
+            directions = direction,
+            key = PullRequestCommentAdderFragment.RESULT_KEY_PULL_REQUEST_COMMENT_SENT,
+            onNavigationResult = { comment ->
+                mAdapter.addItem(comment)
+            }
+        )
     }
 
     private fun showCommentDetail(comment: Comment) {

@@ -94,10 +94,7 @@ class PullRequestDetailFragment : BaseFragment() {
                     pullRequestId = pullRequest?.id,
                     repoFullName = pullRequest?.destination?.repository?.fullName
                 ),
-                PullRequestCommentFragment.newInstance(
-                    pullRequestId = pullRequest?.id,
-                    repoFullName = pullRequest?.destination?.repository?.fullName
-                )
+                PullRequestCommentFragment.newInstance(pullRequest)
             )
         )
 
