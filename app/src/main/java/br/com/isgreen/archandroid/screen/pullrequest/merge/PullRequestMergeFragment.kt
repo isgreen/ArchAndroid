@@ -1,21 +1,22 @@
 package br.com.isgreen.archandroid.screen.pullrequest.merge
 
 import android.annotation.SuppressLint
+import android.view.LayoutInflater
 import android.widget.ArrayAdapter
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.navArgs
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseDialogFragment
 import br.com.isgreen.archandroid.data.model.merge.MergeStrategy
+import br.com.isgreen.archandroid.databinding.FragmentPullRequestMergeBinding
 import br.com.isgreen.archandroid.extension.*
-import kotlinx.android.synthetic.main.fragment_pull_request_merge.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Created by Éverdes Soares on 08/30/2020.
  */
 
-class PullRequestMergeFragment : BaseDialogFragment() {
+class PullRequestMergeFragment : BaseDialogFragment<FragmentPullRequestMergeBinding>() {
 
     companion object {
         const val RESULT_KEY_PULL_REQUEST_MERGED = "pullRequestMerged"
@@ -24,6 +25,8 @@ class PullRequestMergeFragment : BaseDialogFragment() {
     override val module = pullRequestMergeModule
     override val screenLayout = R.layout.fragment_pull_request_merge
     override val viewModel: PullRequestMergeViewModel by viewModel()
+    override val bindingInflater: (LayoutInflater) -> FragmentPullRequestMergeBinding
+        get() = FragmentPullRequestMergeBinding::inflate
 
     private val mArguments: PullRequestMergeFragmentArgs by navArgs()
 
@@ -40,7 +43,7 @@ class PullRequestMergeFragment : BaseDialogFragment() {
 
     override fun initView() {
         context?.let {
-            spnMergeStrategy?.let { spinner ->
+            binding.spnMergeStrategy.let { spinner ->
                 spinner.adapter = ArrayAdapter<String>(it, android.R.layout.simple_spinner_dropdown_item)
                 spinner.setOnItemSelectedListener { position ->
 
@@ -48,15 +51,9 @@ class PullRequestMergeFragment : BaseDialogFragment() {
             }
         }
 
-        edtMergeMessage?.requestFocus()
-
-        btnMerge?.setOnClickListener {
-            doMerge()
-        }
-
-        btnMergeCancel?.setOnClickListener {
-            dismiss()
-        }
+        binding.edtMergeMessage.requestFocus()
+        binding.btnMerge.setOnClickListener { doMerge() }
+        binding.btnMergeCancel.setOnClickListener { dismiss() }
 
         setDataInView()
     }
@@ -76,25 +73,26 @@ class PullRequestMergeFragment : BaseDialogFragment() {
 
     //region Local
     private fun changeLoading(isLoading: Boolean) {
-        btnMerge?.isEnabled = !isLoading
-        btnMergeCancel?.isEnabled = !isLoading
-        edtMergeMessage?.isEnabled = !isLoading
-        pbPullRequestMerge?.isVisible = isLoading
-        cbMergeCloseSourceBranch?.isEnabled = !isLoading
+        binding.btnMerge.isEnabled = !isLoading
+        binding.btnMergeCancel.isEnabled = !isLoading
+        binding.edtMergeMessage.isEnabled = !isLoading
+        binding.pbPullRequestMerge.isVisible = isLoading
+        binding.cbMergeCloseSourceBranch.isEnabled = !isLoading
     }
 
     @SuppressLint("SetTextI18n")
     private fun setDataInView() {
         val pullRequest = mArguments.argPullRequest
 
-        txtMergeBranches?.text = "${pullRequest?.source?.branch?.name} > ${pullRequest?.destination?.branch?.name}"
+        binding.txtMergeBranches.text =
+            "${pullRequest?.source?.branch?.name} > ${pullRequest?.destination?.branch?.name}"
     }
 
     private fun setDataInSpinner(mergeStrategies: List<MergeStrategy>) {
         val names = mergeStrategies.map { it.name }.toMutableList()
 
         context?.let {
-            spnMergeStrategy?.let { spinner ->
+            binding.spnMergeStrategy.let { spinner ->
                 spinner.adapter = ArrayAdapter(
                     it,
                     android.R.layout.simple_spinner_dropdown_item,
@@ -109,10 +107,10 @@ class PullRequestMergeFragment : BaseDialogFragment() {
 
         viewModel.doMerge(
             pullRequestId = pullRequest?.id,
+            message = binding.edtMergeMessage.text?.toString(),
             repoFullName = pullRequest?.destination?.repository?.fullName,
-            message = edtMergeMessage?.text?.toString(),
-            isCloseSourceBranch = cbMergeCloseSourceBranch?.isChecked,
-            mergeStrategyPosition = spnMergeStrategy?.selectedItemPosition
+            isCloseSourceBranch = binding.cbMergeCloseSourceBranch.isChecked,
+            mergeStrategyPosition = binding.spnMergeStrategy.selectedItemPosition
         )
 
         hideKeyboard()

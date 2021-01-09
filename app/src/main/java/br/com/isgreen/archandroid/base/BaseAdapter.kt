@@ -125,6 +125,12 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         this.notifyItemRangeInserted(position, list.size)
     }
 
+    fun setData(list: List<T>) {
+        this.mDataList.clear()
+        this.mDataList.addAll(list)
+        this.notifyDataSetChanged()
+    }
+
     fun removeData(list: List<T>) {
         this.mDataList.removeAll(list)
         this.notifyDataSetChanged()

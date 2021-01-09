@@ -1,8 +1,10 @@
 package br.com.isgreen.archandroid.screen.splash
 
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatDelegate
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
+import br.com.isgreen.archandroid.databinding.FragmentSplashBinding
 import br.com.isgreen.archandroid.extension.TransitionAnimation
 import br.com.isgreen.archandroid.extension.loadImageResource
 import br.com.isgreen.archandroid.extension.navigate
@@ -13,11 +15,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * Created by Éverdes Soares on 08/22/2019.
  */
 
-class SplashFragment : BaseFragment() {
+class SplashFragment : BaseFragment<FragmentSplashBinding>() {
 
     override val module = splashModule
     override val viewModel: SplashViewModel by viewModel()
     override val screenLayout = R.layout.fragment_splash
+    override val bindingInflater: (LayoutInflater) -> FragmentSplashBinding
+        get() = FragmentSplashBinding::inflate
 
     //region BaseFragment
     override fun initObservers() {

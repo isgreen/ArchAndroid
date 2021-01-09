@@ -38,6 +38,10 @@ android {
         }
     }
 
+    buildFeatures {
+        viewBinding true
+    }
+
     androidExtensions {
         experimental = true
     }

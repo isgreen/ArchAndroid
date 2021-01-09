@@ -1,17 +1,17 @@
 package br.com.isgreen.archandroid.screen.pullrequest
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
+import br.com.isgreen.archandroid.databinding.FragmentPullRequestBinding
 import br.com.isgreen.archandroid.extension.*
 import br.com.isgreen.archandroid.screen.pullrequest.merge.PullRequestMergeFragment
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
-import kotlinx.android.synthetic.main.appbar_and_toolbar.*
-import kotlinx.android.synthetic.main.fragment_pull_request.*
 import kotlinx.android.synthetic.main.fragment_pull_request_item.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -19,11 +19,13 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * Created by Éverdes Soares on 08/07/2020.
  */
 
-class PullRequestFragment : BaseFragment() {
+class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
 
     override val module = pullRequestModule
     override val screenLayout = R.layout.fragment_pull_request
     override val viewModel: PullRequestViewModel by viewModel()
+    override val bindingInflater: (LayoutInflater) -> FragmentPullRequestBinding
+        get() = FragmentPullRequestBinding::inflate
 
     //region RecyclerView
     private val mAdapter: PullRequestAdapter by lazy { PullRequestAdapter() }
@@ -65,11 +67,11 @@ class PullRequestFragment : BaseFragment() {
     }
 
     override fun initView() {
-        toolbar?.Builder(appCompatActivity)
-            ?.titleIcon(R.drawable.ic_android)
-            ?.displayHome(false)
-            ?.title(R.string.app_name)
-            ?.build()
+        binding.includeToolbar.toolbar.Builder(appCompatActivity)
+            .titleIcon(R.drawable.ic_android)
+            .displayHome(false)
+            .title(R.string.app_name)
+            .build()
 
         mAdapter.apply {
             onItemClickListener = { _, _, pullRequest ->
@@ -80,13 +82,13 @@ class PullRequestFragment : BaseFragment() {
             }
         }
 
-        rvPullRequest?.let { recyclerView ->
+        binding.rvPullRequest.let { recyclerView ->
             recyclerView.adapter = mAdapter
             recyclerView.layoutManager = mLayoutManager
             recyclerView.addOnScrollListener(onRecyclerScrollListener)
         }
 
-        pvPullRequest?.onClickTryAgain = {
+        binding.pvPullRequest.onClickTryAgain = {
             fetchInitialData()
         }
     }
@@ -110,24 +112,24 @@ class PullRequestFragment : BaseFragment() {
 
     //region Local
     private fun changeLoading(isLoading: Boolean) {
-        pbPullRequest?.isVisible = isLoading
+        binding.pbPullRequest.isVisible = isLoading
     }
 
     private fun changeLoadingMore(isLoading: Boolean) {
         onRecyclerScrollListener.isLoading = isLoading
         if (isLoading && !mAdapter.isLoading()) {
             mAdapter.showLoading(true)
-            rvPullRequest?.smoothScrollToPosition(mAdapter.lastIndex)
+            binding.rvPullRequest.smoothScrollToPosition(mAdapter.lastIndex)
         } else {
             mAdapter.hideLoading()
         }
     }
 
     private fun showPlaceholderMessage(message: String) {
-        pvPullRequest?.icon(R.drawable.ic_alert_triangle)
-            ?.hideTryAgain()
-            ?.text(message)
-            ?.show()
+        binding.pvPullRequest.icon(R.drawable.ic_alert_triangle)
+            .hideTryAgain()
+            .text(message)
+            .show()
     }
 
     private fun showMenu(view: View?, pullRequest: PullRequest) {

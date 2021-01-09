@@ -1,22 +1,23 @@
 package br.com.isgreen.archandroid.screen.pullrequest.commit
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.commit.Commit
+import br.com.isgreen.archandroid.databinding.FragmentPullRequestCommitBinding
 import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
-import kotlinx.android.synthetic.main.fragment_pull_request_commit.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Created by Éverdes Soares on 08/12/2020.
  */
 
-class PullRequestCommitFragment : BaseFragment() {
+class PullRequestCommitFragment : BaseFragment<FragmentPullRequestCommitBinding>() {
 
     companion object {
         const val ARG_REPO_FULL_NAME = "argRepoFullName"
@@ -32,6 +33,8 @@ class PullRequestCommitFragment : BaseFragment() {
     override val module = pullRequestCommitModule
     override val screenLayout = R.layout.fragment_pull_request_commit
     override val viewModel: PullRequestCommitViewModel by viewModel()
+    override val bindingInflater: (LayoutInflater) -> FragmentPullRequestCommitBinding
+        get() = FragmentPullRequestCommitBinding::inflate
 
     //region RecyclerView
     private val mAdapter: PullRequestCommitAdapter by lazy { PullRequestCommitAdapter() }
@@ -66,13 +69,13 @@ class PullRequestCommitFragment : BaseFragment() {
             showCommitDetail(commit)
         }
 
-        rvPullRequestCommit?.let { recyclerView ->
+        binding.rvPullRequestCommit.let { recyclerView ->
             recyclerView.adapter = mAdapter
             recyclerView.layoutManager = mLayoutManager
             recyclerView.addOnScrollListener(onRecyclerScrollListener)
         }
 
-        pvPullRequestCommit?.onClickTryAgain = {
+        binding.pvPullRequestCommit.onClickTryAgain = {
             fetchInitialData()
         }
     }
@@ -91,9 +94,9 @@ class PullRequestCommitFragment : BaseFragment() {
 
     override fun showError(message: String) {
         if (mAdapter.isEmpty) {
-            pvPullRequestCommit?.icon(R.drawable.ic_alert_triangle)
-                ?.text(message)
-                ?.show()
+            binding.pvPullRequestCommit.icon(R.drawable.ic_alert_triangle)
+                .text(message)
+                .show()
         } else {
             showToast(message)
         }
@@ -109,14 +112,14 @@ class PullRequestCommitFragment : BaseFragment() {
     }
 
     private fun changeLoading(isLoading: Boolean) {
-        pbPullRequestCommit?.isVisible = isLoading
+        binding.pbPullRequestCommit.isVisible = isLoading
     }
 
     private fun changeLoadingMore(isLoading: Boolean) {
         onRecyclerScrollListener.isLoading = isLoading
         if (isLoading && !mAdapter.isLoading()) {
             mAdapter.showLoading(true)
-            rvPullRequestCommit?.smoothScrollToPosition(mAdapter.lastIndex)
+            binding.rvPullRequestCommit.smoothScrollToPosition(mAdapter.lastIndex)
         } else {
             mAdapter.hideLoading()
         }

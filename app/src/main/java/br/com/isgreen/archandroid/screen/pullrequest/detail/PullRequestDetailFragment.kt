@@ -1,9 +1,11 @@
 package br.com.isgreen.archandroid.screen.pullrequest.detail
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
+import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import br.com.isgreen.archandroid.R
@@ -11,6 +13,7 @@ import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.base.BasePagerAdapter
 import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
+import br.com.isgreen.archandroid.databinding.FragmentPullRequestDetailBinding
 import br.com.isgreen.archandroid.extension.appCompatActivity
 import br.com.isgreen.archandroid.extension.navigate
 import br.com.isgreen.archandroid.extension.navigateForResult
@@ -21,22 +24,22 @@ import br.com.isgreen.archandroid.screen.pullrequest.decline.PullRequestDeclineF
 import br.com.isgreen.archandroid.screen.pullrequest.option.PullRequestOptionFragment
 import br.com.isgreen.archandroid.screen.pullrequest.overview.PullRequestOverviewFragment
 import com.google.android.material.transition.platform.MaterialContainerTransform
-import kotlinx.android.synthetic.main.appbar_and_toolbar.*
-import kotlinx.android.synthetic.main.fragment_pull_request_detail.*
 import org.koin.core.module.Module
 
 /**
  * Created by Éverdes Soares on 08/09/2020.
  */
 
-class PullRequestDetailFragment : BaseFragment() {
+class PullRequestDetailFragment : BaseFragment<FragmentPullRequestDetailBinding>() {
 
     override val module: Module? = null
     override val viewModel: BaseViewModel? = null
     override val screenLayout = R.layout.fragment_pull_request_detail
+    override val bindingInflater: (LayoutInflater) -> FragmentPullRequestDetailBinding
+        get() = FragmentPullRequestDetailBinding::inflate
 
     private val mArguments: PullRequestDetailFragmentArgs by navArgs()
-    private val mPagerFragments = mutableListOf<BaseFragment>()
+    private val mPagerFragments = mutableListOf<BaseFragment<*>>()
 
     //region Fragment
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -65,10 +68,10 @@ class PullRequestDetailFragment : BaseFragment() {
     override fun initObservers() {}
 
     override fun initView() {
-        toolbar?.Builder(appCompatActivity)
-            ?.homeIcon(R.drawable.ic_back)
-            ?.title(R.string.pull_request)
-            ?.build()
+        binding.includeToolbar.toolbar.Builder(appCompatActivity)
+            .homeIcon(R.drawable.ic_back)
+            .title(R.string.pull_request)
+            .build()
 
         lifecycleScope.launchWhenStarted {
             initViewPager()
@@ -98,7 +101,7 @@ class PullRequestDetailFragment : BaseFragment() {
             )
         )
 
-        pagerPullRequestDetail?.let {
+        binding.pagerPullRequestDetail.let {
             it.offscreenPageLimit = mPagerFragments.size
             it.adapter = BasePagerAdapter(
                 context = context,
@@ -107,7 +110,7 @@ class PullRequestDetailFragment : BaseFragment() {
                 pageTitles = R.array.pull_request_tab_titles
             )
 
-            tabPullRequestDetail?.setupWithViewPager(it)
+            binding.tabPullRequestDetail.setupWithViewPager(it)
         }
     }
 
@@ -115,7 +118,7 @@ class PullRequestDetailFragment : BaseFragment() {
         val fragment = PullRequestOptionFragment()
         fragment.onMergeClickListener = { showPullRequestMerge() }
         fragment.onApproveClickListener = {
-
+            // TODO: 09/01/21 Chamar um método no ViewModel para aprovar um PR
         }
         fragment.onDeclineClickListener = { showPullRequestDecline() }
         fragment.show(childFragmentManager, null)
@@ -138,6 +141,9 @@ class PullRequestDetailFragment : BaseFragment() {
                 (mPagerFragments[1] as? PullRequestCommitFragment)?.updateArguments(
                     pullRequestId = pullRequest.id,
                     repoFullName = pullRequest.destination?.repository?.fullName
+                )
+                (mPagerFragments[2] as? PullRequestCommentFragment)?.updateArguments(
+                    pullRequest = pullRequest
                 )
             }
         )

@@ -1,5 +1,7 @@
 package br.com.isgreen.archandroid.screen.pullrequest.comment
 
+import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.core.os.bundleOf
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -7,26 +9,26 @@ import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.comment.Comment
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
+import br.com.isgreen.archandroid.databinding.FragmentPullRequestCommentBinding
 import br.com.isgreen.archandroid.extension.navigateForResult
 import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.screen.pullrequest.comment.adder.PullRequestCommentAdderFragment
 import br.com.isgreen.archandroid.screen.pullrequest.detail.PullRequestDetailFragmentDirections
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
-import kotlinx.android.synthetic.main.fragment_pull_request_comment.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Created by Éverdes Soares on 08/17/2020.
  */
 
-class PullRequestCommentFragment : BaseFragment() {
+class PullRequestCommentFragment : BaseFragment<FragmentPullRequestCommentBinding>() {
 
     companion object {
         const val ARG_PULL_REQUEST = "argPullRequest"
 
         fun newInstance(pullRequest: PullRequest?): PullRequestCommentFragment {
             return PullRequestCommentFragment().apply {
-                this.arguments = bundleOf(ARG_PULL_REQUEST to pullRequest)
+                this.arguments = generateArgBundle(pullRequest)
             }
         }
     }
@@ -34,6 +36,8 @@ class PullRequestCommentFragment : BaseFragment() {
     override val module = pullRequestCommentModule
     override val screenLayout = R.layout.fragment_pull_request_comment
     override val viewModel: PullRequestCommentViewModel by viewModel()
+    override val bindingInflater: (LayoutInflater) -> FragmentPullRequestCommentBinding
+        get() = FragmentPullRequestCommentBinding::inflate
 
     //region RecyclerView
     private val mAdapter: PullRequestCommentAdapter by lazy { PullRequestCommentAdapter() }
@@ -72,17 +76,17 @@ class PullRequestCommentFragment : BaseFragment() {
             showCommentDetail(comment)
         }
 
-        rvPullRequestComment?.let { recyclerView ->
+        binding.rvPullRequestComment.let { recyclerView ->
             recyclerView.adapter = mAdapter
             recyclerView.layoutManager = mLayoutManager
             recyclerView.addOnScrollListener(onRecyclerScrollListener)
         }
 
-        pvPullRequestComment?.onClickTryAgain = {
+        binding.pvPullRequestComment.onClickTryAgain = {
             fetchInitialData()
         }
 
-        btnAddComment?.setOnClickListener {
+        binding.btnAddComment.setOnClickListener {
             showCommentAdder()
         }
     }
@@ -103,9 +107,9 @@ class PullRequestCommentFragment : BaseFragment() {
 
     override fun showError(message: String) {
         if (mAdapter.isEmpty) {
-            pvPullRequestComment?.icon(R.drawable.ic_alert_triangle)
-                ?.text(message)
-                ?.show()
+            binding.pvPullRequestComment.icon(R.drawable.ic_alert_triangle)
+                .text(message)
+                .show()
         } else {
             showToast(message)
         }
@@ -113,25 +117,29 @@ class PullRequestCommentFragment : BaseFragment() {
     //endregion BaseFragment
 
     //region Local
+    private fun generateArgBundle(pullRequest: PullRequest?): Bundle {
+        return bundleOf(ARG_PULL_REQUEST to pullRequest)
+    }
+
     private fun changeLoading(isLoading: Boolean) {
-        pbPullRequestComment?.isVisible = isLoading
+        binding.progressBar.isVisible = isLoading
     }
 
     private fun changeLoadingMore(isLoading: Boolean) {
         onRecyclerScrollListener.isLoading = isLoading
         if (isLoading && !mAdapter.isLoading()) {
             mAdapter.showLoading(true)
-            rvPullRequestComment?.smoothScrollToPosition(mAdapter.lastIndex)
+            binding.rvPullRequestComment.smoothScrollToPosition(mAdapter.lastIndex)
         } else {
             mAdapter.hideLoading()
         }
     }
 
     private fun showPlaceholderMessage(message: String) {
-        pvPullRequestComment?.icon(R.drawable.ic_alert_triangle)
-            ?.hideTryAgain()
-            ?.text(message)
-            ?.show()
+        binding.pvPullRequestComment.icon(R.drawable.ic_alert_triangle)
+            .hideTryAgain()
+            .text(message)
+            .show()
     }
 
     private fun showCommentAdder() {
@@ -149,6 +157,11 @@ class PullRequestCommentFragment : BaseFragment() {
 
     private fun showCommentDetail(comment: Comment) {
 
+    }
+
+    fun updateArguments(pullRequest: PullRequest?){
+        arguments = generateArgBundle(pullRequest)
+        fetchInitialData()
     }
     //endregion Local
 }

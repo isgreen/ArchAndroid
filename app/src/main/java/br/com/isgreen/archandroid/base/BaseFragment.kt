@@ -6,6 +6,7 @@ import android.os.Build
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
+import androidx.viewbinding.ViewBinding
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.extension.*
 import br.com.isgreen.archandroid.util.OnActivityResultCallback
@@ -17,7 +18,8 @@ import org.koin.core.context.unloadKoinModules
  * Created by Éverdes Soares on 08/22/2019.
  */
 
-abstract class BaseFragment : Fragment(), FragmentCompat {
+@Suppress("UNCHECKED_CAST")
+abstract class BaseFragment<VB : ViewBinding> : Fragment(), FragmentCompat {
 
     //    private val mPermissionHelper: PermissionHelper by lazy { PermissionHelperImpl(context) }
     private var mOnEventReceivedListener: OnEventReceivedListener? = { code, data ->
@@ -26,6 +28,7 @@ abstract class BaseFragment : Fragment(), FragmentCompat {
 
     private var mIsLayoutCreated = false
     private var mLayoutView: View? = null
+    private var mViewBinding: ViewBinding? = null
 
     //    private var mPermissionResultCallback: PermissionResultCallback? = null
 
@@ -37,6 +40,10 @@ abstract class BaseFragment : Fragment(), FragmentCompat {
 //        set(value) {
 //            mPermissionResultCallback = value
 //        }
+
+    abstract val bindingInflater: (LayoutInflater) -> VB
+    protected val binding: VB
+        get() = mViewBinding as VB
 
     var onActivityResultCallback: OnActivityResultCallback? = null
 
@@ -61,14 +68,23 @@ abstract class BaseFragment : Fragment(), FragmentCompat {
         savedInstanceState: Bundle?
     ): View? {
         if (mLayoutView == null) {
-            mLayoutView = inflater.inflate(screenLayout, container, false)
+            mViewBinding = bindingInflater.invoke(inflater)
+            mLayoutView = requireNotNull(mViewBinding).root
         } else {
             (mLayoutView?.parent as? ViewGroup)?.removeView(mLayoutView)
         }
 
         hideKeyboard()
-
         return mLayoutView
+//        if (mLayoutView == null) {
+//            mLayoutView = inflater.inflate(screenLayout, container, false)
+//        } else {
+//            (mLayoutView?.parent as? ViewGroup)?.removeView(mLayoutView)
+//        }
+//
+//        hideKeyboard()
+//
+//        return mLayoutView
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

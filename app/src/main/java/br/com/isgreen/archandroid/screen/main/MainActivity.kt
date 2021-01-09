@@ -1,7 +1,6 @@
 package br.com.isgreen.archandroid.screen.main
 
 import android.os.Bundle
-import androidx.appcompat.app.AppCompatActivity
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseActivity
 

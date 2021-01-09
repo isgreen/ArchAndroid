@@ -1,27 +1,29 @@
 package br.com.isgreen.archandroid.screen.theme
 
 import android.os.Bundle
+import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.theme.Theme
+import br.com.isgreen.archandroid.databinding.FragmentThemeBinding
 import br.com.isgreen.archandroid.extension.appCompatActivity
 import br.com.isgreen.archandroid.extension.popBackStack
 import com.google.android.material.transition.platform.MaterialContainerTransform
-import kotlinx.android.synthetic.main.appbar_and_toolbar.*
-import kotlinx.android.synthetic.main.fragment_theme.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * Created by Éverdes Soares on 01/14/2020.
  */
 
-class ThemeFragment : BaseFragment() {
+class ThemeFragment : BaseFragment<FragmentThemeBinding>() {
 
     override val module = themeModule
     override val screenLayout = R.layout.fragment_theme
     override val viewModel: ThemeViewModel by viewModel()
+    override val bindingInflater: (LayoutInflater) -> FragmentThemeBinding
+        get() = FragmentThemeBinding::inflate
 
     private val mAdapter: ThemeAdapter by lazy { ThemeAdapter() }
 
@@ -34,20 +36,17 @@ class ThemeFragment : BaseFragment() {
 
     //region BaseFragment
     override fun initView() {
-        toolbar?.Builder(appCompatActivity)
-            ?.homeIcon(R.drawable.ic_back)
-            ?.title(R.string.theme)
-            ?.build()
+        binding.includeToolbar.toolbar.Builder(appCompatActivity)
+            .homeIcon(R.drawable.ic_back)
+            .title(R.string.theme)
+            .build()
 
         mAdapter.onItemClickListener = { _, position, theme ->
             mAdapter.setCheckedPosition(position)
             changeTheme(theme)
         }
 
-        rvTheme?.let { recyclerView ->
-            recyclerView.layoutManager = LinearLayoutManager(context)
-            recyclerView.adapter = mAdapter
-        }
+        binding.rvTheme.adapter = mAdapter
     }
 
     override fun initObservers() {
@@ -55,8 +54,7 @@ class ThemeFragment : BaseFragment() {
             setTheme(theme)
         })
         viewModel.themesFetched.observe(this, { themes ->
-            mAdapter.clearData()
-            mAdapter.addData(themes)
+            mAdapter.setData(themes)
         })
         viewModel.currentThemeFetched.observe(this, { themePosition ->
             mAdapter.setCheckedPosition(themePosition)

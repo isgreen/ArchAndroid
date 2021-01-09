@@ -11,6 +11,7 @@ import androidx.viewbinding.ViewBinding
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.extension.*
 import br.com.isgreen.archandroid.util.OnActivityResultCallback
+import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import org.koin.core.context.loadKoinModules
 import org.koin.core.context.unloadKoinModules
 
@@ -19,7 +20,7 @@ import org.koin.core.context.unloadKoinModules
  */
 
 @Suppress("UNCHECKED_CAST")
-abstract class BaseDialogFragment<VB : ViewBinding> : DialogFragment(), FragmentCompat {
+abstract class BaseBottomSheetDialogFragment<VB : ViewBinding> : BottomSheetDialogFragment(), FragmentCompat {
 
     private var mIsLayoutCreated = false
     private var mLayoutView: View? = null

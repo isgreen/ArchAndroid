@@ -5,10 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import br.com.isgreen.archandroid.R
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.fragment_pull_request_option.*
+import br.com.isgreen.archandroid.base.BaseBottomSheetDialogFragment
+import br.com.isgreen.archandroid.base.BaseViewModel
+import br.com.isgreen.archandroid.databinding.FragmentPullRequestOptionBinding
+import org.koin.core.module.Module
 
-class PullRequestOptionFragment : BottomSheetDialogFragment() {
+class PullRequestOptionFragment : BaseBottomSheetDialogFragment<FragmentPullRequestOptionBinding>() {
+
+    override val module: Module? = null
+    override val screenLayout = R.layout.fragment_pull_request_option
+    override val viewModel: BaseViewModel? = null
+    override val bindingInflater: (LayoutInflater) -> FragmentPullRequestOptionBinding =
+        FragmentPullRequestOptionBinding::inflate
 
     var onMergeClickListener: (() -> Unit)? = null
     var onApproveClickListener: (() -> Unit)? = null
@@ -25,18 +33,26 @@ class PullRequestOptionFragment : BottomSheetDialogFragment() {
         initView()
     }
 
-    private fun initView() {
-        txtMerge?.setOnClickListener {
+    override fun initView() {
+        binding.txtMerge.setOnClickListener {
             onMergeClickListener?.invoke()
             dismiss()
         }
-        txtApprove?.setOnClickListener {
+        binding.txtApprove.setOnClickListener {
             onApproveClickListener?.invoke()
             dismiss()
         }
-        txtDecline?.setOnClickListener {
+        binding.txtDecline.setOnClickListener {
             onDeclineClickListener?.invoke()
             dismiss()
         }
     }
+
+    override fun initObservers() {}
+
+    override fun fetchInitialData() {}
+
+    override fun showError(message: String) {}
+
+    override fun onLoadingChanged(isLoading: Boolean) {}
 }

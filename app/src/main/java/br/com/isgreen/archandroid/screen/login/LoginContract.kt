@@ -10,8 +10,6 @@ import br.com.isgreen.archandroid.data.model.login.Authorization
 
 interface LoginContract {
 
-    interface View
-
     interface ViewModel : BaseContract.ViewModel {
         val loginAuthorized: LiveData<Unit>
 
