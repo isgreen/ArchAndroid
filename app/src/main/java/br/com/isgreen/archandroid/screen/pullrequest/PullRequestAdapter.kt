@@ -1,21 +1,19 @@
 package br.com.isgreen.archandroid.screen.pullrequest
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseAdapter
 import br.com.isgreen.archandroid.common.LoadingViewHolder
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
+import br.com.isgreen.archandroid.databinding.FragmentPullRequestItemBinding
+import br.com.isgreen.archandroid.databinding.LoadingItemBinding
 import br.com.isgreen.archandroid.extension.loadImageRounded
 import br.com.isgreen.archandroid.extension.putTextColor
 import br.com.isgreen.archandroid.extension.setBackgroundDrawableColor
 import br.com.isgreen.archandroid.extension.setDate
 import br.com.isgreen.archandroid.util.OnInnerViewItemClickListener
-import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.fragment_pull_request_item.*
-import kotlinx.android.synthetic.main.fragment_pull_request_item.view.*
 
 /**
  * Created by Éverdes Soares on 08/07/2020.
@@ -36,9 +34,13 @@ class PullRequestAdapter : BaseAdapter<PullRequest>() {
         viewType: Int
     ): RecyclerView.ViewHolder {
         return if (viewType == LOADING_TYPE) {
-            LoadingViewHolder(inflater.inflate(R.layout.loading_item, parent, false))
+            LoadingViewHolder(
+                LoadingItemBinding.inflate(inflater, parent, false)
+            )
         } else {
-            PullRequestViewHolder(inflater.inflate(R.layout.fragment_pull_request_item, parent, false))
+            PullRequestViewHolder(
+                FragmentPullRequestItemBinding.inflate(inflater, parent, false)
+            )
         }
     }
 
@@ -57,24 +59,24 @@ class PullRequestAdapter : BaseAdapter<PullRequest>() {
     }
 
     private fun setDataView(holder: PullRequestViewHolder, pullRequest: PullRequest?) {
-        holder.itemView.apply {
-            imgRepositoryIcon?.loadImageRounded(pullRequest?.author?.links?.avatar?.href, R.drawable.ic_user, R.dimen.margin_small)
-            txtPullRequestCreatedDate?.setDate(R.string.on_date, pullRequest?.createdOn?.substring(0, 19))
-            txtRepositoryName?.text = pullRequest?.source?.repository?.name
-            txtPullRequestAuthor?.text = context?.getString(R.string.created_by, pullRequest?.author?.displayName)
-            txtPullRequestStatus?.text = pullRequest?.state?.value
+        holder.binding.apply {
+            imgRepositoryIcon.loadImageRounded(pullRequest?.author?.links?.avatar?.href, R.drawable.ic_user, R.dimen.margin_small)
+            txtPullRequestCreatedDate.setDate(R.string.on_date, pullRequest?.createdOn?.substring(0, 19))
+            txtRepositoryName.text = pullRequest?.source?.repository?.name
+            txtPullRequestAuthor.text = this.root.context?.getString(R.string.created_by, pullRequest?.author?.displayName)
+            txtPullRequestStatus.text = pullRequest?.state?.value
 
             val color = pullRequest?.stateColor ?: R.color.red
-            txtPullRequestStatus?.putTextColor(color)
-            txtPullRequestStatus?.setBackgroundDrawableColor(color)
+            txtPullRequestStatus.putTextColor(color)
+            txtPullRequestStatus.setBackgroundDrawableColor(color)
         }
     }
 
-    inner class PullRequestViewHolder(override val containerView: View) :
-        RecyclerView.ViewHolder(containerView), LayoutContainer {
+    inner class PullRequestViewHolder(val binding: FragmentPullRequestItemBinding) :
+        RecyclerView.ViewHolder(binding.root) {
 
         init {
-            imgPullRequestMenu?.setOnClickListener {
+            binding.imgPullRequestMenu.setOnClickListener {
                 val pullRequest = data[adapterPosition]
                 onInnerViewItemClickListener?.invoke(it, adapterPosition, pullRequest)
             }

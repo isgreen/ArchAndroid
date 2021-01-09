@@ -1,13 +1,12 @@
 package br.com.isgreen.archandroid.screen.theme
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseAdapter
 import br.com.isgreen.archandroid.data.model.theme.Theme
-import kotlinx.android.extensions.LayoutContainer
+import br.com.isgreen.archandroid.databinding.FragmentThemeItemBinding
 import kotlinx.android.synthetic.main.fragment_theme_item.view.*
 
 /**
@@ -24,8 +23,7 @@ class ThemeAdapter : BaseAdapter<Theme>() {
         viewType: Int
     ): RecyclerView.ViewHolder {
         return ThemeViewHolder(
-            LayoutInflater.from(parent?.context)
-                .inflate(R.layout.fragment_theme_item, parent, false)
+            FragmentThemeItemBinding.inflate(inflater, parent, false)
         )
     }
 
@@ -49,6 +47,7 @@ class ThemeAdapter : BaseAdapter<Theme>() {
         notifyItemChanged(mCheckedPosition)
     }
 
-    inner class ThemeViewHolder(override val containerView: View) :
-        RecyclerView.ViewHolder(containerView), LayoutContainer
+    inner class ThemeViewHolder(
+        val binding: FragmentThemeItemBinding
+    ) : RecyclerView.ViewHolder(binding.root)
 }
