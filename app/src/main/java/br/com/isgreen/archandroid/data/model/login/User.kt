@@ -2,7 +2,7 @@ package br.com.isgreen.archandroid.data.model.login
 import android.os.Parcelable
 import br.com.isgreen.archandroid.data.model.repository.Link
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 
 /**

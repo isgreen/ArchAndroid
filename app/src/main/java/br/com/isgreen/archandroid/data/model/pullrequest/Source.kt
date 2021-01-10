@@ -4,7 +4,7 @@ import android.os.Parcelable
 import br.com.isgreen.archandroid.data.model.commit.Commit
 import br.com.isgreen.archandroid.data.model.repository.Repo
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * Created by Éverdes Soares on 08/02/2020.

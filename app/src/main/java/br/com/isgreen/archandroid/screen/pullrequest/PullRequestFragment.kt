@@ -12,7 +12,6 @@ import br.com.isgreen.archandroid.databinding.FragmentPullRequestBinding
 import br.com.isgreen.archandroid.extension.*
 import br.com.isgreen.archandroid.screen.pullrequest.merge.PullRequestMergeFragment
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
-import kotlinx.android.synthetic.main.fragment_pull_request_item.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -74,8 +73,8 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
             .build()
 
         mAdapter.apply {
-            onItemClickListener = { _, _, pullRequest ->
-                showPullRequestDetail(pullRequest)
+            onItemClickListener = { view, _, pullRequest ->
+                showPullRequestDetail(view, pullRequest)
             }
             onInnerViewItemClickListener = { view, _, pullRequest ->
                 showMenu(view, pullRequest as PullRequest)
@@ -185,7 +184,7 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
         navigate(direction)
     }
 
-    private fun showPullRequestDetail(pullRequest: PullRequest) {
+    private fun showPullRequestDetail(view: View, pullRequest: PullRequest) {
         val direction = PullRequestFragmentDirections
             .actionPullRequestFragmentToPullRequestDetailFragment(pullRequest)
 
@@ -196,7 +195,7 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
             }
         )
 
-        navigate(directions = direction, sharedElements = clPullRequest to getString(R.string.shared_element_pull_request))
+        navigate(directions = direction, sharedElements = view to getString(R.string.shared_element_pull_request))
         hideNavigationBottom()
     }
     //endregion Local

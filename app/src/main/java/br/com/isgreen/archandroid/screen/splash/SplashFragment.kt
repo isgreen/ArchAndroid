@@ -8,7 +8,6 @@ import br.com.isgreen.archandroid.databinding.FragmentSplashBinding
 import br.com.isgreen.archandroid.extension.TransitionAnimation
 import br.com.isgreen.archandroid.extension.loadImageResource
 import br.com.isgreen.archandroid.extension.navigate
-import kotlinx.android.synthetic.main.fragment_splash.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -38,7 +37,7 @@ class SplashFragment : BaseFragment<FragmentSplashBinding>() {
     }
 
     override fun initView() {
-        imgLogo?.loadImageResource(R.drawable.logo_jetpack)
+        binding.imgLogo.loadImageResource(R.drawable.logo_jetpack)
     }
 
     override fun fetchInitialData() {

@@ -4,7 +4,7 @@ import br.com.isgreen.archandroid.data.model.pullrequest.Author
 import br.com.isgreen.archandroid.data.model.pullrequest.Summary
 import br.com.isgreen.archandroid.data.model.repository.Repo
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 
 /**

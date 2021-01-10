@@ -3,7 +3,7 @@ package br.com.isgreen.archandroid.data.model.pullrequest
 import android.os.Parcelable
 import br.com.isgreen.archandroid.R
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 /**
  * Created by Éverdes Soares on 08/02/2020.

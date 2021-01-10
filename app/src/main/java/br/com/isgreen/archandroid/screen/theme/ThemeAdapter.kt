@@ -7,7 +7,6 @@ import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseAdapter
 import br.com.isgreen.archandroid.data.model.theme.Theme
 import br.com.isgreen.archandroid.databinding.FragmentThemeItemBinding
-import kotlinx.android.synthetic.main.fragment_theme_item.view.*
 
 /**
  * Created by Éverdes Soares on 04/14/2020.
@@ -32,8 +31,8 @@ class ThemeAdapter : BaseAdapter<Theme>() {
     }
 
     private fun setDataView(holder: ThemeViewHolder, theme: Theme, isChecked: Boolean) {
-        holder.itemView.apply {
-            txtThemeName?.let {
+        holder.binding.apply {
+            txtThemeName.let {
                 it.setText(theme.name)
                 val right = if (isChecked) R.drawable.ic_check else 0
                 it.setCompoundDrawablesWithIntrinsicBounds(theme.icon, 0, right, 0)
