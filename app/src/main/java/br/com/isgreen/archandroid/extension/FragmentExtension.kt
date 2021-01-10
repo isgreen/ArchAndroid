@@ -3,7 +3,6 @@
 package br.com.isgreen.archandroid.extension
 
 import android.content.Context
-import android.os.Build
 import android.os.Bundle
 import android.view.MenuInflater
 import android.view.View
@@ -35,26 +34,6 @@ enum class TransitionAnimation {
     TRANSLATE_FROM_UP,
     NO_ANIMATION,
     FADE
-}
-
-fun Fragment.isAtLeastLollipop(): Boolean {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP
-}
-
-fun Fragment.isAtLeastMarshmallow(): Boolean {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.M
-}
-
-fun Fragment.isAtLeastNougat(): Boolean {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.N
-}
-
-fun Fragment.isAtLeastQ(): Boolean {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
-}
-
-fun Fragment.isAtLeastR(): Boolean {
-    return Build.VERSION.SDK_INT >= Build.VERSION_CODES.R
 }
 
 val Fragment.baseActivity get() = this.activity as? BaseActivity

@@ -1,19 +1,14 @@
 package br.com.isgreen.archandroid.extension
 
 import android.animation.ValueAnimator
-import android.content.Context
-import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.graphics.drawable.Drawable
 import android.os.Build
 import android.text.Html
-import android.text.TextUtils
 import android.view.View
 import android.widget.AdapterView
 import android.widget.Spinner
-import android.widget.TextView
-import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
@@ -36,16 +31,6 @@ import java.text.NumberFormat
 /**
  * Created Éverdes Soares on 08/07/2019.
  */
-
-//region Context
-fun Context.toastShort(text: CharSequence) = Toast.makeText(this, text, Toast.LENGTH_SHORT).show()
-
-fun Context.toastShort(resId: Int) = Toast.makeText(this, resId, Toast.LENGTH_SHORT).show()
-
-fun Context.toastLong(text: CharSequence) = Toast.makeText(this, text, Toast.LENGTH_LONG).show()
-
-fun Context.toastLong(resId: Int) = Toast.makeText(this, resId, Toast.LENGTH_LONG).show()
-//endregion Context
 
 //region View
 fun View?.setColor(@ColorRes resIdFrom: Int, @ColorRes resIdTo: Int) {
