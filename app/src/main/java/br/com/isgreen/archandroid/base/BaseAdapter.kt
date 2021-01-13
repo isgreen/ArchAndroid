@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import br.com.isgreen.archandroid.common.LoadingViewHolder
+import br.com.isgreen.archandroid.data.model.adapter.AdapterItem
 import br.com.isgreen.archandroid.util.OnItemClickListener
 
 /**
@@ -11,6 +12,12 @@ import br.com.isgreen.archandroid.util.OnItemClickListener
  */
 
 abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+
+    companion object {
+        const val VIEW_TYPE_ITEM = 0
+        const val VIEW_TYPE_HEADER = 1
+        const val VIEW_TYPE_LOADING = 2
+    }
 
     private val mDataList: MutableList<T> by lazy { mutableListOf<T>() }
 
@@ -105,49 +112,58 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
             return
         }
 
-        this.mDataList.removeAt(position)
-        this.notifyItemRemoved(position)
+        mDataList.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     fun clearData() {
-        this.mDataList.clear()
-        this.notifyDataSetChanged()
+        mDataList.clear()
+        notifyDataSetChanged()
     }
 
     fun addData(list: List<T>) {
-        val firstItemPosition = this.mDataList.lastIndex + 1
-        this.mDataList.addAll(list)
-        this.notifyItemRangeInserted(firstItemPosition, list.size)
+        val firstItemPosition = mDataList.lastIndex + 1
+        mDataList.addAll(list)
+        notifyItemRangeInserted(firstItemPosition, list.size)
     }
 
     fun addData(position: Int, list: List<T>) {
-        this.mDataList.addAll(position, list)
-        this.notifyItemRangeInserted(position, list.size)
+        mDataList.addAll(position, list)
+        notifyItemRangeInserted(position, list.size)
     }
 
     fun setData(list: List<T>) {
-        this.mDataList.clear()
-        this.mDataList.addAll(list)
-        this.notifyDataSetChanged()
+        mDataList.clear()
+        mDataList.addAll(list)
+        notifyDataSetChanged()
     }
 
     fun removeData(list: List<T>) {
-        this.mDataList.removeAll(list)
-        this.notifyDataSetChanged()
+        mDataList.removeAll(list)
+        notifyDataSetChanged()
     }
 
+    @Suppress("UNCHECKED_CAST")
+    protected fun addHeader(position: Int) {
+        val header = AdapterItem(VIEW_TYPE_HEADER)
+        mDataList.add(position, header as T)
+        notifyItemInserted(position)
+    }
+
+    @Suppress("UNCHECKED_CAST")
     fun showLoading(showInBottom: Boolean) {
         if (itemCount == 0 || mIsLoading) {
             return
         }
 
         mIsLoading = true
+        val loadingItem = AdapterItem(VIEW_TYPE_LOADING) as T
 
         mLoadingPosition = if (showInBottom) {
-            addItem(getItem(0))
+            addItem(loadingItem)
             lastIndex
         } else {
-            addItem(0, getItem(0))
+            addItem(0, loadingItem)
             0
         }
     }
@@ -165,7 +181,5 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
         mLoadingPosition = RecyclerView.NO_POSITION
     }
 
-    fun isLoading(): Boolean {
-        return mIsLoading
-    }
+    fun isLoading(): Boolean = mIsLoading
 }

@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import androidx.viewbinding.ViewBinding
 import br.com.isgreen.archandroid.R
@@ -38,7 +37,6 @@ abstract class BaseBottomSheetDialogFragment<VB : ViewBinding> : BottomSheetDial
         initDefaultObservers()
 
         super.onCreate(savedInstanceState)
-        isCancelable = false
         initObservers()
     }
 
@@ -60,7 +58,6 @@ abstract class BaseBottomSheetDialogFragment<VB : ViewBinding> : BottomSheetDial
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dialog?.window?.setBackgroundDrawableResource(R.drawable.shape_rectangle_rounded_gray)
 
         if (!mIsLayoutCreated) {
             initView()

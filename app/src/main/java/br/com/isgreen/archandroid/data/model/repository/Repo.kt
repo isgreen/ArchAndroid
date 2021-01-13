@@ -1,5 +1,6 @@
 package br.com.isgreen.archandroid.data.model.repository
 import android.os.Parcelable
+import br.com.isgreen.archandroid.data.model.adapter.AdapterItem
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -52,4 +53,4 @@ data class Repo(
     @SerializedName("website")
     val website: String?
 
-) : Parcelable
+): AdapterItem(), Parcelable

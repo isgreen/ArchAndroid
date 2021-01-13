@@ -2,6 +2,7 @@ package br.com.isgreen.archandroid.data.model.pullrequest
 
 import android.os.Parcelable
 import br.com.isgreen.archandroid.R
+import br.com.isgreen.archandroid.data.model.adapter.AdapterItem
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 
@@ -43,7 +44,7 @@ data class PullRequest(
     @SerializedName("updated_on")
     val updatedOn: String?
 
-) : Parcelable {
+): AdapterItem(), Parcelable {
 
     val stateColor: Int get() {
         return when(state) {
