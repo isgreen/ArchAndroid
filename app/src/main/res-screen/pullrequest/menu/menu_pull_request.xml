@@ -12,14 +12,6 @@
         tools:targetApi="o" />
 
     <item
-        android:id="@+id/menu_item_approve"
-        android:title="@string/approve"
-        android:icon="@drawable/ic_check"
-        android:iconTint="?attr/colorOnBackground"
-        app:showAsAction="never"
-        tools:targetApi="o" />
-
-    <item
         android:id="@+id/menu_item_decline"
         android:title="@string/decline"
         android:icon="@drawable/ic_block"

@@ -33,7 +33,12 @@ class PullRequestMergeFragment : BaseDialogFragment<FragmentPullRequestMergeBind
     //region BaseFragment
     override fun initObservers() {
         viewModel.pullRequestMerged.observe(this, {
-            setNavigationResult(key = RESULT_KEY_PULL_REQUEST_MERGED, result = true, destinationId = R.id.pullRequestFragment)
+            // TODO: 13/01/21 fazer com q retorne um PullRequest ao invés de um Boolean
+            setNavigationResult(
+                key = RESULT_KEY_PULL_REQUEST_MERGED,
+                result = true,
+                destinationId = R.id.pullRequestFragment
+            )
             popUpTo(R.id.pullRequestFragment)
         })
         viewModel.mergeStrategiesFetched.observe(this, { mergeStrategies ->

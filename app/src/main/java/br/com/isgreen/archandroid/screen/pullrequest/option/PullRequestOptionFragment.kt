@@ -16,16 +16,11 @@ class PullRequestOptionFragment : BaseBottomSheetDialogFragment<FragmentPullRequ
         FragmentPullRequestOptionBinding::inflate
 
     var onMergeClickListener: (() -> Unit)? = null
-    var onApproveClickListener: (() -> Unit)? = null
     var onDeclineClickListener: (() -> Unit)? = null
 
     override fun initView() {
         binding.txtMerge.setOnClickListener {
             onMergeClickListener?.invoke()
-            dismiss()
-        }
-        binding.txtApprove.setOnClickListener {
-            onApproveClickListener?.invoke()
             dismiss()
         }
         binding.txtDecline.setOnClickListener {

@@ -63,7 +63,11 @@ class ExceptionHandlerHelperImpl(private val context: Context) : ExceptionHandle
                             }
                         }
 
-                        else -> ErrorMessage(error.getString("message"))
+                        else -> ErrorMessage(
+                            error.getJSONObject("error")
+                                .getString("message")
+                                .replace("newstatus: ", "")
+                        )
                     }
                 }
             } catch (e: Exception) {

@@ -42,7 +42,8 @@ class PlaceholderView : LinearLayout {
 
         val inflater = LayoutInflater.from(context).inflate(
             R.layout.placeholder_view,
-            this, false
+            this,
+            false
         )
 
         inflater?.let {

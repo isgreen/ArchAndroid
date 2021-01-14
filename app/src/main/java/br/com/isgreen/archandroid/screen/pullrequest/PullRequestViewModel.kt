@@ -19,8 +19,6 @@ class PullRequestViewModel(
 
     override val pullRequestsCleared: LiveData<Unit>
         get() = mPullRequestsCleared
-    override val pullRequestApproved: LiveData<Unit>
-        get() = mPullRequestApproved
     override val pullRequestsNotFound: LiveData<Unit>
         get() = mPullRequestsNotFound
     override val loadingMoreChanged: LiveData<Boolean>
@@ -29,7 +27,6 @@ class PullRequestViewModel(
         get() = mPullRequestsFetched
 
     private val mPullRequestsCleared = MutableLiveData<Unit>()
-    private val mPullRequestApproved = MutableLiveData<Unit>()
     private val mPullRequestsNotFound = MutableLiveData<Unit>()
     private val mLoadingMoreChanged = MutableLiveData<Boolean>()
     private val mPullRequestsFetched = MutableLiveData<List<PullRequest>>()
@@ -73,23 +70,6 @@ class PullRequestViewModel(
             mLoadingChanged.postValue(isLoading)
         } else {
             mLoadingMoreChanged.postValue(isLoading)
-        }
-    }
-
-    override fun doPullRequestApprove(pullRequestId: Int?, repoFullName: String?) {
-        defaultLaunch {
-            if (pullRequestId != null && repoFullName != null) {
-                val names = repoFullName.split("/")
-
-                if (names.size == 2) {
-                    repository.doPullRequestApprove(
-                        workspace = names[0],
-                        repoSlug = names[1],
-                        pullRequestId = pullRequestId
-                    )
-                    mPullRequestApproved.postValue(Unit)
-                }
-            }
         }
     }
 }

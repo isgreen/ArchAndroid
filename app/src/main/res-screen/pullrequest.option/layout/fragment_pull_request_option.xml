@@ -31,32 +31,6 @@
         app:layout_constraintTop_toBottomOf="@id/vwDividerTop" />
 
     <View
-        android:id="@+id/vwDividerApprove"
-        android:layout_width="0dp"
-        android:layout_height="1dp"
-        android:layout_marginHorizontal="@dimen/margin_default"
-        android:background="@color/gray_alpha"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtMerge" />
-
-    <com.google.android.material.textview.MaterialTextView
-        android:id="@+id/txtApprove"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:background="?attr/selectableItemBackground"
-        android:drawablePadding="@dimen/margin_default"
-        android:gravity="center_vertical"
-        android:padding="@dimen/margin_default"
-        android:text="@string/approve"
-        app:drawableStartCompat="@drawable/ic_check"
-        app:drawableTint="?attr/colorOnBackground"
-        app:fontFamily="@font/montserrat_semibold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/vwDividerApprove" />
-
-    <View
         android:id="@+id/vwDividerDecline"
         android:layout_width="0dp"
         android:layout_height="1dp"
@@ -64,7 +38,7 @@
         android:background="@color/gray_alpha"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/txtApprove" />
+        app:layout_constraintTop_toBottomOf="@id/txtMerge" />
 
     <com.google.android.material.textview.MaterialTextView
         android:id="@+id/txtDecline"

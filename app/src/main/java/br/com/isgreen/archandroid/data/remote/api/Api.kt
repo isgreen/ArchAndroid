@@ -111,13 +111,6 @@ interface Api {
         @Field("pullrequest_merge_parameters") pullRequestMergeParameter: PullRequestMergeParameter
     )
 
-    @POST(ApiConstant.DO_PULL_REQUEST_APPROVE)
-    suspend fun doPullRequestApprove(
-        @Path("workspace") workspace: String,
-        @Path("repo_slug") repoSlug: String,
-        @Path("pull_request_id") pullRequestId: Int
-    )
-
     @POST(ApiConstant.DO_PULL_REQUEST_DECLINE)
     suspend fun doPullRequestDecline(
         @Path("workspace") workspace: String,

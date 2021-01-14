@@ -17,12 +17,6 @@ class PullRequestRepository(
         val user = apiHelper.fetchUser()
         return apiHelper.fetchPullRequests(nextUrl, user.uuid, states)
     }
-
-    override suspend fun doPullRequestApprove(
-        workspace: String,
-        repoSlug: String,
-        pullRequestId: Int
-    ) = apiHelper.doPullRequestApprove(workspace, repoSlug, pullRequestId)
     //endregion Api
 
 }

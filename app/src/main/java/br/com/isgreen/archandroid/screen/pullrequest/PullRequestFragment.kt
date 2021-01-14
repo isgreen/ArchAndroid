@@ -10,7 +10,11 @@ import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.databinding.FragmentPullRequestBinding
 import br.com.isgreen.archandroid.extension.*
+import br.com.isgreen.archandroid.screen.pullrequest.comment.PullRequestCommentFragment
+import br.com.isgreen.archandroid.screen.pullrequest.commit.PullRequestCommitFragment
+import br.com.isgreen.archandroid.screen.pullrequest.decline.PullRequestDeclineFragment
 import br.com.isgreen.archandroid.screen.pullrequest.merge.PullRequestMergeFragment
+import br.com.isgreen.archandroid.screen.pullrequest.overview.PullRequestOverviewFragment
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -137,10 +141,6 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
             menuRes = R.menu.menu_pull_request,
             onMenuItemClickListener = {
                 when (it.itemId) {
-                    R.id.menu_item_approve -> {
-                        doPullRequestApprove(pullRequest)
-                        true
-                    }
                     R.id.menu_item_decline -> {
                         showPullRequestDecline(pullRequest)
                         true
@@ -157,13 +157,6 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
         )
     }
 
-    private fun doPullRequestApprove(pullRequest: PullRequest) {
-        viewModel.doPullRequestApprove(
-            pullRequestId = pullRequest.id,
-            repoFullName = pullRequest.destination?.repository?.fullName
-        )
-    }
-
     private fun showPullRequestMerge(pullRequest: PullRequest) {
         val direction = PullRequestFragmentDirections
             .actionPullRequestFragmentToPullRequestMergeFragment(pullRequest)
@@ -177,11 +170,15 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
     }
 
     private fun showPullRequestDecline(pullRequest: PullRequest) {
-        // TODO: 19/12/20 usar navigateForResult
-        // TODO: 19/12/20 implementar endpoint de envio da msg de decline
         val direction = PullRequestFragmentDirections
             .actionPullRequestFragmentToPullRequestDeclineFragment(pullRequest)
-        navigate(direction)
+        navigateForResult<PullRequest>(
+            directions = direction,
+            key = PullRequestDeclineFragment.RESULT_KEY_PULL_REQUEST_DECLINED,
+            onNavigationResult = {
+                fetchInitialData()
+            }
+        )
     }
 
     private fun showPullRequestDetail(view: View, pullRequest: PullRequest) {

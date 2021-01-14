@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
-import androidx.core.os.bundleOf
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.navArgs
 import br.com.isgreen.archandroid.R
@@ -117,14 +116,12 @@ class PullRequestDetailFragment : BaseFragment<FragmentPullRequestDetailBinding>
     private fun showPullRequestOption() {
         val fragment = PullRequestOptionFragment()
         fragment.onMergeClickListener = { showPullRequestMerge() }
-        fragment.onApproveClickListener = {
-            // TODO: 09/01/21 Chamar um método no ViewModel para aprovar um PR
-        }
         fragment.onDeclineClickListener = { showPullRequestDecline() }
         fragment.show(childFragmentManager, null)
     }
 
     private fun showPullRequestMerge() {
+        // TODO: 13/01/21 usar navigateForResult
         val direction = PullRequestDetailFragmentDirections
             .actionPullRequestDetailFragmentToPullRequestMergeFragment(mArguments.argPullRequest)
         navigate(direction)

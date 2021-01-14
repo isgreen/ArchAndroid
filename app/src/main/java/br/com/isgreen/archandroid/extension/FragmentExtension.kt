@@ -94,15 +94,19 @@ fun Fragment.navigate(
     clearBackStack: Boolean? = false,
     sharedElements: Pair<View, String>? = null
 ) {
-    val navController = NavHostFragment.findNavController(this)
-    val destinationId = if (clearBackStack == true) navController.graph.id else popUpTo
-    val transitionAnimation = if (sharedElements == null) animation else null
-    val options = buildOptions(transitionAnimation, clearBackStack, destinationId)
-    val extras = sharedElements?.let {
-        FragmentNavigatorExtras(it)
-    }
+    try {
+        val navController = NavHostFragment.findNavController(this)
+        val destinationId = if (clearBackStack == true) navController.graph.id else popUpTo
+        val transitionAnimation = if (sharedElements == null) animation else null
+        val options = buildOptions(transitionAnimation, clearBackStack, destinationId)
+        val extras = sharedElements?.let {
+            FragmentNavigatorExtras(it)
+        }
 
-    navController.navigate(directions.actionId, directions.arguments, options, extras)
+        navController.navigate(directions.actionId, directions.arguments, options, extras)
+    } catch (exception: Exception) {
+        exception.printStackTrace()
+    }
 }
 
 fun Fragment.navigate(
