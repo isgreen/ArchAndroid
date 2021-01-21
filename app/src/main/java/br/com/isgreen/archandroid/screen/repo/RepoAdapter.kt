@@ -23,7 +23,7 @@ class RepoAdapter : BaseAdapter<Repo>() {
         const val LOADING_TYPE = 1
     }
 
-    override fun onCreateViewHolderBase(
+    override fun onCreateViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup?,
         viewType: Int
@@ -39,7 +39,7 @@ class RepoAdapter : BaseAdapter<Repo>() {
         }
     }
 
-    override fun <VH : RecyclerView.ViewHolder> onBindViewHolderBase(holder: VH, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is RepoViewHolder) {
             setDataView(holder, data[position])
         }
@@ -63,5 +63,5 @@ class RepoAdapter : BaseAdapter<Repo>() {
 
     inner class RepoViewHolder(
         val binding: FragmentRepoItemBinding
-    ) : RecyclerView.ViewHolder(binding.root)
+    ) : BaseViewHolder(binding.root)
 }

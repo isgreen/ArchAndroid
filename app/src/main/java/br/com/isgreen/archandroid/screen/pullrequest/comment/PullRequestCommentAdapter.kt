@@ -23,7 +23,7 @@ class PullRequestCommentAdapter : BaseAdapter<Comment>() {
         const val LOADING_TYPE = 1
     }
 
-    override fun onCreateViewHolderBase(
+    override fun onCreateViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup?,
         viewType: Int
@@ -39,7 +39,7 @@ class PullRequestCommentAdapter : BaseAdapter<Comment>() {
         }
     }
 
-    override fun <VH : RecyclerView.ViewHolder> onBindViewHolderBase(holder: VH, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is PullRequestCommentViewHolder) {
             setDataView(holder, data[position])
         }
@@ -64,5 +64,5 @@ class PullRequestCommentAdapter : BaseAdapter<Comment>() {
 
     inner class PullRequestCommentViewHolder(
         val binding: FragmentPullRequestCommentItemBinding
-    ) : RecyclerView.ViewHolder(binding.root)
+    ) : BaseViewHolder(binding.root)
 }

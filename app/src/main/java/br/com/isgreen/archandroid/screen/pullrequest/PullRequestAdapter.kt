@@ -28,7 +28,7 @@ class PullRequestAdapter : BaseAdapter<PullRequest>() {
 
     var onInnerViewItemClickListener: OnInnerViewItemClickListener? = null
 
-    override fun onCreateViewHolderBase(
+    override fun onCreateViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup?,
         viewType: Int
@@ -44,7 +44,7 @@ class PullRequestAdapter : BaseAdapter<PullRequest>() {
         }
     }
 
-    override fun <VH : RecyclerView.ViewHolder> onBindViewHolderBase(holder: VH, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is PullRequestViewHolder) {
             setDataView(holder, data[position])
         }
@@ -72,8 +72,9 @@ class PullRequestAdapter : BaseAdapter<PullRequest>() {
         }
     }
 
-    inner class PullRequestViewHolder(val binding: FragmentPullRequestItemBinding) :
-        RecyclerView.ViewHolder(binding.root) {
+    inner class PullRequestViewHolder(
+        val binding: FragmentPullRequestItemBinding
+    ) : BaseViewHolder(binding.root) {
 
         init {
             binding.imgPullRequestMenu.setOnClickListener {

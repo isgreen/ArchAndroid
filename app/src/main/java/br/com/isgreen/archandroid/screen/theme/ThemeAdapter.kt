@@ -16,7 +16,7 @@ class ThemeAdapter : BaseAdapter<Theme>() {
 
     private var mCheckedPosition = 0
 
-    override fun onCreateViewHolderBase(
+    override fun onCreateViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup?,
         viewType: Int
@@ -26,8 +26,12 @@ class ThemeAdapter : BaseAdapter<Theme>() {
         )
     }
 
-    override fun <VH : RecyclerView.ViewHolder> onBindViewHolderBase(holder: VH, position: Int) {
-        setDataView(holder as ThemeViewHolder, data[position], mCheckedPosition == position)
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        setDataView(
+            theme = data[position],
+            holder = holder as ThemeViewHolder,
+            isChecked = mCheckedPosition == position
+        )
     }
 
     private fun setDataView(holder: ThemeViewHolder, theme: Theme, isChecked: Boolean) {
@@ -48,5 +52,5 @@ class ThemeAdapter : BaseAdapter<Theme>() {
 
     inner class ThemeViewHolder(
         val binding: FragmentThemeItemBinding
-    ) : RecyclerView.ViewHolder(binding.root)
+    ) : BaseViewHolder(binding.root)
 }

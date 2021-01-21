@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.data.model.merge.MergeStrategy
+import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.helper.exception.ExceptionHandlerHelper
 import kotlinx.coroutines.launch
 
@@ -17,12 +18,12 @@ class PullRequestMergeViewModel(
     private val repository: PullRequestMergeContract.Repository
 ) : BaseViewModel(exceptionHandlerHelper), PullRequestMergeContract.ViewModel {
 
-    override val pullRequestMerged: LiveData<Unit>
+    override val pullRequestMerged: LiveData<PullRequest>
         get() = mPullRequestMerged
     override val mergeStrategiesFetched: LiveData<List<MergeStrategy>>
         get() = mMergeStrategiesFetched
 
-    private val mPullRequestMerged = MutableLiveData<Unit>()
+    private val mPullRequestMerged = MutableLiveData<PullRequest>()
     private val mMergeStrategiesFetched = MutableLiveData<List<MergeStrategy>>()
 
     override fun fetchMergeStrategies() {
@@ -48,7 +49,7 @@ class PullRequestMergeViewModel(
 
             val mergeMessage = message ?: ""
 
-            repository.doMerge(
+            val pullRequest = repository.doMerge(
                 message = mergeMessage,
                 pullRequestId = pullRequestId ?: 0,
                 repoFullName = repoFullName ?: "",
@@ -56,7 +57,7 @@ class PullRequestMergeViewModel(
                 isCloseSourceBranch = isCloseSourceBranch == true
             )
 
-            mPullRequestMerged.postValue(Unit)
+            mPullRequestMerged.postValue(pullRequest)
         }
     }
 }

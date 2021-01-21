@@ -55,7 +55,7 @@ interface ApiHelper {
         pullRequestId: Int,
         repoFullName: String,
         pullRequestMergeParameter: PullRequestMergeParameter
-    )
+    ): PullRequest
 
     suspend fun doPullRequestDecline(
         workspace: String,

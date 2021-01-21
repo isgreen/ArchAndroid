@@ -14,12 +14,12 @@ import br.com.isgreen.archandroid.base.BaseViewModel
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.databinding.FragmentPullRequestDetailBinding
 import br.com.isgreen.archandroid.extension.appCompatActivity
-import br.com.isgreen.archandroid.extension.navigate
 import br.com.isgreen.archandroid.extension.navigateForResult
 import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.screen.pullrequest.comment.PullRequestCommentFragment
 import br.com.isgreen.archandroid.screen.pullrequest.commit.PullRequestCommitFragment
 import br.com.isgreen.archandroid.screen.pullrequest.decline.PullRequestDeclineFragment
+import br.com.isgreen.archandroid.screen.pullrequest.merge.PullRequestMergeFragment
 import br.com.isgreen.archandroid.screen.pullrequest.option.PullRequestOptionFragment
 import br.com.isgreen.archandroid.screen.pullrequest.overview.PullRequestOverviewFragment
 import com.google.android.material.transition.platform.MaterialContainerTransform
@@ -37,8 +37,9 @@ class PullRequestDetailFragment : BaseFragment<FragmentPullRequestDetailBinding>
     override val bindingInflater: (LayoutInflater) -> FragmentPullRequestDetailBinding
         get() = FragmentPullRequestDetailBinding::inflate
 
-    private val mArguments: PullRequestDetailFragmentArgs by navArgs()
+    private var mCurrentPullRequest: PullRequest? = null
     private val mPagerFragments = mutableListOf<BaseFragment<*>>()
+    private val mArguments: PullRequestDetailFragmentArgs by navArgs()
 
     //region Fragment
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -124,7 +125,13 @@ class PullRequestDetailFragment : BaseFragment<FragmentPullRequestDetailBinding>
         // TODO: 13/01/21 usar navigateForResult
         val direction = PullRequestDetailFragmentDirections
             .actionPullRequestDetailFragmentToPullRequestMergeFragment(mArguments.argPullRequest)
-        navigate(direction)
+        navigateForResult<PullRequest>(
+            directions = direction,
+            key = PullRequestMergeFragment.RESULT_KEY_PULL_REQUEST_MERGED,
+            onNavigationResult = { pullRequest ->
+                mCurrentPullRequest = pullRequest
+            }
+        )
     }
 
     private fun showPullRequestDecline() {
@@ -134,16 +141,18 @@ class PullRequestDetailFragment : BaseFragment<FragmentPullRequestDetailBinding>
             directions = direction,
             key = PullRequestDeclineFragment.RESULT_KEY_PULL_REQUEST_DECLINED,
             onNavigationResult = { pullRequest ->
-                (mPagerFragments[0] as? PullRequestOverviewFragment)?.updatePullRequest(pullRequest)
-                (mPagerFragments[1] as? PullRequestCommitFragment)?.updateArguments(
-                    pullRequestId = pullRequest.id,
-                    repoFullName = pullRequest.destination?.repository?.fullName
-                )
-                (mPagerFragments[2] as? PullRequestCommentFragment)?.updateArguments(
-                    pullRequest = pullRequest
-                )
+                updateFragmentsInPager(pullRequest)
             }
         )
+    }
+
+    private fun updateFragmentsInPager(pullRequest: PullRequest) {
+        (mPagerFragments[0] as? PullRequestOverviewFragment)?.updatePullRequest(pullRequest)
+        (mPagerFragments[1] as? PullRequestCommitFragment)?.updateArguments(
+            pullRequestId = pullRequest.id,
+            repoFullName = pullRequest.destination?.repository?.fullName
+        )
+        (mPagerFragments[2] as? PullRequestCommentFragment)?.updateArguments(pullRequest)
     }
     //endregion Local
 }

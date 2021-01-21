@@ -12,7 +12,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import br.com.isgreen.archandroid.widget.NavigationView
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.android.material.transition.platform.MaterialFadeThrough
 
 /**
  * Created by Éverdes Soares on 01/19/2020.

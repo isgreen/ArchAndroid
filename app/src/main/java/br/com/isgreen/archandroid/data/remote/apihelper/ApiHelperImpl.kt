@@ -162,9 +162,9 @@ class ApiHelperImpl(
         pullRequestId: Int,
         repoFullName: String,
         pullRequestMergeParameter: PullRequestMergeParameter
-    ) {
+    ): PullRequest {
         checkTokenExpired()
-        api.doPullRequestsMerge(pullRequestId, repoFullName, pullRequestMergeParameter)
+        return api.doPullRequestsMerge(pullRequestId, repoFullName, pullRequestMergeParameter)
     }
 
     override suspend fun doPullRequestDecline(

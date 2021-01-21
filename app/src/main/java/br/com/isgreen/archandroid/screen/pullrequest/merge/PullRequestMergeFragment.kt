@@ -8,6 +8,7 @@ import androidx.navigation.fragment.navArgs
 import br.com.isgreen.archandroid.R
 import br.com.isgreen.archandroid.base.BaseDialogFragment
 import br.com.isgreen.archandroid.data.model.merge.MergeStrategy
+import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.databinding.FragmentPullRequestMergeBinding
 import br.com.isgreen.archandroid.extension.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -32,14 +33,8 @@ class PullRequestMergeFragment : BaseDialogFragment<FragmentPullRequestMergeBind
 
     //region BaseFragment
     override fun initObservers() {
-        viewModel.pullRequestMerged.observe(this, {
-            // TODO: 13/01/21 fazer com q retorne um PullRequest ao invés de um Boolean
-            setNavigationResult(
-                key = RESULT_KEY_PULL_REQUEST_MERGED,
-                result = true,
-                destinationId = R.id.pullRequestFragment
-            )
-            popUpTo(R.id.pullRequestFragment)
+        viewModel.pullRequestMerged.observe(this, { pullRequest ->
+            setMergeResult(pullRequest)
         })
         viewModel.mergeStrategiesFetched.observe(this, { mergeStrategies ->
             setDataInSpinner(mergeStrategies)
@@ -119,6 +114,15 @@ class PullRequestMergeFragment : BaseDialogFragment<FragmentPullRequestMergeBind
         )
 
         hideKeyboard()
+    }
+
+    private fun setMergeResult(pullRequest: PullRequest) {
+        setNavigationResult(
+            key = RESULT_KEY_PULL_REQUEST_MERGED,
+            result = pullRequest,
+            destinationId = R.id.pullRequestFragment
+        )
+        popBackStack()
     }
     //endregion Local
 }

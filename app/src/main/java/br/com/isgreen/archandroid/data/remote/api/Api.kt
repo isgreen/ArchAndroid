@@ -109,7 +109,7 @@ interface Api {
         @Path("pullRequestId") pullRequestId: Int,
         @Path("repoFullName") repoFullName: String,
         @Field("pullrequest_merge_parameters") pullRequestMergeParameter: PullRequestMergeParameter
-    )
+    ): PullRequest
 
     @POST(ApiConstant.DO_PULL_REQUEST_DECLINE)
     suspend fun doPullRequestDecline(

@@ -1,9 +1,9 @@
 package br.com.isgreen.archandroid.base
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import br.com.isgreen.archandroid.common.LoadingViewHolder
 import br.com.isgreen.archandroid.data.model.adapter.AdapterItem
 import br.com.isgreen.archandroid.util.OnItemClickListener
 
@@ -23,54 +23,27 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
 
     private var mIsLoading = false
     private var mLoadingPosition = RecyclerView.NO_POSITION
+    private var mLastItemClickedPosition = RecyclerView.NO_POSITION
+
+    val data: MutableList<T> get() = mDataList
+    val isEmpty: Boolean get() = data.isEmpty()
+    val lastIndex: Int get() = mDataList.lastIndex
+    val lastItemClickedPosition get() = mLastItemClickedPosition
 
     var onItemClickListener: OnItemClickListener<T>? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder =
-        onCreateViewHolderBase(LayoutInflater.from(parent.context), parent, viewType)
+        onCreateViewHolder(LayoutInflater.from(parent.context), parent, viewType)
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        this.onBindViewHolderBase(holder, position)
-
-        if (holder is LoadingViewHolder) {
-            return
-        }
-
-//        if (holder is HeaderViewHolder) {
-//            return
-//        }
-
-        holder.itemView.setOnClickListener {
-            onItemClickListener?.invoke(
-                it, holder.adapterPosition,
-                getItem(holder.adapterPosition)
-            )
-        }
-    }
-
-    abstract fun onCreateViewHolderBase(
+    abstract fun onCreateViewHolder(
         inflater: LayoutInflater,
         parent: ViewGroup?,
         viewType: Int
     ): RecyclerView.ViewHolder
 
-    abstract fun <VH : RecyclerView.ViewHolder> onBindViewHolderBase(
-        holder: VH,
-        position: Int
-    )
-
     override fun getItemCount() = mDataList.size
 
     protected fun getItem(index: Int) = mDataList[index]
-
-    val data: MutableList<T>
-        get() = mDataList
-
-    val lastIndex: Int
-        get() = mDataList.lastIndex
-
-    val isEmpty: Boolean
-        get() = data.isEmpty()
 
     fun getItemRange(startIndex: Int) = getItemRange(startIndex, mDataList.size)
 
@@ -182,4 +155,16 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     }
 
     fun isLoading(): Boolean = mIsLoading
+
+    open inner class BaseViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+        init {
+            onItemClickListener?.let {
+                itemView.setOnClickListener {
+                    mLastItemClickedPosition = adapterPosition
+                    onItemClickListener?.invoke(it, adapterPosition, getItem(adapterPosition))
+                }
+            }
+        }
+    }
 }

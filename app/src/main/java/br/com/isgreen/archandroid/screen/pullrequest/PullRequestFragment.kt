@@ -10,11 +10,8 @@ import br.com.isgreen.archandroid.base.BaseFragment
 import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.databinding.FragmentPullRequestBinding
 import br.com.isgreen.archandroid.extension.*
-import br.com.isgreen.archandroid.screen.pullrequest.comment.PullRequestCommentFragment
-import br.com.isgreen.archandroid.screen.pullrequest.commit.PullRequestCommitFragment
 import br.com.isgreen.archandroid.screen.pullrequest.decline.PullRequestDeclineFragment
 import br.com.isgreen.archandroid.screen.pullrequest.merge.PullRequestMergeFragment
-import br.com.isgreen.archandroid.screen.pullrequest.overview.PullRequestOverviewFragment
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -160,7 +157,7 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
     private fun showPullRequestMerge(pullRequest: PullRequest) {
         val direction = PullRequestFragmentDirections
             .actionPullRequestFragmentToPullRequestMergeFragment(pullRequest)
-        navigateForResult<Boolean>(
+        navigateForResult<PullRequest>(
             directions = direction,
             key = PullRequestMergeFragment.RESULT_KEY_PULL_REQUEST_MERGED,
             onNavigationResult = {
@@ -185,9 +182,11 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
         val direction = PullRequestFragmentDirections
             .actionPullRequestFragmentToPullRequestDetailFragment(pullRequest)
 
-        setNavigationResultObserver<Boolean>(
+        setNavigationResultObserver<PullRequest?>(
             key = PullRequestMergeFragment.RESULT_KEY_PULL_REQUEST_MERGED,
             onNavigationResult = {
+                // TODO: 20/01/21 - Atualizar o item da lista passando a mAdapter.lastItemClickedPosition
+                mAdapter.lastItemClickedPosition
                 fetchInitialData()
             }
         )
