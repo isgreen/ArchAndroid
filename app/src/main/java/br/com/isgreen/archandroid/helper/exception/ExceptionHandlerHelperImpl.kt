@@ -48,27 +48,13 @@ class ExceptionHandlerHelperImpl(private val context: Context) : ExceptionHandle
             try {
                 exception.response()?.errorBody()?.let {
                     val error = JSONObject(
-                        convertStreamToString(
-                            it.byteStream()
-                        )
+                        convertStreamToString(it.byteStream())
                     )
-                    return when {
-                        error.has("validationErros") -> {
-                            if (error.getJSONObject("validationErros").has("email")) {
-                                ErrorMessage(
-                                    error.getJSONObject("validationErros").getString("email")
-                                )
-                            } else {
-                                ErrorMessage(error.getString("validationErros"))
-                            }
-                        }
+                    val message = error.getJSONObject("error")
+                        .getString("message")
+                        .replace("newstatus: ", "")
 
-                        else -> ErrorMessage(
-                            error.getJSONObject("error")
-                                .getString("message")
-                                .replace("newstatus: ", "")
-                        )
-                    }
+                    return ErrorMessage(message)
                 }
             } catch (e: Exception) {
                 e.printStackTrace()
