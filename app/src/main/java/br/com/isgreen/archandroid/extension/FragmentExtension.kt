@@ -181,8 +181,7 @@ fun <R> Fragment.setNavigationResultObserver(
 ) {
     val lifecycleOwner = owner ?: this
     val navController = NavHostFragment.findNavController(this)
-    navController.currentBackStackEntry?.savedStateHandle
-        ?.getLiveData<R>(key)
+    navController.currentBackStackEntry?.savedStateHandle?.getLiveData<R>(key)
         ?.observe(lifecycleOwner) { result ->
             navController.currentBackStackEntry?.savedStateHandle?.remove<R>(key)
             onNavigationResult.invoke(result)

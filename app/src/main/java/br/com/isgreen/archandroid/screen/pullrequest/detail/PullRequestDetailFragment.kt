@@ -15,6 +15,7 @@ import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.databinding.FragmentPullRequestDetailBinding
 import br.com.isgreen.archandroid.extension.appCompatActivity
 import br.com.isgreen.archandroid.extension.navigateForResult
+import br.com.isgreen.archandroid.extension.setNavigationResult
 import br.com.isgreen.archandroid.extension.showToast
 import br.com.isgreen.archandroid.screen.pullrequest.comment.PullRequestCommentFragment
 import br.com.isgreen.archandroid.screen.pullrequest.commit.PullRequestCommitFragment
@@ -31,13 +32,16 @@ import org.koin.core.module.Module
 
 class PullRequestDetailFragment : BaseFragment<FragmentPullRequestDetailBinding>() {
 
+    companion object {
+        const val RESULT_KEY_PULL_REQUEST_UPDATED = "pullRequestUpdated"
+    }
+
     override val module: Module? = null
     override val viewModel: BaseViewModel? = null
     override val screenLayout = R.layout.fragment_pull_request_detail
     override val bindingInflater: (LayoutInflater) -> FragmentPullRequestDetailBinding
         get() = FragmentPullRequestDetailBinding::inflate
 
-    private var mCurrentPullRequest: PullRequest? = null
     private val mPagerFragments = mutableListOf<BaseFragment<*>>()
     private val mArguments: PullRequestDetailFragmentArgs by navArgs()
 
@@ -122,14 +126,16 @@ class PullRequestDetailFragment : BaseFragment<FragmentPullRequestDetailBinding>
     }
 
     private fun showPullRequestMerge() {
-        // TODO: 13/01/21 usar navigateForResult
         val direction = PullRequestDetailFragmentDirections
             .actionPullRequestDetailFragmentToPullRequestMergeFragment(mArguments.argPullRequest)
         navigateForResult<PullRequest>(
             directions = direction,
             key = PullRequestMergeFragment.RESULT_KEY_PULL_REQUEST_MERGED,
             onNavigationResult = { pullRequest ->
-                mCurrentPullRequest = pullRequest
+                setNavigationResult(
+                    key = PullRequestMergeFragment.RESULT_KEY_PULL_REQUEST_MERGED,
+                    result = pullRequest
+                )
             }
         )
     }
@@ -141,6 +147,12 @@ class PullRequestDetailFragment : BaseFragment<FragmentPullRequestDetailBinding>
             directions = direction,
             key = PullRequestDeclineFragment.RESULT_KEY_PULL_REQUEST_DECLINED,
             onNavigationResult = { pullRequest ->
+                setNavigationResult(
+                    key = RESULT_KEY_PULL_REQUEST_UPDATED,
+                    result = pullRequest,
+                    destinationId = R.id.pullRequestFragment
+                )
+
                 updateFragmentsInPager(pullRequest)
             }
         )

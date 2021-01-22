@@ -11,6 +11,7 @@ import br.com.isgreen.archandroid.data.model.pullrequest.PullRequest
 import br.com.isgreen.archandroid.databinding.FragmentPullRequestBinding
 import br.com.isgreen.archandroid.extension.*
 import br.com.isgreen.archandroid.screen.pullrequest.decline.PullRequestDeclineFragment
+import br.com.isgreen.archandroid.screen.pullrequest.detail.PullRequestDetailFragment
 import br.com.isgreen.archandroid.screen.pullrequest.merge.PullRequestMergeFragment
 import br.com.isgreen.archandroid.util.listener.OnRecyclerViewScrollListener
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -160,7 +161,7 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
         navigateForResult<PullRequest>(
             directions = direction,
             key = PullRequestMergeFragment.RESULT_KEY_PULL_REQUEST_MERGED,
-            onNavigationResult = {
+            onNavigationResult = { pullRequestUpdated ->
                 fetchInitialData()
             }
         )
@@ -172,7 +173,7 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
         navigateForResult<PullRequest>(
             directions = direction,
             key = PullRequestDeclineFragment.RESULT_KEY_PULL_REQUEST_DECLINED,
-            onNavigationResult = {
+            onNavigationResult = { pullRequestUpdated ->
                 fetchInitialData()
             }
         )
@@ -182,12 +183,10 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
         val direction = PullRequestFragmentDirections
             .actionPullRequestFragmentToPullRequestDetailFragment(pullRequest)
 
-        setNavigationResultObserver<PullRequest?>(
-            key = PullRequestMergeFragment.RESULT_KEY_PULL_REQUEST_MERGED,
-            onNavigationResult = {
-                // TODO: 20/01/21 - Atualizar o item da lista passando a mAdapter.lastItemClickedPosition
-                mAdapter.lastItemClickedPosition
-                fetchInitialData()
+        setNavigationResultObserver<PullRequest>(
+            key = PullRequestDetailFragment.RESULT_KEY_PULL_REQUEST_UPDATED,
+            onNavigationResult = { pullRequestUpdated ->
+                mAdapter.setItem(mAdapter.lastItemClickedPosition, pullRequestUpdated)
             }
         )
 
