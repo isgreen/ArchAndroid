@@ -78,6 +78,7 @@ class PullRequestAdapter : BaseAdapter<PullRequest>() {
 
         init {
             binding.imgPullRequestMenu.setOnClickListener {
+                lastItemClickedPosition = adapterPosition
                 val pullRequest = data[adapterPosition]
                 onInnerViewItemClickListener?.invoke(it, adapterPosition, pullRequest)
             }

@@ -18,7 +18,7 @@
         tools:listitem="@layout/fragment_pull_request_item" />
 
     <ProgressBar
-        android:id="@+id/pbPullRequestCommit"
+        android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_default"
@@ -32,7 +32,7 @@
         tools:visibility="visible" />
 
     <br.com.isgreen.archandroid.widget.PlaceholderView
-        android:id="@+id/pvPullRequestCommit"
+        android:id="@+id/placeholderView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"

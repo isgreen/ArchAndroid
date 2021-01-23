@@ -28,7 +28,22 @@ abstract class BaseAdapter<T> : RecyclerView.Adapter<RecyclerView.ViewHolder>() 
     val data: MutableList<T> get() = mDataList
     val isEmpty: Boolean get() = data.isEmpty()
     val lastIndex: Int get() = mDataList.lastIndex
-    val lastItemClickedPosition get() = mLastItemClickedPosition
+    var lastItemClickedPosition: Int
+        get() {
+            if (mLastItemClickedPosition == RecyclerView.NO_POSITION) {
+                throw IllegalStateException(
+                    "The position of the clicked item is not being saved, to use this variable, " +
+                            "it is necessary that your ViewHolder extends the BaseViewHolder, " +
+                            "in this class, or in your ViewHolder, " +
+                            "manually set the lastItemClickedPosition in the click listener."
+                )
+            }
+
+            return mLastItemClickedPosition
+        }
+        set(value) {
+            mLastItemClickedPosition = value
+        }
 
     var onItemClickListener: OnItemClickListener<T>? = null
 

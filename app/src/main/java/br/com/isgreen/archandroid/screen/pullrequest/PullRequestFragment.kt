@@ -63,7 +63,7 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
             showPlaceholderMessage(getString(R.string.no_data))
         })
         viewModel.pullRequestsFetched.observe(this, { pullRequests ->
-            mAdapter.addData(pullRequests)
+            setDataInList(pullRequests)
         })
     }
 
@@ -89,7 +89,7 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
             recyclerView.addOnScrollListener(onRecyclerScrollListener)
         }
 
-        binding.pvPullRequest.onClickTryAgain = {
+        binding.placeholderView.onClickTryAgain = {
             fetchInitialData()
         }
     }
@@ -113,7 +113,7 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
 
     //region Local
     private fun changeLoading(isLoading: Boolean) {
-        binding.pbPullRequest.isVisible = isLoading
+        binding.progressBar.isVisible = isLoading
     }
 
     private fun changeLoadingMore(isLoading: Boolean) {
@@ -126,8 +126,13 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
         }
     }
 
+    private fun setDataInList(pullRequests: List<PullRequest>) {
+        binding.placeholderView.hide()
+        mAdapter.addData(pullRequests)
+    }
+
     private fun showPlaceholderMessage(message: String) {
-        binding.pvPullRequest.icon(R.drawable.ic_alert_triangle)
+        binding.placeholderView.icon(R.drawable.ic_alert_triangle)
             .hideTryAgain()
             .text(message)
             .show()
@@ -162,7 +167,7 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
             directions = direction,
             key = PullRequestMergeFragment.RESULT_KEY_PULL_REQUEST_MERGED,
             onNavigationResult = { pullRequestUpdated ->
-                fetchInitialData()
+                mAdapter.setItem(mAdapter.lastItemClickedPosition, pullRequestUpdated)
             }
         )
     }
@@ -174,7 +179,7 @@ class PullRequestFragment : BaseFragment<FragmentPullRequestBinding>() {
             directions = direction,
             key = PullRequestDeclineFragment.RESULT_KEY_PULL_REQUEST_DECLINED,
             onNavigationResult = { pullRequestUpdated ->
-                fetchInitialData()
+                mAdapter.setItem(mAdapter.lastItemClickedPosition, pullRequestUpdated)
             }
         )
     }

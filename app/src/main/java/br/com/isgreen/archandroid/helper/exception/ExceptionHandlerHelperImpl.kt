@@ -67,7 +67,6 @@ class ExceptionHandlerHelperImpl(private val context: Context) : ExceptionHandle
             return ErrorMessage(context.getString(R.string.failed_server), exception.code())
         }
 
-
         return null
     }
 

@@ -67,7 +67,7 @@ class PullRequestCommentFragment : BaseFragment<FragmentPullRequestCommentBindin
             showPlaceholderMessage(getString(R.string.no_data))
         })
         viewModel.commentsFetched.observe(this, { comments ->
-            mAdapter.addData(comments)
+            setDataInList(comments)
         })
     }
 
@@ -82,7 +82,7 @@ class PullRequestCommentFragment : BaseFragment<FragmentPullRequestCommentBindin
             recyclerView.addOnScrollListener(onRecyclerScrollListener)
         }
 
-        binding.pvPullRequestComment.onClickTryAgain = {
+        binding.placeholderView.onClickTryAgain = {
             fetchInitialData()
         }
 
@@ -107,7 +107,7 @@ class PullRequestCommentFragment : BaseFragment<FragmentPullRequestCommentBindin
 
     override fun showError(message: String) {
         if (mAdapter.isEmpty) {
-            binding.pvPullRequestComment.icon(R.drawable.ic_alert_triangle)
+            binding.placeholderView.icon(R.drawable.ic_alert_triangle)
                 .text(message)
                 .show()
         } else {
@@ -135,8 +135,18 @@ class PullRequestCommentFragment : BaseFragment<FragmentPullRequestCommentBindin
         }
     }
 
+    private fun setDataInList(comments: List<Comment>) {
+        binding.placeholderView.hide()
+        mAdapter.addData(comments)
+    }
+
+    private fun addCommentInList(comment: Comment) {
+        binding.placeholderView.hide()
+        mAdapter.addItem(comment)
+    }
+
     private fun showPlaceholderMessage(message: String) {
-        binding.pvPullRequestComment.icon(R.drawable.ic_alert_triangle)
+        binding.placeholderView.icon(R.drawable.ic_alert_triangle)
             .hideTryAgain()
             .text(message)
             .show()
@@ -150,7 +160,7 @@ class PullRequestCommentFragment : BaseFragment<FragmentPullRequestCommentBindin
             directions = direction,
             key = PullRequestCommentAdderFragment.RESULT_KEY_PULL_REQUEST_COMMENT_SENT,
             onNavigationResult = { comment ->
-                mAdapter.addItem(comment)
+                addCommentInList(comment)
             }
         )
     }

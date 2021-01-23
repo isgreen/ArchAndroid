@@ -30,7 +30,6 @@ class PullRequestDeclineFragment : BaseDialogFragment<FragmentPullRequestDecline
     //region BaseFragment
     override fun initObservers() {
         viewModel.pullRequestDeclined.observe(this, { pullRequest ->
-            // TODO: 29/12/20 atualizar o objeto PullRequest na tela de PullRequestDetailFragment e na (PullRequestFragment)
             setNavigationResult(key = RESULT_KEY_PULL_REQUEST_DECLINED, result = pullRequest)
             popBackStack()
         })

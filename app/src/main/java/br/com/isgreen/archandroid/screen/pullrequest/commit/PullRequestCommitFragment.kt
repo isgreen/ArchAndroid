@@ -60,7 +60,7 @@ class PullRequestCommitFragment : BaseFragment<FragmentPullRequestCommitBinding>
             mAdapter.clearData()
         })
         viewModel.commitsFetched.observe(this, { commits ->
-            mAdapter.addData(commits)
+            setDataInList(commits)
         })
     }
 
@@ -75,7 +75,7 @@ class PullRequestCommitFragment : BaseFragment<FragmentPullRequestCommitBinding>
             recyclerView.addOnScrollListener(onRecyclerScrollListener)
         }
 
-        binding.pvPullRequestCommit.onClickTryAgain = {
+        binding.placeholderView.onClickTryAgain = {
             fetchInitialData()
         }
     }
@@ -94,7 +94,7 @@ class PullRequestCommitFragment : BaseFragment<FragmentPullRequestCommitBinding>
 
     override fun showError(message: String) {
         if (mAdapter.isEmpty) {
-            binding.pvPullRequestCommit.icon(R.drawable.ic_alert_triangle)
+            binding.placeholderView.icon(R.drawable.ic_alert_triangle)
                 .text(message)
                 .show()
         } else {
@@ -112,7 +112,7 @@ class PullRequestCommitFragment : BaseFragment<FragmentPullRequestCommitBinding>
     }
 
     private fun changeLoading(isLoading: Boolean) {
-        binding.pbPullRequestCommit.isVisible = isLoading
+        binding.progressBar.isVisible = isLoading
     }
 
     private fun changeLoadingMore(isLoading: Boolean) {
@@ -123,6 +123,11 @@ class PullRequestCommitFragment : BaseFragment<FragmentPullRequestCommitBinding>
         } else {
             mAdapter.hideLoading()
         }
+    }
+
+    private fun setDataInList(commits: List<Commit>) {
+        binding.placeholderView.hide()
+        mAdapter.addData(commits)
     }
 
     private fun showCommitDetail(commit: Commit) {

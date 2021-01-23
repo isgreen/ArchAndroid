@@ -56,7 +56,7 @@
         tools:visibility="visible" />
 
     <br.com.isgreen.archandroid.widget.PlaceholderView
-        android:id="@+id/pvPullRequestComment"
+        android:id="@+id/placeholderView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
