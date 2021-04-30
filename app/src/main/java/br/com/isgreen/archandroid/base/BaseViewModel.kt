@@ -42,8 +42,8 @@ abstract class BaseViewModel(
 
                 validatorHelper?.let {
                     val validation = validatorHelper.validate(*anys)
-                    if (validation != null) {
-                        mLoadingChanged.postValue(false)
+                    if (!validation.isNullOrEmpty()) {
+//                        mLoadingChanged.postValue(false)
                         mMessage.postValue(validation)
                         return@launch
                     }

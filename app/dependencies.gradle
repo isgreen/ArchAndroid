@@ -1,5 +1,6 @@
 ext {
     koin_version = '2.2.2'
+    mockk_version = '1.11.0'
     lottie_version = '3.6.1'
     glide_version = '4.11.0'
     paging_version = '2.1.2'
@@ -31,13 +32,17 @@ dependencies {
 
     // Test
     testImplementation 'junit:junit:4.13.1'
-    testImplementation "org.mockito:mockito-core:$mockito_version"
-    testImplementation "org.mockito:mockito-inline:$mockito_inline_version"
+//    testImplementation "org.mockito:mockito-core:$mockito_version"
+//    testImplementation "org.mockito:mockito-inline:$mockito_inline_version"
     testImplementation "androidx.arch.core:core-testing:$core_testing_version"
     testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$kotlinx_coroutines_test_version"
     androidTestImplementation "androidx.test:rules:$test_runner_version"
     androidTestImplementation "androidx.test:runner:$test_runner_version"
     androidTestImplementation "androidx.test.espresso:espresso-core:$espresso_core_version"
+
+    // Test Mockk
+    testImplementation "io.mockk:mockk:$mockk_version"
+    androidTestImplementation "io.mockk:mockk-android:$mockk_version"
 
     // Kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
