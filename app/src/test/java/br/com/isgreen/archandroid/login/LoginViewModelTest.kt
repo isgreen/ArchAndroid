@@ -45,7 +45,7 @@ class LoginViewModelTest {
     private lateinit var messageObserver: Observer<String>
 
     @MockK(relaxed = true)
-    private lateinit var loginAuthorizedObserver: Observer<Boolean>
+    private lateinit var loginAuthorizedObserver: Observer<Unit>
 
     @get:Rule
     val instantExecutorRule = InstantTaskExecutorRule()
@@ -85,7 +85,7 @@ class LoginViewModelTest {
             coVerify { repository.doLogin(GRANT_TYPE_PASSWORD, USERNAME, PASSWORD) }
             coVerify { repository.saveAuthorization(authorization) }
 
-            coVerify { loginAuthorizedObserver.onChanged(true) }
+            coVerify { loginAuthorizedObserver.onChanged(Unit) }
             coVerify { loadingObserver.onChanged(false) }
         }
     }
@@ -101,7 +101,6 @@ class LoginViewModelTest {
 
         runBlockingTest {
             coVerify { loadingObserver.onChanged(true) }
-
             coVerify { messageObserver.onChanged(message) }
             coVerify { loadingObserver.onChanged(false) }
         }
@@ -118,7 +117,6 @@ class LoginViewModelTest {
 
         runBlockingTest {
             coVerify { loadingObserver.onChanged(true) }
-
             coVerify { messageObserver.onChanged(message) }
             coVerify { loadingObserver.onChanged(false) }
         }
@@ -135,7 +133,25 @@ class LoginViewModelTest {
 
         runBlockingTest {
             coVerify { loadingObserver.onChanged(true) }
+            coVerify { messageObserver.onChanged(message) }
+            coVerify { loadingObserver.onChanged(false) }
+        }
+    }
 
+    @Test
+    fun login_fail() {
+        viewModel.loading.observeForever(loadingObserver)
+        viewModel.message.observeForever(messageObserver)
+
+        val message = ""
+
+        val exception = mockk<Exception>()
+        coEvery { repository.doLogin(GRANT_TYPE_PASSWORD, USERNAME, PASSWORD) } throws exception
+
+        viewModel.doLogin(USERNAME, PASSWORD)
+
+        runBlockingTest {
+            coVerify { loadingObserver.onChanged(true) }
             coVerify { messageObserver.onChanged(message) }
             coVerify { loadingObserver.onChanged(false) }
         }

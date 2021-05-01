@@ -20,16 +20,13 @@ class LoginViewModel(
         const val GRANT_TYPE_PASSWORD = "password"
     }
 
-    override val loginAuthorized: LiveData<Boolean>
-        get() = mLoginAuthorized
-
-    private val mLoginAuthorized = MutableLiveData<Boolean>()
+    override val loginAuthorized: LiveData<Unit> = MutableLiveData()
 
     override fun doLogin(username: String?, password: String?) {
         defaultLaunch(validatorHelper, username, password) {
             val authorization = repository.doLogin(GRANT_TYPE_PASSWORD, username!!, password!!)
             repository.saveAuthorization(authorization)
-            mLoginAuthorized.postValue(true)
+            loginAuthorized.call()
         }
     }
 }

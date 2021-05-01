@@ -16,26 +16,19 @@ class SplashViewModel(
     private val repository: SplashContract.Repository
 ) : BaseViewModel(exceptionHandlerHelper), SplashContract.ViewModel {
 
-    override val themeFetched: LiveData<Int>
-        get() = mThemeFetched
-    override val isAuthenticated: LiveData<Unit>
-        get() = mIsAuthenticated
-    override val isNotAuthenticated: LiveData<Unit>
-        get() = mIsNotAuthenticated
-
-    private val mThemeFetched = MutableLiveData<Int>()
-    private val mIsAuthenticated = MutableLiveData<Unit>()
-    private val mIsNotAuthenticated = MutableLiveData<Unit>()
+    override val themeFetched: LiveData<Int> = MutableLiveData()
+    override val isAuthenticated: LiveData<Unit> = MutableLiveData()
+    override val isNotAuthenticated: LiveData<Unit> = MutableLiveData()
 
     override fun checkIsAuthenticated() {
         defaultLaunch {
-            delay(1000)
+//            delay(1000)
             val authorization = repository.fetchAuthorization()
 
             if (authorization != null) {
-                mIsAuthenticated.postValue(Unit)
+                isAuthenticated.call()
             } else {
-                mIsNotAuthenticated.postValue(Unit)
+                isNotAuthenticated.call()
             }
         }
     }
@@ -48,7 +41,7 @@ class SplashViewModel(
                 theme = AppCompatDelegate.MODE_NIGHT_NO
             }
 
-            mThemeFetched.postValue(theme)
+            themeFetched.postValue(theme)
         }
     }
 }

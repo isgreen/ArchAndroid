@@ -11,7 +11,7 @@ import br.com.isgreen.archandroid.data.model.login.Authorization
 interface LoginContract {
 
     interface ViewModel : BaseContract.ViewModel {
-        val loginAuthorized: LiveData<Boolean>
+        val loginAuthorized: LiveData<Unit>
 
         fun doLogin(username: String?, password: String?)
     }

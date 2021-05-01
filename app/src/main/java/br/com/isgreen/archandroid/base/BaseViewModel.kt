@@ -31,6 +31,16 @@ abstract class BaseViewModel(
     protected val mRedirect = MutableLiveData<@IdRes Int>()
     protected val mLoadingChanged = MutableLiveData<Boolean>()
 
+    protected fun <T> LiveData<T>.postValue(data: T) {
+        if (this is MutableLiveData<T>) {
+            postValue(data)
+        }
+    }
+
+    protected fun LiveData<Unit>.call() {
+        postValue(Unit)
+    }
+
     protected fun defaultLaunch(
         validatorHelper: BaseValidatorHelper? = null,
         vararg anys: Any?,
