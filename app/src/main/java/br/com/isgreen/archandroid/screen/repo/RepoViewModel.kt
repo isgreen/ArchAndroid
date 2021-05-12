@@ -21,19 +21,10 @@ class RepoViewModel(
         const val ROLE_MEMBER = "member"
     }
 
-    override val reposCleared: LiveData<Unit>
-        get() = mReposCleared
-    override val reposNotFound: LiveData<Unit>
-        get() = mReposNotFound
-    override val reposFetched: LiveData<List<Repo>>
-        get() = mReposFetched
-    override val loadingMoreChanged: LiveData<Boolean>
-        get() = mLoadingMoreChanged
-
-    private val mReposCleared = MutableLiveData<Unit>()
-    private val mReposNotFound = MutableLiveData<Unit>()
-    private val mReposFetched = MutableLiveData<List<Repo>>()
-    private val mLoadingMoreChanged = MutableLiveData<Boolean>()
+    override val reposCleared: LiveData<Unit> = MutableLiveData()
+    override val reposNotFound: LiveData<Unit> = MutableLiveData()
+    override val reposFetched: LiveData<List<Repo>> = MutableLiveData()
+    override val loadingMoreChanged: LiveData<Boolean> = MutableLiveData()
 
     private var mIsLoading = false
     private var mNextRequestUrl: String? = null
@@ -41,7 +32,7 @@ class RepoViewModel(
     override fun fetchRepos(isInitialRequest: Boolean) {
         if (isInitialRequest) {
             mNextRequestUrl = null
-            mReposCleared.postValue(Unit)
+            reposCleared.postValue(Unit)
         }
 
         val isRequestingMoreData = !isInitialRequest && mNextRequestUrl != null
@@ -54,9 +45,9 @@ class RepoViewModel(
                     val repos = repoResponse.repos
 
                     if (repos.isNullOrEmpty()) {
-                        mReposNotFound.postValue(Unit)
+                        reposNotFound.postValue(Unit)
                     } else {
-                        mReposFetched.postValue(repoResponse.repos)
+                        reposFetched.postValue(repoResponse.repos)
                     }
 
                     changeLoading(false)
@@ -74,7 +65,7 @@ class RepoViewModel(
         if (mNextRequestUrl.isNullOrEmpty()) {
             mLoadingChanged.postValue(isLoading)
         } else {
-            mLoadingMoreChanged.postValue(isLoading)
+            loadingMoreChanged.postValue(isLoading)
         }
     }
 }

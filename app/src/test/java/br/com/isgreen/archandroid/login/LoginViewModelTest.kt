@@ -1,23 +1,19 @@
 package br.com.isgreen.archandroid.login
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import br.com.isgreen.archandroid.base.BaseValidatorHelper
+import br.com.isgreen.archandroid.base.BaseViewModelTest
 import br.com.isgreen.archandroid.data.model.login.Authorization
-import br.com.isgreen.archandroid.helper.exception.ExceptionHandlerHelper
 import br.com.isgreen.archandroid.screen.login.LoginContract
 import br.com.isgreen.archandroid.screen.login.LoginViewModel
-import io.mockk.*
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.coVerify
 import io.mockk.impl.annotations.MockK
-import kotlinx.coroutines.Dispatchers
+import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 
 /**
@@ -25,7 +21,7 @@ import org.junit.Test
  */
 
 @ExperimentalCoroutinesApi
-class LoginViewModelTest {
+class LoginViewModelTest : BaseViewModelTest<LoginContract.ViewModel>() {
 
     companion object {
         const val GRANT_TYPE_PASSWORD = "password"
@@ -33,39 +29,21 @@ class LoginViewModelTest {
         const val PASSWORD = "123"
     }
 
-    private lateinit var viewModel: LoginContract.ViewModel
+    override lateinit var viewModel: LoginContract.ViewModel
 
     @MockK(relaxUnitFun = true)
     private lateinit var repository: LoginContract.Repository
 
     @MockK(relaxed = true)
-    private lateinit var loadingObserver: Observer<Boolean>
-
-    @MockK(relaxed = true)
-    private lateinit var messageObserver: Observer<String>
-
-    @MockK(relaxed = true)
     private lateinit var loginAuthorizedObserver: Observer<Unit>
 
-    @get:Rule
-    val instantExecutorRule = InstantTaskExecutorRule()
-
-    private val testDispatcher = TestCoroutineDispatcher()
-
     @Before
-    fun before() {
+    override fun before() {
+        super.before()
         MockKAnnotations.init(this)
-        Dispatchers.setMain(testDispatcher)
 
         val validatorHelper = mockk<BaseValidatorHelper>(relaxed = true)
-        val exceptionHelper = mockk<ExceptionHandlerHelper>(relaxed = true)
         viewModel = LoginViewModel(exceptionHelper, repository, validatorHelper)
-    }
-
-    @After
-    fun after() {
-        Dispatchers.resetMain()
-        testDispatcher.cleanupTestCoroutines()
     }
 
     @Test
