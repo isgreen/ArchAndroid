@@ -42,9 +42,8 @@ class RepoViewModel(
                 try {
                     changeLoading(true)
                     val repoResponse = repository.fetchRepos(mNextRequestUrl, null, ROLE_MEMBER)
-                    val repos = repoResponse.repos
 
-                    if (repos.isNullOrEmpty()) {
+                    if (repoResponse.repos.isNullOrEmpty()) {
                         reposNotFound.postValue(Unit)
                     } else {
                         reposFetched.postValue(repoResponse.repos)
